@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>URL shortner</title>
+</head>
+<body>
+    <div class="container">
+        <i class="bx bx-link-alt"></i>
+        <h1> URL Shortner</h1>
+        <label for="originalURL">Enter URL to shortner: </label>
+        <input type="text" id="originalURL" placeholder="www.example.com"><br><br>
+        <div class="buttons">
+            <button id="reload-btn">Reload</button>
+            <button id="short-btn">Short It</button>
+        </div>
+        <label for="shortenedURL">Shortened URL: </label>
+        <textarea id="shortenedURL" rows="3" readonly></textarea>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
