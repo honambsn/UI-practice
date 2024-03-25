@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Hash</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Text Hasher</h1>
+        <label for="inputText">Enter Text</label>
+        <textarea id="inputText" cols="50" rows="4"></textarea>
+        <label for="hashAlgorithm">Select Hash Algorithm:</label>
+        <select id="hashAlgorithm">
+            <option value="MD5">MD5</option>
+            <option value="SHA1">SHA1</option>
+            <option value="SHA256">SHA256</option>
+            <option value="SHA512">SHA512</option>
+            <option value="SHA3">SHA3</option>
+            <option value="RIPEMD160">RIPEMD160</option>
+            <option value="AES">AES</option>
+            <option value="hmac-md5">HMAC-MD5</option>
+            <option value="tripledes">TRIPLE DES</option>
+        </select>
+        <div class="buttons">
+            <button id="hashButton">Hash Text</button>
+            <button id="resetButton">Reset</button>
+        </div>
+        <label for="hashedOutput">Hash Output</label>
+        <textarea id="hashedOutput" cols="50" rows="4" readonly></textarea>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
