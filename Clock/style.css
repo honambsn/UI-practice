@@ -1,0 +1,204 @@
+:root{
+    --widclock:35vw;
+    --indicatorDis: calc(var(--widclock) / -2.3);
+    --txt-size: 6vw;
+    --bgBody: #091921;
+}
+
+body{
+    background-color: var(--bgBody);
+    color: #fff;
+    font-size: calc(var(--txt-size)) -10px;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.clock{
+    border: 8px solid #ffffff36;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--txt-size);
+    width: calc(var(--txt-size) *6);
+    margin: 0 45px 0 0;
+}
+
+.clockanalog{
+    position: relative;
+    width: var(--widclock);
+    height: var(--widclock);
+    border-radius: 50%;
+    border: 4px solid #091921;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+    box-shadow: 
+            0 -15px 15px rgb(255 255 255 / 5%),
+            inset 0 -15px 15px rgb(255 255 255 / 5%),
+            0 15px 15px rgb(0 0 0 / 30%),
+            inset 0 15px 15px rgb(0 0 0 / 30%);
+}
+
+
+
+
+.hour , .min , .sec{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+.hour{
+    background: linear-gradient(
+        0deg,
+        rgba(94,94,85,0) 0%,
+        rgba(38,109,124,0) 60%,
+        rgb(245,238,238) 90%
+    );
+
+    width: 3%;
+    height: 47%;
+}
+
+.min{
+    background: linear-gradient(
+        0deg,
+        rgba(94,94,85,0) 0%,
+        rgba(0,0,0,0) 60%,
+        rgb(125,125,224) 100%
+    );
+
+    width: 3%;
+    height: 67%;
+}
+
+.sec{
+    background: linear-gradient(
+        0deg,
+        rgba(94,94,85,0) 0%,
+        rgba(38,109,124,0) 32%,
+        rgb(255,0,0) 32%
+    );
+
+    width: 0.8%;
+    height: 77%;
+}
+
+.clockhand{
+    width: 6%;
+    height: 6%;
+    background-color: white;
+    z-index: 120;
+    border-radius: 50px;
+    --webkit-box-shadow: 0  0 32px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 0 32px 12px rgba(0,0,0,0.4);
+}
+
+.clockdial{
+    position: absolute;
+    width: 345px;
+    height: 346px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+}
+
+.show-min{
+    position: absolute;
+    width: .3vh;
+    height: 1.7vw;
+    margin: 172px 172px;
+    background-color: #ffff00;
+}
+
+.show-min:nth-child(1) {
+    transform: rotate(30deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(2) {
+    transform: rotate(60deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(3) {
+    transform: rotate(120deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(4) {
+    transform: rotate(150deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(5) {
+    transform: rotate(210deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(6) {
+    transform: rotate(240deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(7) {
+    transform: rotate(300deg) translateY(var(--indicatorDis))
+}
+
+.show-min:nth-child(8) {
+    transform: rotate(330deg) translateY(var(--indicatorDis))
+}
+
+.clock-num{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-num{
+    position: absolute;
+    font-size: .5em;
+    height: 1em;
+}
+
+.show-num:nth-child(1) {
+    margin-top: calc(var(--indicatorDis) * 1.85);
+}
+
+.show-num:nth-child(2) {
+    margin-right: calc(var(--indicatorDis) * 2);
+}
+
+.show-num:nth-child(3) {
+    margin-bottom: calc(var(--indicatorDis) * 1.85);
+}
+
+.show-num:nth-child(4) {
+    margin-left: calc(var(--indicatorDis) * 2);
+}
+
+.clock-sec{
+    position: absolute;
+    width: 346px;
+    height: 344px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+}
+
+.show-sec{
+    position: absolute;
+    width: .1vh;
+    height: 1vw;
+    margin: 172px 172px;
+    background-color: #d9dad9;
+}
+
+#clock-display:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.1);
+}
