@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail navbar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button onclick="toggleMenu()" class="burger material-symbols-outlined">menu</button>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.svg" alt="">
+            <span>Gmail</span>
+        </div>
+        <div class="search">
+            <span class="material-symbols-outlined">Search</span>
+            <input type="text" spellcheck="false" class="search" id="search" placeholder="Search Mail">
+        </div>
+        <nav>
+            <button class="material-symbols-outlined">help</button>
+            <button class="material-symbols-outlined">settings</button>
+            <button class="material-symbols-outlined">apps</button>
+            <img src="mine.png" alt="">
+        </nav>
+    </nav>
+
+    <script type="text/javascript" src="scripts.js"></script>
+
+</body>
+</html>
