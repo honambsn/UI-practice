@@ -17,6 +17,7 @@ body{
 .container{
     display: flex;
     gap: 20px;
+    width: 100%;
     background-color: #fff;
     max-width: 920px;
     padding: 25px;
@@ -72,7 +73,7 @@ button{
 }
 
 button:hover{
-    background-color: #295589;
+    background-color: #295580;
 }
 
 .form-control .icon{
@@ -143,7 +144,7 @@ button:hover{
     cursor: pointer;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 920px) {
     .container img{
         display: none;
     }
