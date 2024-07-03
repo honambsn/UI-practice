@@ -17,14 +17,34 @@ body{
 }
 
 .container{
-    position: relative;
+    position: inherit;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+
+button:hover {
+    transition: 0.3s;
+    background-color: #0056b3;
+}
+
+button{
+    text-transform: uppercase;
+    position: absolute;
+    margin-top: 55%;
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+    border: solid 1px rgb(0, 0, 0);
+    transition: 0.3s;
+}
+
 .container .card{
+    margin-bottom: 10%;
     position: absolute;
     width: 240px;
     height: 360px;
@@ -46,7 +66,7 @@ body{
 
 .container:hover .card{
     transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 30px), -30px);
-    color: rgba(0, 0, 0, 0.25);
+    /* color: rgba(0, 0, 0, 0.25); */
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
 }
 
@@ -57,5 +77,7 @@ body{
 .container .card:active{
     translate: calc(var(--i) * 20px) -50px;
     z-index: 100;
+    color: rgba(0, 0, 0, 0.25);
     background: #5e5cfc;
 }
+
