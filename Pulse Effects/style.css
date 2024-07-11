@@ -73,11 +73,15 @@ body{
 }
 
 .pulse:hover{
+    cursor: pointer;
     transform: scale(1.3);
+    animation-delay: calc(var(--i) * -4s);
     transition: transform 1s ease-in-out, box-shadow 1s ease-in-out;
     border: 1px solid #ff1212;
-    box-shadow: inset 0 0 40px #ff1212, 0 0 50px #ff1212;
+    box-shadow: inset 0 0 70px #ff1212, 0 0 90px #ff1212;
+    animation: animateEarth 400s linear infinite;
     span{
-        border: 1px solid #ff1212;
+        border: 1.5px solid #ff1212;
+        box-shadow: inset 0 0 10px #ff1212, 0 0 30px #ff1212;
     }
 }
