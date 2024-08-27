@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #412d72;
+}
+
+.menu{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu .toggle{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 0px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    box-shadow: 0 25px 15px rgba(0, 0, 0, 0.25), 0 25px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 2em;
+    color: #fff;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease-in-out;
+}
+
+.menu:hover .toggle{
+    scale: 1.1;
+    box-shadow: 0 30px 20px rgba(0, 0, 0, 0.35), 0 30px 25px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(165, 60, 252, 0.5);
+}
+
+.menu .toggle ion-icon{
+    position: absolute;
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+
+.menu .toggle ion-icon:nth-child(1){
+    opacity: 1;
+    transform: rotate(360deg);
+}
+
+.menu.active .toggle ion-icon:nth-child(1){
+    opacity: 0;
+    transform: rotate(0deg);
+}
+
+.menu.active .toggle ion-icon:nth-child(2){
+    opacity: 1;
+    transform: rotate(360deg);
+}
+
+.menu li{
+    position: absolute;
+    left: 0;
+    list-style: none;
+    transform-origin: 110px;
+    transition: all 1s ease-in-out;
+    transform: rotate(calc(360deg / 4 * var(--i)));
+    scale: 0;
+    z-index: 1;
+    overflow: hidden;
+    transition-delay: calc(0.1s * var(--i));
+    border-radius: 50%;
+}
+
+.menu li::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30px;
+    width: 20px;
+    height: 100%;
+    background: #fff;
+    z-index: 10;
+    transform: skewX(325deg) translateX(0);
+    box-shadow: -5px 0 0 #fff5;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu li:hover::before{
+    transform: skewX(325deg) translateX(180px);
+    box-shadow: -50px 0 0 #fff5;
+}
+
+.menu.active li{
+    scale: 1;
+}
+
+.menu li a{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background: var(--clr);
+    font-size: 2.25em;
+    border-radius: 50%;
+    transform: rotate(calc(360deg / -4 * var(--i)));
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);  
+    color: #fff;
+}
