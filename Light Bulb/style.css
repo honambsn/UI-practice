@@ -26,14 +26,14 @@ background: radial-gradient(#555, #111);
 }
 
 body.on .bulb{
-    background: #fff;
-    box-shadow: 0 0 5px #fff,
-                0 0 100px #fff,
-                0 0 150px #fff,
-                0 0 200px #fff,
-                0 0 250px #fff,
-                0 0 300px #fff,
-                0 0 350px #fff;
+    background: #f705ff;
+    box-shadow: 0 0 5px #f705ff,
+                0 0 100px #f705ff,
+                0 0 150px #f705ff,
+                0 0 200px #f705ff,
+                0 0 250px #f705ff,
+                0 0 300px #f705ff,
+                0 0 350px #f705ff;
 
 }
 
@@ -50,7 +50,7 @@ body.on .bulb{
 }
 
 body.on .bulb::before{
-    background: #fff;
+    background: #f705ff;
 }
 
 body.on .bulb::after{
@@ -61,7 +61,7 @@ body.on .bulb::after{
     transform: translate(-50%, -50%);
     width: 120px;
     height: 120px;
-    background: #fff;
+    background: #f705ff;
     border-radius: 50%;
     filter: blur(40px);
 }
@@ -80,7 +80,7 @@ body.on .bulb::after{
 }
 
 body.on .bulb span:nth-child(1){
-    box-shadow: 20px 20px 0 10px #fff;
+    box-shadow: 20px 20px 0 10px #f705ff;
 }
 
 .bulb span:nth-child(2){
@@ -97,7 +97,7 @@ body.on .bulb span:nth-child(1){
 }
 
 body.on .bulb span:nth-child(2){
-    box-shadow: -20px 20px 0 10px #fff;
+    box-shadow: -20px 20px 0 10px #f705ff;
 }
 
 
