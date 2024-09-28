@@ -8,6 +8,7 @@
 }
 
 body{
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,8 +121,15 @@ body{
     padding: 10px 20px;
     margin: 15px 15px;
     display: block;
-    border-radius: 7px;
+    border-radius: 10px;
     color: #333;
     font-weight: 500;
     text-decoration: none;
+    transition: all 0.5s ease-in-out;
+} 
+
+.card .content .price:hover a{
+    scale: 1.1;
+    background: rgb(233, 143, 207);
 }
+
