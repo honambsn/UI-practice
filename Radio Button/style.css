@@ -45,7 +45,7 @@ label span::before{
     position: absolute;
     width: calc(100% - 6px);
     height: calc(100% - 6px);
-    background: linear-gradient(to bottom, #68cbe4, #073130);
+    background: linear-gradient(to bottom, #5136eb, #073130);
     top: 3px;
     left: 3px;
     /* border-radius: 45px; */
@@ -64,7 +64,7 @@ label input:checked ~ span::before{
     content: 'Active';
     color: #fff;
     text-shadow: 0 0 20px #0f0;
-    background: linear-gradient(to top, #68cbe4, #073130);
+    background: linear-gradient(to top, #68cbe4, #dd02fa);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5),
                 inset 1px 1px 1px rgba(0, 0, 0, 0.4),
                 inset -1px -1px 4px rgba(255, 255, 255, 0.2);
