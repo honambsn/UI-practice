@@ -225,6 +225,51 @@ const player = {
     score: 0,
 };
 
+let paused = false;
+
+function togglePause() {
+    paused = !paused;
+    
+    if (paused) {
+        alert('Message')
+        updateScore();
+    }
+}
+
+function update(time = 0) {
+    if (paused) {
+        draw(); // Still draw the current state even when paused
+        requestAnimationFrame(update);
+        return;
+    }
+
+    const deltaTime = time - lastTime;
+    dropCounter += deltaTime;
+    if (dropCounter > dropInterval) {
+        playerDrop();
+    }
+    lastTime = time;
+    draw();
+    requestAnimationFrame(update);
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.keyCode === 37) {
+        playerMove(-1);
+    } else if (event.keyCode === 39) {
+        playerMove(1);
+    } else if (event.keyCode === 40) {
+        playerDrop();
+    } else if (event.keyCode === 81) {
+        playerRotate(-1);
+    } else if (event.keyCode === 87) {
+        playerRotate(1);
+    } else if (event.keyCode === 80) { // P key to pause/unpause
+        togglePause();
+    }
+});
+
+
 playerReset();
 updateScore();
 update();
