@@ -205,6 +205,9 @@ document.addEventListener("keydown", (event) =>{
     } else if (event.keyCode === 87){
         playerRotate(1);
     }
+    else if (event.keyCode === 80) { // P key to pause/unpause
+        togglePause();
+    }
 });
 
 const colors = [
@@ -228,11 +231,12 @@ const player = {
 let paused = false;
 
 function togglePause() {
-    paused = !paused;
-    
-    if (paused) {
-        alert('Message')
-        updateScore();
+    const userConfirmed = confirm('Pause/Continue');
+    if (userConfirmed){
+        paused = !paused;
+        if (paused) {
+            updateScore();
+        }
     }
 }
 
@@ -252,23 +256,6 @@ function update(time = 0) {
     draw();
     requestAnimationFrame(update);
 }
-
-document.addEventListener("keydown", (event) => {
-    if (event.keyCode === 37) {
-        playerMove(-1);
-    } else if (event.keyCode === 39) {
-        playerMove(1);
-    } else if (event.keyCode === 40) {
-        playerDrop();
-    } else if (event.keyCode === 81) {
-        playerRotate(-1);
-    } else if (event.keyCode === 87) {
-        playerRotate(1);
-    } else if (event.keyCode === 80) { // P key to pause/unpause
-        togglePause();
-    }
-});
-
 
 playerReset();
 updateScore();
