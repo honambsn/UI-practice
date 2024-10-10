@@ -17,6 +17,7 @@ body{
     width: 20rem;
     height: 25rem;
     /* border: 2px solid black; */
+    border-radius: 30px;
     position: relative;
     cursor: pointer;
 }
@@ -53,6 +54,8 @@ body{
 
 .container:hover .card{
     background-image: url("./assets/bg2.png");
+    background-size:cover;
+    object-fit: cover;
 }
 @keyframes animate {
     from{
