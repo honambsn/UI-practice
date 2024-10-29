@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
+}
+
+.container{
+    position: relative;
+    /* width: 600px;
+    height: 400px; */
+    width: 100vw;
+    height: 100vh;
+    border: 4px solid #fff;
+    object-fit: cover;
+}
+
+.container .box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.container .box:nth-child(1){
+    background: url(./assets/img1.jpg);
+}
+
+.container .box:nth-child(2){
+    background: url(./assets//img2.jpg);
+    z-index: 2;
+    transition: all 0.5s ease-in-out;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0% 100%);
+}
+
+.container .box:nth-child(2):hover{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.container .box:nth-child(1):hover ~ 
+.box:nth-child(2){
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
