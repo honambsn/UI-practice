@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    min-height: 100vh;
+    background: #222;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .card{
+    position: absolute;
+    width: 240px;
+    height: 300px;
+    background: #333;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .card img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: all 0.5s ease-in-out;
+    filter: grayscale(1) contrast(1);
+}
+
+.container:hover .card{
+    transform: rotate(calc(var(--i) * 5deg)) translate(calc(var(--i) * 120px), -50px);
+}
+
+.container:hover .card img{
+    opacity: 0.5;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+.container .card:hover{
+    translate: calc(var(--i) * 20px) -50px;
+    z-index: 100;
+    transition: all 0.5s ease-in-out;
+}
+
+.container .card:hover img{
+    filter: grayscale(0) contrast(1);
+    opacity: 1;
+}
+
+.container .card::before{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    letter-spacing: 0.15em;
+    color: #fff;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    z-index: 1000;
+    text-align: center;
+    transform: translateY(100px);
+}
+
+.container .card:hover::before{
+    top: -40px;
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.container .card::after{
+    content: '';
+    position: absolute;
+    width: 50px;
+    top: -100px;
+    height: 10px;
+    background: #ff003b;
+    transition: all 0.5s ease-in-out;
+    transform: scaleY(0);
+    transform-origin: top;
+    z-index: -1;
+}
+
+.container .card:hover::after{
+    transform: scaleY(50);
+}
