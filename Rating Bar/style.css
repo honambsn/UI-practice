@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #20152d;
+}
+
+.rating{
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.rating input{
+    display: none;
+}
+
+.rating label{
+    position: relative;
+    width: 0;
+    height: 128px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    filter: grayscale(1);
+    text-align: center;
+    opacity: 0;
+    margin-top: 20px;
+}
+
+.rating:hover label{
+    width: 160px;
+    opacity: 0.2;
+}
+
+.rating input:hover + label,
+.rating input:checked + label{
+    filter: grayscale(0);
+    opacity: 1;
+    width: 160px;
+    scale: 1.5;
+}
+
+.rating label h4{
+    color: #fff;
+    font-size: 24px;
+    padding-top: 10px;
+    font-weight: 500;
+    white-space: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-50px) scale(0);
+    transition: all 0.5s ease-in-out;
+}
+
+.rating input:hover + label h4,
+.rating input:checked + label h4{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.text{
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    width: 500px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 36px;
+}
+
+.rating label img{
+    width: 50%;
+}
