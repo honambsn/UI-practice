@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0a1b18;
+}
+
+.container{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container::before{
+    content: '';
+    position: absolute;
+    width: 30px;
+    top: 45px;
+    clip-path: polygon(50% 0%, 65% 50%, 50% 100%, 35% 50%);
+    height: 50px;
+    background: #f43648;
+    z-index: 100000;
+}
+.wheel{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #39ffe2;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #39ffe2;
+    transition: all 5s ease-in-out;
+    overflow: hidden;
+    user-select: none;
+}
+
+.wheel span{
+    position: absolute;
+    left: calc(50% - 1px);
+    width: 2px;
+    height: 100%;
+    background: #39ffe2;
+    transform: rotate(calc(45deg * var(--i)));
+    filter: drop-shadow(0 0 5px #39ffe2);
+}
+
+.spinBtn{
+    position: absolute;
+    inset: 140px;
+    background: #39ffe2;
+    color: #0a1b18;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px #39ffe2);
+    user-select: none;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    transition: all .3s ease-in-out;
+}
+
+.number{
+    position: absolute;
+    inset: 0;
+    rotate: 22.5deg;
+}
+
+.number b{
+    position: absolute;
+    inset: 0;
+    transform: rotate(calc(45deg * var(--i)));
+    text-align: center;
+    font-size: 2em;
+    color: #39ffe2;
+    font-weight: 500;
+    filter: drop-shadow(0 0 5px #39ffe2);
+}
+
+.inner{
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background: #0a1b18;
+    border: 3px solid #39ffe2;
+    transition: all 5s ease-in-out;
+    user-select: none;
+}
+
+.spinBtn:hover{
+    background: #fa5a6a;
+    box-shadow: 0 0 20px #39ffe2;
+    /* transition: all 0.5s ease-in-out; */
+}
+
+.inner:hover .number b{
+    color: rgb(250, 10, 250);
+}
+
+.number:hover b{
+    color: #f00a21;
+}
