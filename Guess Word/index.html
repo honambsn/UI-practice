@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Word</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game">
+        <header>
+            <div class="game-health">
+                <div class="game-health-number">100%</div>
+                <div class="game-health-bar"></div>
+            </div>
+        </header>
+        
+        <div>
+            <h1 class="game-titile">
+                Guess a number between 1 and 10
+            </h1>
+
+            <div class="game-number">?</div>
+            <span class="game-feedback">
+                Make a guess
+            </span>
+        </div>
+
+        <footer>
+            <input type="number" class="game-guess" placeholder="Enter a number">
+            <button class="game-button game-button-play">Check</button>
+            <button class="game-button game-button-reset">Restart</button>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
