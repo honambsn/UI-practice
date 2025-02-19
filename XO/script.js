@@ -32,24 +32,25 @@ function play(y){
     }
 }
 
-function checkWinner(a, b, c){
+function checkWinner(a, b, c) {
     a--;
     b--;
     c--;
-    if ((span[a].dataset.player === span[b].dataset.player) && (span[b].dataset.player === span[c].dataset.player) && (span[a].dataset.player === span[c].dataset.player) && (span[a].dataset.player === "x" || span[a].dataset.player === "o") && isGameOver == false){
-        span[a].parenNode.className += " activeBox";
-        span[b].parenNode.className += " activeBox";
-        span[c].parenNode.className += " activeBox";
-        isGameOver(a);
+    if ((span[a].dataset.player === span[b].dataset.player) && (span[b].dataset.player === span[c].dataset.player) && (span[a].dataset.player === span[c].dataset.player) && (span[a].dataset.player === "x" || span[a].dataset.player === "o") && isGameOver == false) {
+        span[a].parentNode.className += " activeBox";
+        span[b].parentNode.className += " activeBox";
+        span[c].parentNode.className += " activeBox";
+        gameOver(a);
     }
 }
 
 function playAgain(){
-    document.getElementsByClassName("alert")[0].parenNode.removeChild(document.getElementsByClassName("alert")[0]);
+    document.getElementsByClassName("alert")[0].parentNode.removeChild(document.getElementsByClassName("alert")[0]);
+
     resetGame();
     window.isGameOver = false;
     for (var k =0; k < span.length; k++){
-        span[k].parenNode.className = span[k].parenNode.className.replace(" activeBox", "");
+        span[k].parentNode.className = span[k].parentNode.className.replace("activeBox", "");
     }
 }
 
@@ -59,5 +60,26 @@ function resetGame(){
         span[i].dataset.player = "none";
     }
     playerTurn = "x";
+    
+}
+
+function gameOver(a){
+    var gameOverAlertElement = "<b>GAME OVER</b><br><br> Player " + span[a].dataset.player.toUpperCase() + " wins!<br><br>" + restartButton;
+    var div = document.createElement("div");
+    div.className = "alert";
+    div.innerHTML = gameOverAlertElement;
+    document.getElementsByTagName("body")[0].appendChild(div);
+    window.isGameOver = true;
     moves = 0;
 }
+
+function draw(){
+    var drawAlertElement = "<b>GAME OVER</b><br><br> IT'S DRAW <br><br>"+ restartButton;
+    var div = document.createElement("div");
+    div.className = "alert";
+    div.innerHTML = drawAlertElement;
+    document.getElementsByTagName("body")[0].appendChild(div);
+    window.isGameOver = true;
+    moves = 0;
+}
+
