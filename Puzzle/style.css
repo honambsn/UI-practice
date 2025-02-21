@@ -9,6 +9,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    gap: 100px;
     background: #2f363e;
 }
 
@@ -50,4 +51,19 @@ body{
     font-size: 1em;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.board{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.dropBox{
+    position: relative;
+    width: 140px;
+    height: 140px;
+    background: #0003;
 }
