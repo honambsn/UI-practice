@@ -56,8 +56,48 @@ body{
     display: inline-block;
     padding: 10px 15px;
     border-radius: 8px;
+    transition: background 0.3s ease; 
 }
 
 .inputBox #btn:active{
     background: #9c27b0;
+}
+
+.inputBox #btn:focus {
+    background: #333; /* Initial color */
+}
+
+.copy{
+    position: absolute;
+    top: 64px;
+    right: 15px;
+    cursor: pointer;
+    opacity: 0.2;
+    font-size: 30px;
+    align-items: center;
+    display: flex;
+    transition: all 0.2s ease-in-out;
+}
+
+.copy:hover{
+    opacity: 1;
+}
+
+.alertBox{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #9c27b0;
+    color: #fff;
+    text-align: center;
+    font-size: 4em;
+    display: none;
+}
+
+.alertBox.active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
