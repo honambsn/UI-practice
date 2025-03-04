@@ -45,6 +45,7 @@ button{
     border-radius: 5px;
     padding: 5px;
     color: #fff;
+    cursor: pointer;
 }
 
 input[type="color"]{
@@ -85,4 +86,3 @@ input[type="color"]::-moz-color-swatch{
     }
 }
 
-/DfDPJqD3FjI
