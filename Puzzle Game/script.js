@@ -18,6 +18,30 @@ let TileSize = 100;
 let tilesArray = Array.from({ length: 15 }, (_, i) => i + 1).concat();
 let emptyIndex = 15;
 
+function handleTileClick(index){
+    if (isAdjacent(index, emptyIndex)){
+        tilesArray[emptyIndex] = tilesArray[index];
+        tilesArray[index] = 0;
+        emptyIndex = index;
+        renderTile();
+
+        if (isSolved()){
+            document.getElementById("message").style.display = "block";
+            // document.getElementById("message").innerHTML = "Congratulations, you solved the puzzle!";
+        }
+    }
+}
+
+function isAdjacent(a, b){
+    let rowA = Math.floor(a / 4);
+    let colA = a % 4;
+    let colB = b % 4;
+    let rowB = Math.floor(b / 4);
+
+    return (Math.abs(rowA - rowB) === 1 && colA === colB) || (Math.abs(colA - colB) === 1 && rowA === rowB);
+
+}
+
 function renderTile(){
     let container = document.getElementById("puzzle-container");
     container.innerHTML = "";
@@ -25,6 +49,7 @@ function renderTile(){
         let tile = document.createElement("div");
         tile.className = value === 0 ? 'tile empty' : 'tile';
         tile.textContent = value || '';
+        tile.addEventListener("click",() => handleTileClick(index));
 
         let row = Math.floor(index / 4);
         let col = index % 4;
@@ -33,6 +58,14 @@ function renderTile(){
 
         container.appendChild(tile);
     })
+}
+
+function isSolved(){
+    for (let i = 0; i < tilesArray.length - 1; i++){
+        if (tilesArray[i] !== i + 1)
+            return false;
+    }
+    return true;
 }
 
 function shuffleTiles(){
@@ -60,10 +93,11 @@ function shuffleTiles(){
 
     emptyIndex = currentEmpty;
     renderTile();
+
+    document.getElementById("message").style.display="none";
 }
 
 document.getElementById("shuffle-btn").addEventListener("click", shuffleTiles);
 shuffleTiles();
 
 
-//EJdHcmQ_vic
