@@ -113,3 +113,54 @@ document.getElementById('uploadButton').addEventListener('click', async () =>{
     }
 
 })
+
+
+//function to display colors 
+const displayColors = (colors) => {
+const colorsContainer = document.querySelector('colors-container');
+colorsContainer.innerHTML = '';//clear previous results
+
+//if no colors are found, show an err message
+if (![colors.background_colors, colors.foreground_colors, colors.image_colors].some(arr => arr.length)) {
+    colorsContainer.innerHTML = '<p class = "error">No colors found</p>';
+    return;
+}
+
+//generate html sections for diff colors types
+const generateColorSection = (title, colorArray) => {
+    return `
+    <h3>${title}</h3>
+    <div class="results">
+        ${colorData.map(({html_code, closest_palette_color, percent}) => 
+        `
+            <div class="result-item" data-color="${html_code}">
+                <div class="color-box" style="background-color: ${html_code}" title="Color code: ${html_code}"></div>
+                <p>${html_code}<span> - ${closest_palette_color}</span></p>
+            </div>
+            
+            <div class="progress-bar">
+            <span>${percent.toFixed(2)}%</span>
+            <div class="progress" style="width: ${percent}%"></div>
+            </div>
+                
+        `).join('')}
+    </div>
+    `
+};
+    
+//append generated sections to colors container
+colorsContainer.innerHTML += generateColorSection('Background Colors', colors.background_colors);
+colorsContainer.innerHTML += generateColorSection('Foreground Colors', colors.foreground_colors);
+colorsContainer.innerHTML += generateColorSection('Image Colors', colors.image_colors);
+
+//add click functionality to copy color to clipboard
+document.querySelectorAll('.colors-container-result-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const colorCode = item.getAttribute('data-color');
+        navigator.clipboard.writeText(colorCode).then(() => {
+            showToast(`Color ${colorCode} copied to clipboard`);
+            }).catch(() => showToast('Failed to copy color'));
+        });
+    });
+};
+
