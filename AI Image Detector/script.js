@@ -164,3 +164,88 @@ document.querySelectorAll('.colors-container-result-item').forEach(item => {
     });
 };
 
+// function to display tags with pagination
+let allTags = [];
+let displayedTags = 0;
+
+const displayTags = (tags) => {
+    const tagsContainer = document.querySelector('.tags-container');
+    const resultList = tagsContainer.querySelector('.results');
+    const error = tagsContainer.querySelector('.error');
+    const seeMoreButton = document.getElementById('seeMoreButton');
+    const exportTagsButton = document.getElementById('exportTagsButton');
+
+    //clear previous tags
+    if (resultList) {
+        resultList.innerHTML = '';
+    }
+    else{
+        const resultListContainer = document.createElement('div');
+        resultListContainer.className = 'results';
+        tagsContainer.insertBefore(resultListContainer, seeMoreButton);
+    }
+
+    // store all tags and initialize displayed tags count
+    allTags = tags;
+    displayedTags = 0;
+
+    //function to show more tags when "see more" button is clicked
+    const showMoreTags = () => {
+        const tagsToShow = allTags.slice(displayedTags, displayedTags + tagsPerPage);
+        displayedTags += tagsToShow.length;
+
+        const tagsHTML = tagsToShow.map(({tag: {en}}) => `
+            <div class="result-item">
+            <p>${en}</p>
+            </div>
+        `).join('');
+
+        if (resultList){
+            resultList.innerHTML += tagsHTML;
+        }
+
+        // toggle visibility of error and buttons based on displayed tags
+        error.style.display = displayedTags > 0 ? 'none' : 'block';
+        seeMoreButton.style.display = displayedTags < allTags.length ? 'block' : 'none';
+        exportTagsButton.style.display = displayedTags > 0 ? 'block' : 'none';
+    };
+
+    showMoreTags(); // initial load of tags
+
+    //event listener for "see more" and "export tags" buttons
+    seeMoreButton.addEventListener('click', showMoreTags);
+    exportTagsButton.addEventListener('click', exportTagsToFile);
+};
+
+// function to export tags to a text file
+const exportTagsToFile = () => {
+    if (allTags.length === 0) {
+        showToast('No tags available to export');
+        return;
+    }
+
+    // convert tags to text and trigger
+    const tagsText = allTags.map(({tag: {en}}) => en).join('\n');
+    const blob = new Blob([tagsText], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Tags.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
+// function to show toast messages
+const showToast = (message) => {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100); // show toast
+    setTimeout(() => { 
+       toast.classList.remove('show'); // hide toast
+       setTimeout(() => document.body.removeChild(toast), 500); // remove toast
+    }, 3000);
+}
