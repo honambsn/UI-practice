@@ -70,7 +70,7 @@ document.getElementById('uploadButton').addEventListener('click', async () =>{
             }
             chunks.push(value);
             receivedLength += value.length;
-            uploadProgress.style.width = `${(receivedLength / contentLength * 100).toFixed(2)}%`;
+            uploadProgress.style.width = `${((receivedLength / contentLength) * 100).toFixed(2)}%`;
         }
 
         //decode and parse response
@@ -86,7 +86,7 @@ document.getElementById('uploadButton').addEventListener('click', async () =>{
         
         //fetch color and tag analysis from Imagga API
 
-        const [colorResult, tagResult] = await Promise.all([
+        const [colorResult, tagsResult] = await Promise.all([
             fetch(`https://api.imagga.com/v2/colors?image_upload_id=${upload_id}`, {
                 headers: {
                     'Authorization': authHeader
@@ -101,7 +101,7 @@ document.getElementById('uploadButton').addEventListener('click', async () =>{
 
         //display results
         displayColors(colorResult.result.colors);
-        displayTags(tagResult.result.tags);
+        displayTags(tagsResult.result.tags);
     }
     catch (err) {
         console.error(err);
@@ -112,12 +112,12 @@ document.getElementById('uploadButton').addEventListener('click', async () =>{
         uploadModal.style.display = 'none';
     }
 
-})
+});
 
 
 //function to display colors 
 const displayColors = (colors) => {
-const colorsContainer = document.querySelector('colors-container');
+const colorsContainer = document.querySelector('.colors-container');
 colorsContainer.innerHTML = '';//clear previous results
 
 //if no colors are found, show an err message
@@ -127,13 +127,15 @@ if (![colors.background_colors, colors.foreground_colors, colors.image_colors].s
 }
 
 //generate html sections for diff colors types
-const generateColorSection = (title, colorArray) => {
-    return `
+const generateColorSection = (title, colorData) => {
+    return
+    `
     <h3>${title}</h3>
     <div class="results">
         ${colorData.map(({html_code, closest_palette_color, percent}) => 
         `
             <div class="result-item" data-color="${html_code}">
+            <div>
                 <div class="color-box" style="background-color: ${html_code}" title="Color code: ${html_code}"></div>
                 <p>${html_code}<span> - ${closest_palette_color}</span></p>
             </div>
@@ -142,10 +144,10 @@ const generateColorSection = (title, colorArray) => {
             <span>${percent.toFixed(2)}%</span>
             <div class="progress" style="width: ${percent}%"></div>
             </div>
-                
+            </div>
         `).join('')}
     </div>
-    `
+    `;
 };
     
 //append generated sections to colors container
@@ -154,7 +156,7 @@ colorsContainer.innerHTML += generateColorSection('Foreground Colors', colors.fo
 colorsContainer.innerHTML += generateColorSection('Image Colors', colors.image_colors);
 
 //add click functionality to copy color to clipboard
-document.querySelectorAll('.colors-container-result-item').forEach(item => {
+document.querySelectorAll('.colors-container .result-item').forEach(item => {
     item.addEventListener('click', () => {
         const colorCode = item.getAttribute('data-color');
         navigator.clipboard.writeText(colorCode).then(() => {
