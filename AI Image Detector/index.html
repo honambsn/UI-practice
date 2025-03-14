@@ -13,7 +13,8 @@
             <h3>Upload your Image</h3>
             <div class="buttons">
                 <input type="file" accept="image/*" id="imageInput" style="display: none;">
-                <button class="file-input-button" onclick="triggerFileInput();">Choose File</button>
+                <!-- <button class="file-input-button" onclick="triggerFileInput();">Choose File</button> -->
+                <button class="file-input-button" onclick="document.getElementById('imageInput').click();">Choose File</button>
                 <button id="uploadButton">Analyze Image</button>
             </div>
 
