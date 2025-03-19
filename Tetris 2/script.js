@@ -240,4 +240,190 @@ class PlayPiece{
             this.nextPieces().push(new Square(xx + points[i][0] * gridSpace, yy + points[i][1] * gridSpace, this.nextPieceType));
         }
     }
+
+    //make the piece fall
+    fall(amount){
+        if (!this.futureCollision(0, amount, this. rotation)){
+            this.addPos(0, amount);
+            this.fallen = true;
+        } else{
+            if (!this.fallen) {
+                pauseGame = true;
+                gameOver = true;
+            } else{
+                this.commitShape();
+            }
+        }
+    }
+
+    // reset the current piece
+    resetPiece(){
+        this.rotation = 0;
+        this.fallen = false;
+        this.pos.x = 330;
+        this.pos.y = -60;
+
+        this.pieceType = this.nextPieceType;
+
+        this.nextPieceType();
+        this.newPoints();
+    }
+
+    //generate the points for current piece
+
+    newPoints(){
+        const points = orientPoints(this.pieceType, this.rotation);
+        this.orientation = points;
+        this.pieces = [];
+
+        for (let i = 0; i < points.length; i++){
+            this.pieces.push(new Square(this.pos.x + points[i][0] * gridSpace, this.pos.y + points[i][1] * gridSpace, this.pieceType));
+        }
+    }
+
+    //update the position of the current piece
+    updatePoints(){
+        if (this.pieces){
+            const points = orientPoints(this.pieceType, this.rotation);
+
+            this.orientation = points;
+            for (let i = 0; i < 4; i++){
+                this.pieces[i].x = this.pos.x + points[i][0] * gridSpace;
+
+                this.pieces[i].pos.y = this.pos.y + points[i][1] * gridSpace;
+            }
+        }
+    }
+
+    // add an offset to the position of the current piece
+    addPos(x, y){
+        this.pos.x += x;
+        this.pos.y += y;
+
+        if (this.pieces){
+            for (let i = 0; i < 4; i++){
+                this.pieces[i].pos.x += x;
+                this.pieces[i].pos.y += y;
+            }
+        }
+    }
+
+    // check if there will be a collision in the future
+    futureCollision(x, y, rotation){
+        let xx, yy, points = 0;
+        if (rotation !== this.rotation){
+            points = orientPoints(this.pieceType, rotation);
+        }
+
+        for (let i = 0; i < this.pieces.length; i++){
+            if (points){
+                xx = this.pos.x + points[i][0] * gridSpace;
+
+                yy = this.pos.y + points[i][1] * gridSpace;
+            }else{
+                xx = this.pieces[i].pos.x + x;
+                yy = this.pieces[i].pos.y + y;
+            }
+
+            if (xx < gameEdgeLeft || xx + gridSpace > gameEdgeRight || yy + gridSpace > height){
+                return true;
+            }
+
+            for (let j = 0; j < gridPieces.length; j++){
+                if (xx === gridPieces[j].pos.x){
+                    if (yy >= gridPieces[j].pos.y && yy < gridPieces[j].pos.y + gridSpace){
+                        return true;
+                    }
+
+                    if (yy + gridSpace > gridPieces[j].pos.y && yy + gridSpace <= gridPieces[j].pos.y + gridSpace){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    // handle user input
+    input(key){
+        switch (key){
+            case LEFT_ARROW:
+                if (!this.futureCollision(-gridSpace), 0, this.rotation){
+                    this.addPos(-gridSpace, 0);
+                }
+                break;
+            case RIGHT_ARROW:
+                if (!this.futureCollision(gridSpace, 0, rotation)){
+                    this.addPos(gridSpace, 0);
+                }
+                break;
+            case UP_ARROW:
+                let  newRotation = this.rotation + 1;
+                if (newRotation > 3){
+                    newRotation = 0;
+                }
+                if (!this.futureCollision(0, 0, newRotation)){
+                    this.rotation = newRotation;
+                    this.updatePoints();
+                }
+                break;
+        }
+    }
+
+    // rotate the current piece
+    rotate(){
+        this.rotation += 1;
+        if (this.rotation > 3){
+            this.rotation = 0;
+        }
+        this.updatePoints();
+    }
+
+    // show the current piece
+    show(){
+        for (let i = 0; i < this.pieces.length; i++){
+            this.pieces[i].show();
+        }
+        for (let i = 0; i < this.nextPieces.length; i++){
+            this.nextPieces[i].show();
+        }
+    }
+
+    //commit the current shape to the grid
+    commitShape(){
+        for (let i = 0; i < this.pieces.length; i++){
+            gridPieces.push(this.pieces[i]);
+        }
+        this.resetPiece();
+        analyzeGrid();
+    }
 }
+
+
+// class for each squares in a piece
+class Square{
+    constructor(x, y, type){
+        this.pos = createVector(x, y);
+        this.type = type;
+    }
+
+    //show the square
+    show(){
+        strokeWeight(2);
+        const colorDark = '#092e1d';
+        const colorMid = colors[this.type];
+
+        fill(colorMid);
+        stroke(25);
+        rect(this.pos.x, this.pos.y, gridSpace - 1, gridSpace - 1);
+
+        noStroke();
+        fill(255);
+        rect(this.pos.x + 6, this.pos.y + 6, 18, 2);
+        rect(this.pos.x + 6, this.pos.y + 6, 2, 16);
+        fill(25);
+        rect(this.pos.x + 6, this.pos.y + 20, 18, 2);
+        rect(this.pos.x + 22, this.pos.y + 6, 2, 16);
+    }
+}
+
+// generate  a pseudo random number
