@@ -9,7 +9,7 @@ let lineFades = [];
 let gridWorkers = [];
 
 let currentScore = 0;
-let currentLevel = 0;
+let currentLevel = 1;
 let linesCleared = 0;
 
 let ticks = 0;
@@ -32,7 +32,7 @@ const colors = [
     '#ff7666',
     '#70b3f5',
     '#b2e77d',
-    '#ffd700'
+    '#ffd700',
 ];
 
 // setup function called once at beginning
@@ -74,6 +74,9 @@ function draw(){
 
     //draw the level rectangle
     rect(460, 210, 130, 60, 5, 5);
+
+    // Draw the lines rectangle
+    rect(460, 280, 130, 60, 5, 5);
 
     // draw the score lines
     fill(colorLight);
@@ -185,24 +188,20 @@ function draw(){
 }
 
 // function called when a key is pressed    
-function keyPressed(){
-    if (key === 'R'){
+function keyPressed() {
+    if (keyCode === 82) {
+        // 'R' key
         resetGame();
     }
-
-    if (!pauseGame){
-        if (keyCode === LEFT_ARROW){
+    if (!pauseGame) {
+        if (keyCode === LEFT_ARROW) {
             fallingPiece.input(LEFT_ARROW);
-        }
-        else if (keyCode === RIGHT_ARROW){
+        } else if (keyCode === RIGHT_ARROW) {
             fallingPiece.input(RIGHT_ARROW);
         }
-        else if (keyCode === UP_ARROW){
+        if (keyCode === UP_ARROW) {
             fallingPiece.input(UP_ARROW);
         }
-        // else if (keyCode === DOWN_ARROW){
-        //     fallingPiece.fall(fallSpeed);
-        // }
     }
 }
 
@@ -237,13 +236,13 @@ class PlayPiece{
         }
 
         for (let i = 0; i < 4; i++){
-            this.nextPieces().push(new Square(xx + points[i][0] * gridSpace, yy + points[i][1] * gridSpace, this.nextPieceType));
+            this.nextPieces.push(new Square(xx + points[i][0] * gridSpace, yy + points[i][1] * gridSpace, this.nextPieceType));
         }
     }
 
     //make the piece fall
     fall(amount){
-        if (!this.futureCollision(0, amount, this. rotation)){
+        if (!this.futureCollision(0, amount, this.rotation)){
             this.addPos(0, amount);
             this.fallen = true;
         } else{
@@ -265,7 +264,7 @@ class PlayPiece{
 
         this.pieceType = this.nextPieceType;
 
-        this.nextPieceType();
+        this.nextPiece();
         this.newPoints();
     }
 
@@ -288,7 +287,7 @@ class PlayPiece{
 
             this.orientation = points;
             for (let i = 0; i < 4; i++){
-                this.pieces[i].x = this.pos.x + points[i][0] * gridSpace;
+                this.pieces[i].pos.x = this.pos.x + points[i][0] * gridSpace;
 
                 this.pieces[i].pos.y = this.pos.y + points[i][1] * gridSpace;
             }
@@ -347,12 +346,12 @@ class PlayPiece{
     input(key){
         switch (key){
             case LEFT_ARROW:
-                if (!this.futureCollision(-gridSpace), 0, this.rotation){
+                if (!this.futureCollision(-gridSpace, 0, this.rotation)){
                     this.addPos(-gridSpace, 0);
                 }
                 break;
             case RIGHT_ARROW:
-                if (!this.futureCollision(gridSpace, 0, rotation)){
+                if (!this.futureCollision(gridSpace, 0, this.rotation)){
                     this.addPos(gridSpace, 0);
                 }
                 break;
@@ -427,3 +426,98 @@ class Square{
 }
 
 // generate  a pseudo random number
+function pseudoRandom(previous){
+    let roll = Math.floor(Math.random() * 8);
+
+    if (roll === previous || roll === 7){
+        roll = Math.floor(Math.random() * 7);
+    }
+
+    return roll;
+}
+
+// analyze the grid and clear lines if necessary
+function analyzeGrid(){
+    let score = 0;
+    while (checkLines()){
+        score += 100;
+        linesCleared += 1;
+        if (linesCleared % 10 === 0){
+            currentLevel += 1;
+            if (updateEveryCurrent > 2){
+                updateEveryCurrent -= 10;
+            }
+        }
+    }
+    if  (score > 100){
+        score *= 2;
+    }
+    currentScore += score;
+}
+
+// check if there are any complete lines in the grid
+function checkLines(){
+    for (let y = 0; y < height; y += gridSpace){
+        let count = 0;
+        for (let i = 0; i < gridPieces.length; i++){
+            if (gridPieces[i].pos.y === y){
+                count++;
+            }
+        }
+        if (count === 10){
+            //remove the pieces at this y-coordinate
+            gridPieces = gridPieces.filter(piece => piece.pos.y !== y);
+
+            // move down the pieces above this y-coordinate
+            for (let i = 0; i < gridPieces.length; i++){
+                if (gridPieces[i].pos.y < y){
+                    gridPieces[i].pos.y += gridSpace;
+                }
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+//class for the grid worker
+class Worker{
+    constructor(y, amount){
+        this.amountActual = 0;
+        this.amountTotal = amount;
+        this.yVal = y;
+    }
+
+    //perform work on the grid
+    work(){
+        if (this.amountActual < this.amountTotal){
+            for (let j  = 0; j < gridPieces.length; j++){
+                if (gridPieces[j].pos.y < y){
+                    gridPieces[j].pos.y += 5;
+                }
+            }
+            this.amountActual += 5;
+        }
+        else{
+            gridWorkers.shift();
+        }
+    }
+}
+
+// reset the game state
+function resetGame(){
+    fallingPiece = new PlayPiece();
+    fallingPiece.resetPiece();
+    gridPieces = [];
+    lineFades = [];
+    gridWorkers = [];
+    currentScore = 0;
+    currentLevel = 0;
+    linesCleared = 0;
+    ticks = 0;
+    updateEvery = 15;
+    updateEveryCurrent = 15;
+    fallSpeed = gridSpace * 0.5;
+    pauseGame = false;
+    gameOver = false;
+}
