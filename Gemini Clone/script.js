@@ -9,15 +9,15 @@ const clearChatButton = document.getElementById("deleteButton");
 let currentUserMessage = null;
 let isGeneratingResponse = false;
 
-const GOOGLE_API_KEY = "AIzaSyARYer5D6utESNXYHwGKKDHcm0l2aqNeV8";
-const API_REQUEST_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GOOGLE_API_KEY = "AIzaSyAq1mrXeSM20rCRxzEbr-uOjK4cwDA0cjo";
+const API_REQUEST_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_API_KEY}`;
 
 // load saved data from local storage
-const loadSaveChatHistory = () => {
+const loadSavedChatHistory = () => {
     const savedConversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
-    const isLightTheme = localStorage.getItem("theme-color") === "light_mode";
+    const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 
-    document.body.classList.toggle("light-mode", isLightTheme);
+    document.body.classList.toggle("light_mode", isLightTheme);
     themeToggleButton.innerHTML = isLightTheme ? '< class= "bx bx-moon"></i>' : '<i class="bx bx-sun"></i>';
 
     chatHistoryContainer.innerHTML = '';
@@ -42,14 +42,16 @@ const loadSaveChatHistory = () => {
         const rawApiResponse = responseText; // plain text version
 
         const responseHtml = `
-            <div class=message__content">
+            <div class="message__content">
                 <img class="message__avatar" src="assets/gemini.svg" alt="Gemini Avatar">
                 <p class="message__text"></p>
-                <div class="message__loading-bar"></div>
-                <div class="message__loading-bar"></div>
-                <div class="message__loading-bar"></div>
+                <div class="message__loading-indicator-hide">
+                    <div class="message__loading-bar"></div>
+                    <div class="message__loading-bar"></div>
+                    <div class="message__loading-bar"></div>
+                </div>
             </div>
-            <span onClick="copyMessageToClipboard(this)" class=message__icon hide"><i class="bx bx-copy-alt"></i></span>
+            <span onClick="copyMessageToClipboard(this)" class="message__icon hide"><i class="bx bx-copy-alt"></i></span>
         `;
         const incomingMessageElement = createChatMessageElement(responseHtml, "message--incoming");
         chatHistoryContainer.appendChild(incomingMessageElement);
@@ -93,7 +95,8 @@ const showTypingEffect = (rawText, htmlText, messageElement, incomingMessageElem
         messageElement.innerText += (wordIndex === 0 ? '' : ' ') + wordsArray[wordIndex++];
         if (wordIndex === wordsArray.length){
             clearInterval(typingInterval);
-            isGeneratingResponse.innerHTML = htmlText;
+            isGeneratingResponse = false;
+            messageElement.innerHTML = htmlText;
             hljs.highlightAll();
             addCopyButtonToCodeBlocks();
             copyIconElement.classList.remove("hide");
@@ -103,7 +106,7 @@ const showTypingEffect = (rawText, htmlText, messageElement, incomingMessageElem
 
 //fetch api response based on user input
 const requestApiResponse = async (incomingMessageElement) => {
-    const messageElement = incomingMessageElement.querySelector(".message__text");
+    const messageTextElement = incomingMessageElement.querySelector(".message__text");
 
     try{
         const response = await fetch(API_REQUEST_URL, {
@@ -119,7 +122,7 @@ const requestApiResponse = async (incomingMessageElement) => {
             throw new Error(responseData.error.message);
         }
 
-        const responseText =  responseData?.conditates?.[0]?.content?.parts?.[0]?.text;
+        const responseText =  responseData?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!responseText) {
             throw new Error("Invalid response from the API");
         }
@@ -127,7 +130,7 @@ const requestApiResponse = async (incomingMessageElement) => {
         const parsedApiResponse = marked.parse(responseText);
         const rawApiResponse = responseText;
 
-        showTypingEffect(rawApiResponse, parsedApiResponse, messageElement, incomingMessageElement);
+        showTypingEffect(rawApiResponse, parsedApiResponse, messageTextElement, incomingMessageElement);
 
         //save conversation in local storage
         let savedConversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
@@ -245,7 +248,7 @@ clearChatButton.addEventListener("click", () => {
         localStorage.removeItem("saved-api-chats");
         
         // reload chat history to reflect changes
-        loadSaveChatHistory();
+        loadSavedChatHistory();
 
         currentUserMessage = null;
         isGeneratingResponse = false;
@@ -261,3 +264,10 @@ suggestionItems.forEach(suggestion =>{
 });
 
 // prevent default from submission and handle outgoing message
+messageForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    handleOutgoingMessage();
+});
+
+//load saved chat history on page load
+loadSavedChatHistory();
