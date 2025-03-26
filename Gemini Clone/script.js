@@ -18,7 +18,7 @@ const loadSavedChatHistory = () => {
     const isLightTheme = localStorage.getItem("themeColor") === "light_mode";
 
     document.body.classList.toggle("light_mode", isLightTheme);
-    themeToggleButton.innerHTML = isLightTheme ? '< class= "bx bx-moon"></i>' : '<i class="bx bx-sun"></i>';
+    themeToggleButton.innerHTML = isLightTheme ? '<class= "bx bx-moon"></i>' : '<i class="bx bx-sun"></i>';
 
     chatHistoryContainer.innerHTML = '';
 
@@ -45,7 +45,7 @@ const loadSavedChatHistory = () => {
             <div class="message__content">
                 <img class="message__avatar" src="assets/gemini.svg" alt="Gemini Avatar">
                 <p class="message__text"></p>
-                <div class="message__loading-indicator-hide">
+                <div class="message__loading-indicator hide">
                     <div class="message__loading-bar"></div>
                     <div class="message__loading-bar"></div>
                     <div class="message__loading-bar"></div>
@@ -234,11 +234,11 @@ const handleOutgoingMessage = () =>{
 
 // toggle between light and dark themes
 themeToggleButton.addEventListener("click", () => {
-    const isLightTheme = document.body.classList.toggle("light-mode");
-    localStorage.setItem("theme-color", isLightTheme ? "light_mode" : "dark_mode");
+    const isLightTheme = document.body.classList.toggle("light_mode");
+    localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
 
     //update icon based on theme
-    const newIconClass = isLightTheme ? "bx-moon" : "bx-sun";
+    const newIconClass = isLightTheme ? "bx bx-moon" : "bx bx-sun";
     themeToggleButton.querySelector("i").className = newIconClass;
 });
 
