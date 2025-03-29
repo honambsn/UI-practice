@@ -48,6 +48,7 @@ html, body{
     place-items: center;
     font-family: var(--font-family);
     background-color: var(--bg-body);
+    user-select: none;
 }
 
 .calendar{
@@ -82,6 +83,7 @@ html, body{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     font-weight: 600;
+    height: 50px;
 }
 
 .calendar-week-day div{
@@ -108,4 +110,154 @@ html, body{
     cursor: pointer;
 }
 
-//eOEX09sfhpM
+.month-picker{
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.month-picker:hover{
+    background-color: var(--color-hover);
+}
+
+.year-picker{
+    display: flex;
+    align-items: center;
+}
+
+.year-change{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.year-change:hover{
+    background-color: var(--color-hover);
+}
+
+.calendar-footer{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.toggle{
+    display: flex;
+}
+
+.toggle i{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    margin-right: 10px;
+}
+
+.toggle span{
+    margin-right: 10px;
+    color: var(--color-text);
+}
+
+.dark-mode-switch{
+    position: relative;
+    width: 48px;
+    height: 25px;
+    border-radius: 14px;
+    background-color: var(--bg-second);
+    cursor: pointer;
+}
+
+.dark-mode-switch-ident{
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: var(--bg-main);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s ease-in-out;
+}
+
+.dark .dark-mode-switch .dark-mode-switch-ident{
+    top: 2px;
+    left: calc(2px + 50%);
+}
+
+.dark .calendar span{
+    color: var(--dark-text);
+}
+
+.dark i{
+    color: var(--dark-text);
+}
+
+.calendar-days div span{
+    position: absolute;
+}
+
+.calendar-days div:hover span{ 
+    transition: width .2s ease-in-out,
+                height .2s ease-in-out;
+}
+
+.calendar-days div span:nth-child(1),
+.calendar-days div span:nth-child(3){
+    width: 2px;
+    height: 100%;
+    background-color: var(--color-text);
+}
+
+.calendar-days div:hover span:nth-child(1),
+.calendar-days div:hover span:nth-child(3){
+    height: 100%;
+}
+
+
+.calendar-days div span:nth-child(1){
+    bottom: 0;
+    left: 0;
+}
+
+.calendar-days div span:nth-child(3){
+    top: 0;
+    right: 0;
+}
+
+.calendar-days div span:nth-child(2),
+.calendar-days div span:nth-child(4){
+    width: 0;
+    height: 2px;
+    background-color: var(--color-text);
+}
+
+.calendar-days div:hover span:nth-child(2),
+.calendar-days div:hover span:nth-child(4){
+    width: 100%;
+}
+
+.calendar-days div span:nth-child(2){
+    top: 0;
+    left: 0;
+}
+
+.calendar-days div span:nth-child(4){
+    bottom: 0;
+    right: 0;
+}
+
+.calendar-days div:hover span:nth-child(2){
+    transition-delay: 0.2s ease-in-out;
+}
+
+.calendar-days div:hover span:nth-child(3){
+    transition-delay: 0.4s ease-in-out;
+}
+
+.calendar-days div:hover span:nth-child(4){
+    transition-delay: 0.6s ease-in-out;
+}

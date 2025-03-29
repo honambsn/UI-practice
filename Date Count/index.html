@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Count</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="light">
@@ -16,12 +17,12 @@
 
             <div class="year-picker">
                 <span class="year-change" id="prev-year">
-                    <pre></pre>
+                    <pre><i class="fa-solid fa-angle-left"></i></pre>
                 </span>
 
                 <span id="year">2025</span>
                 <span class="year-change" id="next-year">
-                    <pre>></pre>
+                    <pre><i class="fa-solid fa-angle-right"></i></pre>
                 </span>
             </div>
         </div>
@@ -38,7 +39,12 @@
             </div>
 
             <div class="calendar-days">
-                <div>1</div>
+                <div>1
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
                 <div>2</div>
                 <div>3</div>
                 <div>4</div>
@@ -58,6 +64,7 @@
 
         <div class="calendar-footer">
             <div class="toggle">
+                <i class="fa-solid fa-moon"></i>
                 <span>Dark Mode</span>
                 <div class="dark-mode-switch">
                     <div class="dark-mode-switch-ident"></div>
@@ -67,5 +74,7 @@
 
         <div class="month-list"></div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
