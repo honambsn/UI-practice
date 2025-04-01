@@ -14,7 +14,7 @@
     --blue: #0000ff;
     --white: #fff;
 
-    --shadow: rgba(1000, 100, 111, 0.2) 0px 7px 29px 0px;
+    --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     --font-family: cursive;
 
@@ -108,106 +108,9 @@ html, body{
     padding: 5px;
     position: relative;
     cursor: pointer;
+    animation: to-top 1s forwards;
 }
 
-.month-picker{
-    padding: 5px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.month-picker:hover{
-    background-color: var(--color-hover);
-}
-
-.year-picker{
-    display: flex;
-    align-items: center;
-}
-
-.year-change{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-.year-change:hover{
-    background-color: var(--color-hover);
-}
-
-.calendar-footer{
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.toggle{
-    display: flex;
-}
-
-.toggle i{
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    display: flex;
-    margin-right: 10px;
-    transition: all 0.2s ease-in-out;
-    /* 
-    transform: animate 0.5s ease-in-out; */
-}
-
-@keyframes animate{
-    0%{
-        transform: rotateY(0);
-    }
-    100%{
-        transform: rotate(100deg);
-    }
-    
-}
-
-.toggle span{
-    margin-right: 10px;
-    color: var(--color-text);
-}
-
-.dark-mode-switch{
-    position: relative;
-    width: 48px;
-    height: 25px;
-    border-radius: 14px;
-    background-color: var(--bg-second);
-    cursor: pointer;
-}
-
-.dark-mode-switch-ident{
-    width: 21px;
-    height: 21px;
-    border-radius: 50%;
-    background-color: var(--bg-main);
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: left 0.2s ease-in-out;
-}
-
-.dark .dark-mode-switch .dark-mode-switch-ident{
-    top: 2px;
-    left: calc(2px + 50%);
-}
-
-.dark .calendar span{
-    color: var(--dark-text);
-}
-
-.dark i{
-    color: var(--dark-text);
-}
 
 .calendar-days div span{
     position: absolute;
@@ -275,14 +178,14 @@ html, body{
     transition-delay: 0.6s ease-in-out;
 }
 
-.calendar-days div.curr-date{
+.calendar-days div.curr-date,
+.calendar-days div.curr-date:hover{
     background-color: var(--blue);
     color: var(--white);
     border-radius: 50%;
     font-weight: 600;
     font-size: 20px;
     position: relative;
-    z-index: 1;
     transition: all 0.2s ease-in-out;
     box-shadow: 0 0 10px var(--blue);
     cursor: pointer;
@@ -292,6 +195,94 @@ html, body{
     display: none;
 }
 
+.month-picker{
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.month-picker:hover{
+    background-color: var(--color-hover);
+}
+
+.year-picker{
+    display: flex;
+    align-items: center;
+}
+
+.year-change{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.year-change:hover{
+    background-color: var(--color-hover);
+}
+
+.calendar-footer{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.toggle{
+    display: flex;
+}
+
+.toggle i{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+    /* 
+    transform: animate 0.5s ease-in-out; */
+}
+
+.toggle span{
+    margin-right: 10px;
+    color: var(--color-text);
+}
+
+.dark-mode-switch{
+    position: relative;
+    width: 48px;
+    height: 25px;
+    border-radius: 14px;
+    background-color: var(--bg-second);
+    cursor: pointer;
+}
+
+.dark-mode-switch-ident{
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: var(--bg-main);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s ease-in-out;
+}
+
+.dark .dark-mode-switch .dark-mode-switch-ident{
+    top: 2px;
+    left: calc(2px + 50%);
+}
+
+.dark .calendar span{
+    color: var(--dark-text);
+}
+
+.dark i{
+    color: var(--dark-text);
+}
 
 .month-list{
     position: absolute;
@@ -308,12 +299,14 @@ html, body{
     transform: scale(1.5);
     visibility: hidden;
     pointer-events: none;
+    
 }
 
 .month-list.show{
     transform: scale(1);
     visibility: visible;
     pointer-events: visible;
+    transition: all 0.3s ease-in-out;
 }
 
 .month-list > div{
@@ -323,7 +316,7 @@ html, body{
 
 .month-list > div > div{
     width: 100%;
-    padding: 5px 20px;
+    padding: 30px 20px;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
@@ -331,4 +324,44 @@ html, body{
 
 .month-list > div > div:hover{
     background-color: var(--color-hover);
+}
+
+@keyframes to-top{
+    0%{
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+}
+
+.month-list.show > div > div:hover{
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.current-month{
+    background-color: rgb(58, 253, 201);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 20px;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.current-month:hover{
+    background-color: rgb(58, 253, 201);
+    color: var(--white);
+    box-shadow: 0 0 10px rgb(58, 253, 201);
+    pointer-events: none;
 }

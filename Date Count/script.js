@@ -31,16 +31,11 @@ getFebDays = (year) => {
 
 // Get the number of days in a month
 let calendar = document.querySelector('.calendar');
+
 const month_names = [
     "January", "February", "March", "April",
     "May", "June", "July", "August",
     "September", "October", "November", "December"
-];
-
-const month_days = [
-    31, 28, 31, 30,
-    31, 30, 31, 31,
-    30, 31, 30, 31
 ];
 
 let month_picker = document.querySelector
@@ -48,6 +43,12 @@ let month_picker = document.querySelector
 
 month_picker.onclick = () => {
     month_list.classList.add('show');
+
+    const currentMonth = new Date().getMonth();
+
+    const currentMonthElement = month_list.children[currentMonth];
+    currentMonthElement.classList.add('current-month');
+
 }
 
 // Generate calendar
@@ -103,9 +104,27 @@ let month_list = calendar.querySelector('.month-list');
 
 month_names.forEach((e, index) => {
     let month = document.createElement('div');
-    month.innerHTML = `<div>${e}</div>`;
+    //month.innerHTML = `<div>${e}</div>`;
+    for (let i = 1; i < 12; i++) {
+        month.innerHTML = `<div class="month-${i}">${e}</div>`;
+    }
+    month.onclick = () => {
+        curr_month.value = index; // Update the current month
+        generateCalendar(curr_month.value, curr_year.value); // Generate the calendar for the selected month
+        month_list.classList.remove('show'); // Hide the month list after selection
+    }
     month_list.appendChild(month);
 })
+
+document.querySelector('#prev-year').onclick = () => {
+    --curr_year.value; // Decrease the year by 1
+    generateCalendar(curr_month.value, curr_year.value); // Generate the calendar for the new year
+}
+
+document.querySelector('#next-year').onclick = () => {
+    ++curr_year.value; // Increase the year by 1
+    generateCalendar(curr_month.value, curr_year.value); // Generate the calendar for the new year
+}
 
 let currDate = new Date();
 
