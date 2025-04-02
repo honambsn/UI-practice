@@ -51,6 +51,10 @@ month_picker.onclick = () => {
 
 }
 
+
+let temp1 = 0;
+let temp2 = 0;
+
 // Generate calendar
 generateCalendar = (month, year) => {
     let calendar_days = document.querySelector('.calendar-days');
@@ -96,6 +100,23 @@ generateCalendar = (month, year) => {
                            <span></span>
                            <span></span>`;
 
+
+        // Add click event to show the date in the console
+        day.onclick = () => {
+            // Get the selected date
+            let selectedDate = new Date(year, month, i);
+            //console.log(`selectedDate: ${selectedDate}`);
+            console.log(`Selected date: ${selectedDate.toLocaleDateString()}`);
+            const show_day = selectedDate.getDate();
+            const show_month = selectedDate.getMonth() + 1; // Adding 1 to make it 1-12
+            const show_year = selectedDate.getFullYear();
+          
+            console.log(`Day: ${show_day}, Month: ${show_month}, Year: ${show_year}`);
+            // Display the selected date in an alert (or any other way you prefer)
+            alert(`Selected date: ${show_day}/${show_month}/${show_year}`);
+
+        }
+
         calendar_days.appendChild(day);
     }
 }
@@ -133,3 +154,32 @@ let curr_year = {value: currDate.getFullYear()};
 
 // Generate the calendar for the current month and year
 generateCalendar(curr_month.value, curr_year.value);
+
+
+// // Hàm callback định nghĩa ở ngoài
+// function handleSelectedDate(selectedDate) {
+//     console.log("Ngày đã chọn:", selectedDate);
+//     // Bạn có thể làm gì đó với ngày đã chọn ở đây, ví dụ lưu trữ hoặc xử lý
+//     alert(`Ngày bạn đã chọn là: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}`);
+// }
+
+// // Hàm để xử lý sự kiện onclick và gọi callback
+// function handleDateSelection(callback) {
+//     day.onclick = () => {
+//         // Lấy ngày đã chọn
+//         let selectedDate = new Date(year, month, i);
+//         console.log(`Ngày đã chọn: ${selectedDate.toLocaleDateString()}`);
+
+//         const show_day = selectedDate.getDate();
+//         const show_month = selectedDate.getMonth() + 1; // Thêm 1 để tháng từ 1-12
+//         const show_year = selectedDate.getFullYear();
+
+//         console.log(`Ngày: ${show_day}, Tháng: ${show_month}, Năm: ${show_year}`);
+        
+//         // Gọi callback với giá trị ngày đã chọn
+//         callback({ day: show_day, month: show_month, year: show_year });
+//     };
+// }
+
+// // Ví dụ sử dụng: gọi hàm handleDateSelection và truyền hàm handleSelectedDate làm callback
+// handleDateSelection(handleSelectedDate);
