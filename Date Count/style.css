@@ -309,21 +309,30 @@ html, body{
     transition: all 0.3s ease-in-out;
 }
 
-.month-list > div{
+.month-list > .month-item{
     display: grid;  
     place-items: center;
-}
-
-.month-list > div > div{
+    animation: to-top 0.5s forwards;
     width: 100%;
     padding: 30px 20px;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
+    background-color: var(--bg-second);
+    transition: all 0.2s ease-in-out;
+    color: var(--color-text);
+
 }
 
-.month-list > div > div:hover{
+.month-list > .month-item > .month-item:hover{
     background-color: var(--color-hover);
+    color:  var(--color-text);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 @keyframes to-top{
@@ -338,7 +347,7 @@ html, body{
     
 }
 
-.month-list.show > div > div:hover{
+.month-list.show > .month-item:hover{
     background-color: var(--color-hover);
     color: var(--color-text);
     border-radius: 50%;
@@ -351,17 +360,15 @@ html, body{
 
 .current-month{
     background-color: rgb(58, 253, 201);
+    background-color: red;
     border-radius: 50%;
     font-weight: 600;
     font-size: 20px;
     position: relative;
-    transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 
-.current-month:hover{
-    background-color: rgb(58, 253, 201);
+.month-list > .month-item.current-month{
+    background-color: var(--blue);
     color: var(--white);
-    box-shadow: 0 0 10px rgb(58, 253, 201);
-    pointer-events: none;
 }

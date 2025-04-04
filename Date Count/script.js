@@ -120,7 +120,7 @@ function displaySelectedDate(selectedDate) {
 function generateMonthList() {
     month_names.forEach((monthName, index) => {
         let month = document.createElement('div');
-        month.classList.add(`month-${index}`);
+        month.classList.add('month-item');
         month.innerHTML = monthName;
         month.onclick = () => {
             curr_month.value = index;
