@@ -140,50 +140,73 @@ function createEmptyDay() {
 
 
 let firstDate = null;
-    let secondDate = null;
+let secondDate = null;
+let intervalId = null;
 
-    function displaySelectedDate(selectedDate) {
-        console.log("Ngày đã chọn:", selectedDate.toLocaleDateString());
+function displaySelectedDate(selectedDate) {
+    console.log("Ngày đã chọn:", selectedDate.toLocaleDateString());
 
-        // Kiểm tra xem đây là lần chọn ngày đầu tiên hay thứ hai
-        if (firstDate === null) {
-            // Lưu ngày đầu tiên
-            firstDate = selectedDate;
-            document.querySelector('.date-1').textContent = `Ngày 1: ${selectedDate.toLocaleDateString()}`;
-            alert(`Ngày đã chọn (Lần 1): ${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);
-        } else if (secondDate === null) {
-            // Lưu ngày thứ hai
-            secondDate = selectedDate;
-            document.querySelector('.date-2').textContent = `Ngày 2: ${selectedDate.toLocaleDateString()}`;
-            alert(`Ngày đã chọn (Lần 2): ${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);
+    // Kiểm tra xem đây là lần chọn ngày đầu tiên hay thứ hai
+    if (firstDate === null) {
+        // Lưu ngày đầu tiên
+        firstDate = selectedDate;
+        document.querySelector('.date-1').textContent = `Ngày 1: ${selectedDate.toLocaleDateString()}`;
+        alert(`Ngày đã chọn (Lần 1): ${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);
+    } else if (secondDate === null) {
+        // Lưu ngày thứ hai
+        secondDate = selectedDate;
+        document.querySelector('.date-2').textContent = `Ngày 2: ${selectedDate.toLocaleDateString()}`;
+        alert(`Ngày đã chọn (Lần 2): ${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`);
 
-            // Tính toán khoảng cách giữa hai ngày và hiển thị kết quả
-            calculateDateRange();
+        // Tính toán khoảng cách giữa hai ngày và hiển thị kết quả
+        startDateRangeTimer();
+    }
+}
+
+function startDateRangeTimer() {
+    // Xóa bất kỳ interval nào trước đó
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+
+    // Bắt đầu một interval mới để cập nhật khoảng cách mỗi giây
+    intervalId = setInterval(calculateDateRange, 1000);
+}
+
+function calculateDateRange() {
+    if (firstDate && secondDate) {
+        // Tính toán sự khác biệt giữa hai ngày
+        let diffInMilliseconds = Math.abs(secondDate - firstDate);  // Tính từ ngày đầu tiên đến ngày thứ hai (dùng Math.abs để luôn tính giá trị tuyệt đối)
+
+        // Tính toán sự khác biệt
+        const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+        const remainingHours = Math.floor((diffInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const remainingMinutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+        const remainingSeconds = Math.floor((diffInMilliseconds % (1000 * 60)) / 1000);
+
+        // Hiển thị khoảng cách trong giao diện
+        document.querySelector('.date-range').textContent = `Khoảng cách: ${diffInDays} ngày, ${remainingHours} giờ, ${remainingMinutes} phút, ${remainingSeconds} giây`;
+
+        // Nếu khoảng cách về 0, ngừng interval
+        if (diffInMilliseconds <= 0) {
+            clearInterval(intervalId);
+            console.log("Khoảng cách đã hết!");
+            document.querySelector('.date-range').textContent = "Khoảng cách đã hết!";
         }
+
+        console.log(`Khoảng cách: ${diffInDays} ngày, ${remainingHours} giờ, ${remainingMinutes} phút, ${remainingSeconds} giây`);
     }
+}
 
-    function calculateDateRange() {
-        if (firstDate && secondDate) {
-            const diffInMilliseconds = Math.abs(secondDate - firstDate);
-            const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
-            const remainingHours = Math.floor((diffInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const remainingMinutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-            const remainingSeconds = Math.floor((diffInMilliseconds % (1000 * 60)) / 1000);
+function resetAll() {
+    // Reset the selected dates
+    firstDate = null;
+    secondDate = null;
 
-            document.querySelector('.date-range').textContent = `Date range: ${diffInDays} ngày, ${remainingHours} giờ, ${remainingMinutes} phút, ${remainingSeconds} giây`;
-            console.log(`Khoảng cách: ${diffInDays} ngày, ${remainingHours} giờ, ${remainingMinutes} phút, ${remainingSeconds} giây`);
-        }
-    }
+    // Clear the displayed values
+    document.querySelector('.date-1').textContent = '';
+    document.querySelector('.date-2').textContent = '';
+    document.querySelector('.date-range').textContent = '';
 
-    function resetAll() {
-        // Reset the selected dates
-        firstDate = null;
-        secondDate = null;
-
-        // Clear the displayed values
-        document.querySelector('.date-1').textContent = '';
-        document.querySelector('.date-2').textContent = '';
-        document.querySelector('.date-range').textContent = '';
-
-        console.log("Đã xóa tất cả các ngày và khoảng cách.");
-    }
+    console.log("Đã xóa tất cả các ngày và khoảng cách.");
+}
