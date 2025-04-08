@@ -164,19 +164,55 @@ function displaySelectedDate(selectedDate) {
 }
 
 function startDateRangeTimer() {
-    // Xóa bất kỳ interval nào trước đó
-    if (intervalId) {
-        clearInterval(intervalId);
-    }
+    if (isToday(firstDate) || isToday(secondDate)) {
 
-    // Bắt đầu một interval mới để cập nhật khoảng cách mỗi giây
-    intervalId = setInterval(calculateDateRange, 1000);
+        // Nếu một trong hai ngày là hôm nay, bắt đầu cập nhật mỗi giây
+
+        if (intervalId) {
+
+            clearInterval(intervalId); // Dừng interval nếu nó đang chạy
+
+        }
+
+        intervalId = setInterval(calculateDateRange, 1000);  // Bắt đầu interval để cập nhật mỗi giây
+
+    } else {
+
+        // Nếu không có ngày nào là hôm nay, tính khoảng cách một lần duy nhất
+
+        calculateDateRange();
+
+    }
 }
 
 function calculateDateRange() {
     if (firstDate && secondDate) {
-        // Tính toán sự khác biệt giữa hai ngày
-        let diffInMilliseconds = Math.abs(secondDate - firstDate);  // Tính từ ngày đầu tiên đến ngày thứ hai (dùng Math.abs để luôn tính giá trị tuyệt đối)
+
+        // Lấy thời gian hiện tại
+
+        const now = new Date();
+
+
+
+        // Kiểm tra xem Ngày 1 hoặc Ngày 2 có phải là hôm nay không
+
+        let diffInMilliseconds;
+
+
+
+        if (isToday(firstDate) || isToday(secondDate)) {
+
+            // Nếu một trong hai ngày là hôm nay, tính khoảng cách từ hôm nay đến ngày còn lại
+
+            diffInMilliseconds = secondDate - now;  // Tính từ ngày hiện tại đến ngày thứ hai
+
+        } else {
+
+            // Nếu không có ngày nào là hôm nay, tính sự khác biệt giữa hai ngày đã chọn
+
+            diffInMilliseconds = secondDate - firstDate;
+
+        }
 
         // Tính toán sự khác biệt
         const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
@@ -204,9 +240,25 @@ function resetAll() {
     secondDate = null;
 
     // Clear the displayed values
-    document.querySelector('.date-1').textContent = '';
-    document.querySelector('.date-2').textContent = '';
-    document.querySelector('.date-range').textContent = '';
+    document.querySelector('.date-1').textContent = 'Ngày 1: ';
+    document.querySelector('.date-2').textContent = 'Ngày 2: ';
+    document.querySelector('.date-range').textContent = 'Date range: ';
+    alert("Đã xóa tất cả các ngày và khoảng cách.");
 
     console.log("Đã xóa tất cả các ngày và khoảng cách.");
+}
+
+
+function isToday(date) {
+
+    const today = new Date();
+
+    // Kiểm tra ngày, tháng, năm có trùng với ngày hiện tại không
+
+    return date.getDate() === today.getDate() &&
+
+           date.getMonth() === today.getMonth() &&
+
+           date.getFullYear() === today.getFullYear();
+
 }

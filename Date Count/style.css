@@ -377,7 +377,7 @@ html, body{
 }
 
 .date-result{
-    display: column;
+    display: block;
     justify-content: center;
     align-items: center;
     font-size: 25px;
@@ -390,20 +390,18 @@ html, body{
     font-weight: 400;
     color: var(--blue);
     display: flex;
-    flex-direction: column;
     font-size: 20px;
 }
 
 .dark .date-result span{
     color: var(--dark-text);
     font-weight: 400;
-    display: flex;  
-    flex-direction: column;
+    display: flex;
     font-size: 20px;
 }
 
-.dayButton{
-    display: flex;
+.resetButton{
+    display: block;
     justify-content: center;
     align-items: center;;
     background-color: var(--bg-second);
@@ -412,4 +410,9 @@ html, body{
     padding: 10px 20px;
     transition: all 0.2s ease-in-out;
     margin-bottom: 30px;
+}
+
+.dark .resetButton{
+    background-color: red;
+    outline: none;
 }
