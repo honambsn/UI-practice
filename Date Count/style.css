@@ -408,11 +408,21 @@ html, body{
     border-radius: 20px;
     cursor: pointer;
     padding: 10px 20px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
     margin-bottom: 30px;
 }
 
 .dark .resetButton{
-    background-color: red;
-    outline: none;
+    background-color: var(--dark-second);
+}
+    
+.resetButton:hover{
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 15px;
+    position: relative;
+    
+    cursor: pointer;
 }
