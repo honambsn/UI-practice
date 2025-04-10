@@ -52,6 +52,7 @@ html, body{
     font-family: var(--font-family);
     background-color: var(--bg-body);
     user-select: none;
+    min-width: 440px;
 }
 
 .calendar{
@@ -62,6 +63,8 @@ html, body{
     padding: 20px;
     position: relative;
     overflow: hidden;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .light .calendar{
@@ -299,17 +302,23 @@ html, body{
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 5px;
-    transform: scale(1.5);
+    transform: scale(2);
     visibility: hidden;
     pointer-events: none;
-    
 }
 
 .month-list.show{
+    opacity: 1;
     transform: scale(1);
     visibility: visible;
-    pointer-events: visible;
-    transition: all 0.3s ease-in-out;
+    pointer-events: all;
+    transition: all 0.5s ease-in-out;
+}
+
+.month-list.hide {
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    transform: scale(2);
 }
 
 .month-list > .month-item{
@@ -348,6 +357,17 @@ html, body{
         opacity: 1;
     }
     
+}
+
+@keyframes to-down{
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(2);
+        opacity: 0;
+    }
 }
 
 .month-list.show > .month-item:hover{
@@ -409,8 +429,7 @@ html, body{
     cursor: pointer;
     padding: 10px 20px;
     transition: all 0.3s ease-in-out;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin: 30px;
 }
 
 .dark .resetButton{
@@ -423,6 +442,5 @@ html, body{
     font-weight: 600;
     font-size: 15px;
     position: relative;
-    
     cursor: pointer;
 }

@@ -34,10 +34,26 @@ let month_picker = document.querySelector('#month-picker');
 let month_list = document.querySelector('.month-list'); 
 
 month_picker.onclick = () => {
+    month_list.classList.remove('hide');
     month_list.classList.add('show');
-    highlightCurrentMonth();  // Thêm hàm này để làm nổi bật tháng hiện tại khi nhấn vào picker
+    highlightCurrentMonth();
 };
 
+// Handle Escape key press to hide the month list
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        // Ensure only the 'hide' class is added (remove 'show' if present)
+        month_list.classList.remove('show'); // Remove 'show' to prepare for closing
+        month_list.classList.add('hide'); // Add 'hide' to trigger closing animation
+        
+        // Listen for the animation to end before resetting the visibility
+        month_list.addEventListener('animationend', () => {
+            // Remove both classes to reset the state
+            month_list.classList.remove('show', 'hide');
+            month_list.style.visibility = 'hidden'; // Hide the list completely after animation
+        }, { once: true }); // Ensure the listener is triggered only once
+    }
+});
 // Hàm làm nổi bật tháng hiện tại
 function highlightCurrentMonth() {
     Array.from(month_list.children).forEach((monthItem, index) => {
