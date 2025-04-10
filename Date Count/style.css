@@ -403,8 +403,7 @@ html, body{
     font-size: 25px;
     font-weight: 600;
     color: var(--color-text);
-    margin: -20px;
-    padding: -20px;
+    padding: 20px;
 }
 .date-result span{
     font-weight: 400;
