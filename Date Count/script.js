@@ -278,3 +278,16 @@ function isToday(date) {
            date.getFullYear() === today.getFullYear();
 
 }
+window.addEventListener('resize', () => {
+    if (month_list.classList.contains('show')) {
+        month_list.classList.remove('show');
+        month_list.classList.add('hide');
+
+        const onTransitionEnd = () => {
+            month_list.classList.remove('hide');
+            month_list.removeEventListener('transitionend', onTransitionEnd);
+        };
+
+        month_list.addEventListener('transitionend', onTransitionEnd);
+    }
+});

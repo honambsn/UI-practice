@@ -47,12 +47,18 @@
 
 html, body{
     height: 100vh;
-    display: grid;
     place-items: center;
     font-family: var(--font-family);
     background-color: var(--bg-body);
     user-select: none;
     min-width: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    color: var(--color-text);
 }
 
 .calendar{
@@ -62,9 +68,9 @@ html, body{
     border-radius: 30px;
     padding: 20px;
     position: relative;
-    overflow: hidden;
-    display: block;
-    margin-bottom: 10px;
+    max-width: 600px;
+    align-items: center;
+    justify-content: center;
 }
 
 .light .calendar{
