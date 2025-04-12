@@ -51,7 +51,7 @@ html, body{
     font-family: var(--font-family);
     background-color: var(--bg-body);
     user-select: none;
-    min-width: 440px;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -66,11 +66,12 @@ html, body{
     width: max-content;
     background-color: var(--bg-main);
     border-radius: 30px;
-    padding: 20px;
     position: relative;
+    min-width: 300px;
     max-width: 600px;
     align-items: center;
     justify-content: center;
+    margin: 30px;
 }
 
 .light .calendar{
@@ -85,6 +86,7 @@ html, body{
     font-weight: 600;
     color: var(--color-text);
     padding: 10px;
+    margin-top: 20px;
 }
 
 .calendar-body{
@@ -241,6 +243,8 @@ html, body{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .toggle{
@@ -311,6 +315,7 @@ html, body{
     transform: scale(2);
     visibility: hidden;
     pointer-events: none;
+    border-radius: 15px;
 }
 
 .month-list.show{
