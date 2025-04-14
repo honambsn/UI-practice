@@ -202,7 +202,26 @@ html, body{
     position: relative;
     transition: all 0.2s ease-in-out;
     box-shadow: 0 0 10px var(--blue);
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
+}
+
+.calendar-days div.curr-date:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--blue);
+}
+
+.dark .calendar-days div.curr-date{
+    background-color: red;
+    color: var(--dark-text);
+    box-shadow: 0 0 10px red;
+}
+
+.dark .calendar-days div.curr-date:hover{
+    background-color: red;
+    color: var(--dark-text);
+    box-shadow: 0 0 10px rgb(255, 0, 0),
+                0 0 30px #ff9999;
 }
 
 .calendar-days div.curr-date span{
@@ -439,18 +458,25 @@ html, body{
     cursor: pointer;
     padding: 10px 20px;
     transition: all 0.3s ease-in-out;
-    margin: 30px;
+    margin: 20px;
 }
 
 .dark .resetButton{
     background-color: var(--dark-second);
 }
     
-.resetButton:hover{
-    background-color: var(--color-hover);
+@media (hover: hover) and (pointer: fine) {
+    .resetButton:hover {
+    background-color: #01f5dd;
     color: var(--color-text);
-    font-weight: 600;
-    font-size: 15px;
     position: relative;
     cursor: pointer;
+    transform: scale(1.5);
+    }
+}
+
+.resetButton:active{
+    transform: scale(1.2);
+    background-color: #01f5dd;
+    color: var(--color-text);
 }

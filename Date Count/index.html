@@ -60,8 +60,17 @@
         <span class="date-2">Ngày 2:</span>
         <span class="date-range">Date range:</span>
     </div>
-    <button class="resetButton" onclick="resetAll();"> Click me to reset </button>
 
+    <div class="button">
+        <button class="resetButton" onclick="resetAll();"> Click me to reset </button>
+
+        <br>
+        <br>
+        
+        <button class="alert-Toggle"></button>
+    </div>
+
+    <script> window.alert = function() { }; </script>
     <script src="script.js"></script>
 </body>
 </html>
