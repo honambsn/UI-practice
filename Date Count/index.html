@@ -7,9 +7,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/gif" href="icons/icons8-date-48.png">
+
 </head>
 
 <body class="light">
+    <div class="header">
+        <h1>Date Count</h1>
+        <button class="alert-toggle">click me</button>
+    </div>
+
     <div class="calendar">
         <div class="calendar-header">
             <span class="month-picker" id="month-picker">
@@ -62,12 +69,9 @@
     </div>
 
     <div class="button">
-        <button class="resetButton" onclick="resetAll();"> Click me to reset </button>
+        <!-- <button class="resetButton" onclick="resetAll();"> Click me to reset </button> -->
+         <button class="resetButton">Click me to reset</button>
 
-        <br>
-        <br>
-        
-        <button class="alert-Toggle"></button>
     </div>
 
     <script> window.alert = function() { }; </script>

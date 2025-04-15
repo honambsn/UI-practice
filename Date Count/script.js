@@ -2,19 +2,31 @@ function toggleDarkMode() {
     const body = document.body;
     const icon = document.querySelector('.toggle i');
 
-    // Toggle between dark and light mode by switching classes
-    body.classList.toggle('dark');
-    body.classList.toggle('light');
+    // First, add the fade-out effect
+    icon.classList.add('fade-out');
 
-    // Change the icon based on the mode
-    icon.classList.toggle('fa-solid', body.classList.contains('light'));
-    icon.classList.toggle('fa-moon', body.classList.contains('light'));
-    icon.classList.toggle('fa-regular', body.classList.contains('dark'));
-    icon.classList.toggle('fa-sun', body.classList.contains('dark'));
+    // Wait for the fade-out animation to complete (0.3s as per our CSS transition)
+    setTimeout(() => {
+        // Toggle between dark and light mode by switching classes
+        body.classList.toggle('dark');
+        body.classList.toggle('light');
+
+        // Update the icon
+        if (body.classList.contains('light')) {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        } else {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        // Remove the fade-out class after the icon has been switched, and allow it to fade back in
+        icon.classList.remove('fade-out');
+    }, 300); // 300ms to match the CSS transition time
 }
 
 // Attach the function to the switch button
-document.querySelector('.dark-mode-switch').onclick = toggleDarkMode;
+document.querySelector('.dark-mode-switch').addEventListener('click', toggleDarkMode);
 
 
 // Check leap year
@@ -291,3 +303,7 @@ window.addEventListener('resize', () => {
         month_list.addEventListener('transitionend', onTransitionEnd);
     }
 });
+
+const resetBtn = document.querySelector('.resetButton');
+
+resetBtn.addEventListener('click', resetAll);
