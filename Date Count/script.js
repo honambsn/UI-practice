@@ -307,3 +307,26 @@ window.addEventListener('resize', () => {
 const resetBtn = document.querySelector('.resetButton');
 
 resetBtn.addEventListener('click', resetAll);
+
+function todoToggle() {
+    const h1 = document.querySelector('.toggle-todo');
+
+    // Fade out the current text
+    h1.classList.add('fade');
+
+    // After the fade-out, change the text
+    setTimeout(function() {
+        if (h1.textContent === "Date Count") {
+            h1.textContent = "Count Down";
+        } else {
+            h1.textContent = "Date Count";
+        }
+
+        // Fade in the new text
+        h1.classList.remove('fade');
+    }, 300); // Delay should match the fade-out time (0.3s)
+}
+
+// Add event listener
+const h1 = document.querySelector('.toggle-todo');
+h1.addEventListener("click", todoToggle);
