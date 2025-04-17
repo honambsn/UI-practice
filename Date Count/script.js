@@ -311,6 +311,14 @@ resetBtn.addEventListener('click', resetAll);
 function todoToggle() {
     const h1 = document.querySelector('.toggle-todo');
 
+    if (h1.classList.contains('disable')) {
+        return; // If already disable, do nothing
+        
+    }
+
+    // Disable the toggle to prevent multiple clicks
+    h1.classList.add('disable');
+
     // Fade out the current text
     h1.classList.add('fade');
 
@@ -324,6 +332,12 @@ function todoToggle() {
 
         // Fade in the new text
         h1.classList.remove('fade');
+
+        setTimeout(function() {
+            // Re-enable the toggle after the fade-in
+            h1.classList.remove('disable');
+        }
+        , 1500); // Delay should match the fade-in time (0.3s)
     }, 300); // Delay should match the fade-out time (0.3s)
 }
 
