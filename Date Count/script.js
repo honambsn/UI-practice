@@ -343,4 +343,56 @@ function todoToggle() {
 
 // Add event listener
 const h1 = document.querySelector('.toggle-todo');
-h1.addEventListener("click", todoToggle);
+//h1.addEventListener("click", todoToggle);
+
+
+
+function toggleBody() {
+    const body = document.body;
+    const header = document.querySelector('.header');
+    const h1 = document.querySelector('.toggle-todo');
+
+    if (h1.classList.contains('disabled')) {
+        h1.classList.add('vibrate');
+
+        setTimeout(() => {
+            h1.classList.remove('vibrate');
+        }, 500);
+        return; // If already disable, do nothing
+        
+    }
+
+    // Disable the toggle to prevent multiple clicks
+    h1.classList.add('disabled');
+
+    // Fade out the current text
+    h1.classList.add('fade');
+
+    
+    // Wait for the fade-out animation to complete (0.3s as per our CSS transition)
+    setTimeout(() => {
+        // Toggle between dark and light mode by switching classes
+        body.classList.toggle('date-count');
+        body.classList.toggle('count-down');
+
+        // Update the icon
+        if (body.classList.contains('date-count')) {
+            h1.textContent = "Date Count";
+        } else {
+            h1.textContent = "Count Down";
+        }
+
+        
+        // Fade in the new text
+        h1.classList.remove('fade');
+        h1.classList.add('enable');
+
+        setTimeout(function() {
+            // Re-enable the toggle after the fade-in
+            h1.classList.remove('disabled');
+            h1.classList.remove('enable');
+        }
+        , 1500); // Delay should match the fade-in time (0.3s)
+    },300); // 300ms to match the CSS transition time
+}
+document.querySelector('.header').addEventListener('click', toggleBody);

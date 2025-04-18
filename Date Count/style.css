@@ -537,12 +537,33 @@ html, body{
 }
 
 .toggle-todo.fade {
+    transform: scale(0.5);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+
+.toggle-todo.enable {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .toggle-todo.disabled {
     pointer-events: none;
     cursor: not-allowed;
-    opacity: 0.5;
+    color: red !important;
+}
+
+
+.toggle-todo.vibrate {
+    animation: vibrate 0.3s linear; /* Thêm hiệu ứng rung khi click vào */
+}
+
+/* Định nghĩa hiệu ứng rung */
+@keyframes vibrate {
+    0% { transform: translates(0, 0); }
+    25% { transform: translate(-10px, -10px); } /* Di chuyển xa hơn về phía trái */
+    50% { transform: translate(10px, 10px); }  /* Di chuyển xa hơn về phía phải */
+    75% { transform: translate(-10px, -10px); }
+    100% { transform: translate(0, 0); }
 }
