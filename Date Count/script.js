@@ -1,9 +1,12 @@
 function toggleDarkMode() {
     const body = document.body;
     const icon = document.querySelector('.toggle i');
+    const darkModeSpan = document.querySelector('.calendar-footer .toggle span');
+
 
     // First, add the fade-out effect
     icon.classList.add('fade-out');
+    darkModeSpan.classList.add('fade-in');
 
     // Wait for the fade-out animation to complete (0.3s as per our CSS transition)
     setTimeout(() => {
@@ -13,15 +16,19 @@ function toggleDarkMode() {
 
         // Update the icon
         if (body.classList.contains('light')) {
+            
+            darkModeSpan.textContent = "Dark Mode";
             icon.classList.remove('fa-sun');
             icon.classList.add('fa-moon');
         } else {
+            darkModeSpan.textContent = "Light Mode";
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
         }
 
         // Remove the fade-out class after the icon has been switched, and allow it to fade back in
         icon.classList.remove('fade-out');
+        darkModeSpan.classList.remove('fade-in');
     }, 300); // 300ms to match the CSS transition time
 }
 
@@ -308,43 +315,6 @@ const resetBtn = document.querySelector('.resetButton');
 
 resetBtn.addEventListener('click', resetAll);
 
-function todoToggle() {
-    const h1 = document.querySelector('.toggle-todo');
-
-    if (h1.classList.contains('disable')) {
-        return; // If already disable, do nothing
-        
-    }
-
-    // Disable the toggle to prevent multiple clicks
-    h1.classList.add('disable');
-
-    // Fade out the current text
-    h1.classList.add('fade');
-
-    // After the fade-out, change the text
-    setTimeout(function() {
-        if (h1.textContent === "Date Count") {
-            h1.textContent = "Count Down";
-        } else {
-            h1.textContent = "Date Count";
-        }
-
-        // Fade in the new text
-        h1.classList.remove('fade');
-
-        setTimeout(function() {
-            // Re-enable the toggle after the fade-in
-            h1.classList.remove('disable');
-        }
-        , 1500); // Delay should match the fade-in time (0.3s)
-    }, 300); // Delay should match the fade-out time (0.3s)
-}
-
-// Add event listener
-const h1 = document.querySelector('.toggle-todo');
-//h1.addEventListener("click", todoToggle);
-
 
 
 function toggleBody() {
@@ -378,8 +348,10 @@ function toggleBody() {
         // Update the icon
         if (body.classList.contains('date-count')) {
             h1.textContent = "Date Count";
+            resetAll(); // Reset all dates when switching to Date Count mode
         } else {
             h1.textContent = "Count Down";
+            changeToCountDown();
         }
 
         
@@ -394,5 +366,27 @@ function toggleBody() {
         }
         , 1500); // Delay should match the fade-in time (0.3s)
     },300); // 300ms to match the CSS transition time
+
+    if (body.classList.contains('date-count')) {
+        alert('Date Count mode is enabled!');
+    }
+    else {
+        alert('Count Down mode is enabled!');
+    }
 }
 document.querySelector('.header').addEventListener('click', toggleBody);
+
+
+function changeToCountDown() {
+    const body = document.body;
+
+    // Get today's date
+    const today = new Date();
+
+    // Format the date as "Ngày dd/mm/yyyy" using toLocaleDateString
+    const formattedDate = today.toLocaleDateString('vi-VN'); // 'vi-VN' for Vietnamese locale
+
+    // Display it in the span with class "date-1"
+    document.querySelector('.date-1').textContent = `Ngày ${formattedDate}`;
+
+}
