@@ -6,6 +6,7 @@
     <title>Date Count</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="countdown.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/gif" href="icons/icons8-date-48.png">
 
@@ -49,6 +50,11 @@
         </div>
 
         <div class="calendar-footer">
+            <div class="today-info">
+                <i class="fa fa-undo"></i>
+                <span class="undo-date">Back today</span>
+            </div>
+
             <div class="toggle">
                 <i class="fa-solid fa-moon"></i>
                 <span class="mode-text">Dark Mode</span>
@@ -60,7 +66,7 @@
 
         <div class="month-list hide"></div>
     </div>
-    
+
     <div class="date-result">
         <span class="date-1">Ngày 1:</span>
         <span class="date-2">Ngày 2:</span>
@@ -69,7 +75,7 @@
 
     <div class="button">
         <!-- <button class="resetButton" onclick="resetAll();"> Click me to reset </button> -->
-         <button class="resetButton">Click me to reset</button>
+        <button class="resetButton">Click me to reset</button>
 
     </div>
 

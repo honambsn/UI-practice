@@ -9,8 +9,8 @@
     --dark-hover: #323048;
     --dark-text: #f8fbff;
 
-    --light-body: #f3f8fe;
-    --light-main: #fdfdfd;
+    --light-body: #AEE1E1;
+    --light-main: #DEF5E5;
     --light-second: #c3c2c8;
     --light-hover: #edf0f5;
     --light-text: #151426;
@@ -38,10 +38,6 @@
     --bg-second: var(--light-second);
     --color-hover: var(--light-hover);
     --color-text: var(--light-text);
-}
-
-body.count-down{
-    --curr-color: rgb(250, 76, 253);
 }
 
 *{

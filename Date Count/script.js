@@ -387,6 +387,6 @@ function changeToCountDown() {
     const formattedDate = today.toLocaleDateString('vi-VN'); // 'vi-VN' for Vietnamese locale
 
     // Display it in the span with class "date-1"
-    document.querySelector('.date-1').textContent = `Ngày ${formattedDate}`;
+    document.querySelector('.date-1').textContent = `Hôm nay: ${formattedDate}`;
 
 }
