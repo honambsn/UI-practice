@@ -261,14 +261,108 @@ html, body{
 .calendar-footer{
     padding: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-bottom: 20px;
 }
 
-.toggle{
+.today-info{
     display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease-out; /* Smooth transition */
+}
+
+.today-info i{
+    margin-right: 15px;
+    scale: 1.2;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease-out;
+    animation: reverseRotate 0.85s ease-in-out forwards;
+    cursor: pointer;
+}
+
+.today-info span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease-out; /* Smooth transition */
+    animation: zoomOut 0.85s ease-in-out forwards;
+}
+
+/* Define keyframes for smooth 360-degree rotation and scaling */
+@keyframes smoothRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    100% {
+        transform: rotate(-360deg) scale(1.3); /* End of hover (full rotation + scale) */
+    }
+}
+
+/* Smooth transition for un-hover effect (when scale and rotation should reverse slowly) */
+@keyframes reverseRotate {
+    0% {
+        transform: rotate(360deg) scale(1.3); /* Start from final hover state */
+    }
+    100% {
+        transform: rotate(0deg) scale(1); /* Return to original state */
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1); /* End of hover (full rotation + scale) */
+    }
+}
+
+@keyframes zoomOut {
+    0% {
+        transform: scale(1.1); /* Start from final hover state */
+    }
+    100% {
+        transform: scale(1); /* Return to original state */
+    }
+}
+
+/* Apply animation on hover */
+
+
+@media (hover: hover) and (pointer: fine) {
+    .today-info i:hover {
+        animation: smoothRotate 0.85s ease-in-out forwards;
+        color: #228B22;
+    }
+    /* }
+    .today-info span:hover{
+        cursor: pointer;
+        background-color: transparent;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+        animation: zoomIn 0.85s ease-in-out forwards;
+    } */
+}
+
+
+
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .toggle i{
@@ -580,10 +674,10 @@ html, body{
 
 
 .toggle-todo.vibrate {
-    animation: vibrate 0.3s linear; /* Thêm hiệu ứng rung khi click vào */
+    animation: vibrate 0.3s linear infinite;  /* add vibrate effect when clicked */
 }
 
-/* Định nghĩa hiệu ứng rung */
+/* define vibrate animation */
 @keyframes vibrate {
     0% { transform: translates(0, 0); }
     25% { transform: translate(-10px, -10px); } /* Di chuyển xa hơn về phía trái */
