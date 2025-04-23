@@ -390,3 +390,20 @@ function changeToCountDown() {
     document.querySelector('.date-1').textContent = `Hôm nay: ${formattedDate}`;
 
 }
+
+function backToday(){
+    const body = document.body;
+    const icon = document.querySelector('.today-info i');
+
+    icon.classList.add('active');
+    console.log("Đã quay về hôm nay!");
+    icon.classList.remove('active');
+
+    const today = new Date();
+    const today_month = today.getMonth();
+    const today_year = today.getFullYear();
+
+    generateCalendar(today_month, today_year);
+}
+
+document.querySelector('.today-info i').addEventListener('click', backToday);
