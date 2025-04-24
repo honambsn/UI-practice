@@ -114,7 +114,7 @@ function generateCalendar(month, year) {
 // Tạo div cho một ngày trong lịch
 function createCalendarDay(dayNumber, month, year) {
     const day = document.createElement('div');
-    day.classList.add('calendar-day-hover');
+    day.classList.add('calendar-day-date');
     day.innerHTML = `${dayNumber} <span></span><span></span><span></span><span></span>`;
 
     // Highlight ngày hiện tại
@@ -407,3 +407,27 @@ function backToday(){
 }
 
 document.querySelector('.today-info i').addEventListener('click', backToday);
+
+// Function to handle hover timeout behavior
+function handleHoverTimeout(element, delay) {
+    let hoverTimeout;
+
+    element.addEventListener('mouseenter', () => {
+        // Start a timer when the mouse enters
+        hoverTimeout = setTimeout(() => {
+            element.classList.add('active');  // Perform action after the delay
+            alert("Bạn đã di chuột trong 2 giây!");
+            console.log("Bạn đã di chuột trong 2 giây!");
+        }, delay);
+    });
+
+    element.addEventListener('mouseleave', () => {
+        // Clear the timer if the mouse leaves before the delay is over
+        clearTimeout(hoverTimeout);
+        element.classList.remove('active');  // Remove active state
+    });
+}
+
+// Call the function with the element and desired delay (2 seconds)
+const hoverBox = document.getElementById('hover-box');
+handleHoverTimeout(hoverBox, 1000);  // 2000 ms = 2 seconds
