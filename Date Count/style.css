@@ -688,6 +688,9 @@ html, body{
 }
 
 
+
+
+/* ============== */
 .hover-box {
     padding: 20px;
     background-color: #3498db;
@@ -700,4 +703,31 @@ html, body{
 
 .hover-box.active {
     background-color: #2ecc71;  /* Màu xanh khi di chuột trong thời gian đủ */
+}
+
+/* Context menu styling */
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1000;
+}
+
+.context-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.context-menu ul li {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #555;
 }
