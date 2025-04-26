@@ -435,42 +435,11 @@ handleHoverTimeout(hoverBox, 1000);  // 2000 ms = 2 seconds
 
 
 
-// // Get the context menu element
-// const contextMenu = document.getElementById('context-menu');
-
-// // Listen for right-click event on the body
-// document.body.addEventListener('contextmenu', function(e) {
-//     e.preventDefault();  // Prevent the default right-click menu
-
-//     // Get mouse position
-//     const mouseX = e.pageX;
-//     const mouseY = e.pageY;
-
-//     // Set the position of the custom context menu
-//     contextMenu.style.left = `${mouseX}px`;
-//     contextMenu.style.top = `${mouseY}px`;
-
-//     // Show the context menu
-//     contextMenu.style.display = 'block';
-// });
-
-// // Close the context menu when clicking anywhere else on the page
-// document.addEventListener('click', function(e) {
-//     if (e.button !== 2) {  // If it's not a right-click
-//         contextMenu.style.display = 'none';
-//     }
-// });
-
-
 // Get the context menu element
 const contextMenu = document.getElementById('context-menu');
 
-// Get the elements to attach the context menu to
-const rightClickText = document.getElementById('right-click-text');
-const rightClickImage = document.getElementById('right-click-image');
-
-// Function to handle right-click
-function showContextMenu(e) {
+// Listen for right-click event on the body
+document.body.addEventListener('contextmenu', function(e) {
     e.preventDefault();  // Prevent the default right-click menu
 
     // Get mouse position
@@ -483,11 +452,7 @@ function showContextMenu(e) {
 
     // Show the context menu
     contextMenu.style.display = 'block';
-}
-
-// Add event listener for right-click on specific elements
-rightClickText.addEventListener('contextmenu', showContextMenu);
-rightClickImage.addEventListener('contextmenu', showContextMenu);
+});
 
 // Close the context menu when clicking anywhere else on the page
 document.addEventListener('click', function(e) {
@@ -495,3 +460,38 @@ document.addEventListener('click', function(e) {
         contextMenu.style.display = 'none';
     }
 });
+
+
+// // Get the context menu element
+// const contextMenu = document.getElementById('context-menu');
+
+// // Get the elements to attach the context menu to
+// const rightClickText = document.getElementById('right-click-text');
+// const rightClickImage = document.getElementById('right-click-image');
+
+// // Function to handle right-click
+// function showContextMenu(e) {
+//     e.preventDefault();  // Prevent the default right-click menu
+
+//     // Get mouse position
+//     const mouseX = e.pageX;
+//     const mouseY = e.pageY;
+
+//     // Set the position of the custom context menu
+//     contextMenu.style.left = `${mouseX}px`;
+//     contextMenu.style.top = `${mouseY}px`;
+
+//     // Show the context menu
+//     contextMenu.style.display = 'block';
+// }
+
+// // Add event listener for right-click on specific elements
+// rightClickText.addEventListener('contextmenu', showContextMenu);
+// rightClickImage.addEventListener('contextmenu', showContextMenu);
+
+// // Close the context menu when clicking anywhere else on the page
+// document.addEventListener('click', function(e) {
+//     if (e.button !== 2) {  // If it's not a right-click
+//         contextMenu.style.display = 'none';
+//     }
+// });

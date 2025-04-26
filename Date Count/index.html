@@ -93,14 +93,14 @@
         Di chuột vào đây trong 2 giây
     </div>
 
-    <div class="content">
+    <!-- <div class="content">
         <p id="right-click-text">Hãy nhấp chuột phải vào văn bản này để xem menu tùy chọn.</p>
         <img id="right-click-image" src="https://via.placeholder.com/150" alt="Placeholder Image">
     </div>
     
     <div class="content">
         <p>Hãy nhấp chuột phải để xem menu tùy chọn.</p>
-    </div>
+    </div> -->
     <!-- Custom Context Menu -->
     <div id="context-menu" class="context-menu">
         <ul>
@@ -109,10 +109,12 @@
             <li onclick="alert('Back')">Quay lại</li>
             <li onclick="alert('Inspect')">Kiểm tra phần tử</li>
             <li onclick="alert('Settings')">Cài đặt</li>
+            <li onabort="alert('ManageEvent')">Quản lý sự kiện</li>
+            
         </ul>
     </div>
 
-    <script> window.alert = function() { }; </script>
+    <!-- <script> window.alert = function() { }; </script> -->
     <script src="script.js"></script>
 </body>
 </html>
