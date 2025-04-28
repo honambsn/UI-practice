@@ -731,3 +731,16 @@ html, body{
 .context-menu ul li:hover {
     background-color: #555;
 }
+
+.context-menu:hover ul li{
+    border-radius: 8px;
+}
+
+.calendar-day-date {
+    position: relative;
+    /* Các kiểu khác cho calendar-day-date */
+}
+
+.calendar-day-date.active {
+    pointer-events: none; /* Không cho phép calendar-day-date nhận sự kiện khi context menu hiển thị */
+}

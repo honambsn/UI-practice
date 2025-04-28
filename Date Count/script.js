@@ -408,58 +408,91 @@ function backToday(){
 
 document.querySelector('.today-info i').addEventListener('click', backToday);
 
-// Function to handle hover timeout behavior
+ 
+const contextMenu = document.getElementById('context-menu');
+
+// Hàm xử lý hành vi hover với timeout cho từng phần tử
 function handleHoverTimeout(element, delay) {
     let hoverTimeout;
 
-    element.addEventListener('mouseenter', () => {
-        // Start a timer when the mouse enters
+    element.addEventListener('mouseenter', (e) => {
+        // Bắt đầu đếm thời gian khi chuột di vào
         hoverTimeout = setTimeout(() => {
-            element.classList.add('active');  // Perform action after the delay
-            alert("Bạn đã di chuột trong 2 giây!");
-            console.log("Bạn đã di chuột trong 2 giây!");
+            element.classList.add('active');  // Thực hiện hành động sau khi hết thời gian
+            alert("Bạn đã di chuột trong 1 giây!");
+            console.log("Bạn đã di chuột trong 1 giây!");
+
+            // Lấy vị trí chuột
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+
+            // Đặt vị trí cho context menu
+            contextMenu.style.left = `${mouseX}px`;
+            contextMenu.style.top = `${mouseY}px`;
+
+            // Hiển thị context menu
+            contextMenu.style.display = 'block';
         }, delay);
     });
 
     element.addEventListener('mouseleave', () => {
-        // Clear the timer if the mouse leaves before the delay is over
+        // Hủy bỏ bộ đếm thời gian nếu chuột rời đi trước khi hết thời gian
         clearTimeout(hoverTimeout);
-        element.classList.remove('active');  // Remove active state
+    });
+
+    contextMenu.addEventListener('mouseleave', () => {
+        // Ẩn context menu khi chuột rời khỏi context menu
+        contextMenu.style.display = 'none';
+        element.classList.remove('active');
+    });
+
+    contextMenu.addEventListener('mouseenter', () => {
+        // Nếu chuột vào context menu, không ẩn menu
+        clearTimeout(hoverTimeout);
     });
 }
 
-// Call the function with the element and desired delay (2 seconds)
-const hoverBox = document.getElementById('hover-box');
-handleHoverTimeout(hoverBox, 1000);  // 2000 ms = 2 seconds
+// Chọn tất cả các phần tử .calendar-day-date
+const hoverBoxes = document.querySelectorAll('.calendar-day-date');
 
-
-
-
-// Get the context menu element
-const contextMenu = document.getElementById('context-menu');
-
-// Listen for right-click event on the body
-document.body.addEventListener('contextmenu', function(e) {
-    e.preventDefault();  // Prevent the default right-click menu
-
-    // Get mouse position
-    const mouseX = e.pageX;
-    const mouseY = e.pageY;
-
-    // Set the position of the custom context menu
-    contextMenu.style.left = `${mouseX}px`;
-    contextMenu.style.top = `${mouseY}px`;
-
-    // Show the context menu
-    contextMenu.style.display = 'block';
+// Lặp qua tất cả các phần tử và gán hành động hover cho từng phần tử
+hoverBoxes.forEach(hoverBox => {
+    handleHoverTimeout(hoverBox, 1000); // Thời gian delay 1 giây
 });
 
-// Close the context menu when clicking anywhere else on the page
-document.addEventListener('click', function(e) {
-    if (e.button !== 2) {  // If it's not a right-click
+// Đóng context menu nếu nhấp ở nơi khác ngoài menu
+document.addEventListener('click', (e) => {
+    if (!contextMenu.contains(e.target) && !Array.from(hoverBoxes).includes(e.target)) {
         contextMenu.style.display = 'none';
+        hoverBoxes.forEach(hoverBox => hoverBox.classList.remove('active'));
     }
 });
+
+// // Get the context menu element
+// //const contextMenu = document.getElementById('context-menu');
+
+// // Listen for right-click event on the body
+// document.body.addEventListener('contextmenu', function(e) {
+//     e.preventDefault();  // Prevent the default right-click menu
+
+//     // Get mouse position
+//     const mouseX = e.pageX;
+//     const mouseY = e.pageY;
+
+//     // Set the position of the custom context menu
+//     contextMenu.style.left = `${mouseX}px`;
+//     contextMenu.style.top = `${mouseY}px`;
+
+//     // Show the context menu
+//     contextMenu.style.display = 'block';
+// });
+
+// // Close the context menu when clicking anywhere else on the page
+// document.addEventListener('click', function(e) {
+//     if (e.button !== 2) {  // If it's not a right-click
+//         contextMenu.style.display = 'none';
+//     }
+// });
 
 
 // // Get the context menu element
