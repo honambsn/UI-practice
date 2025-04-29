@@ -528,3 +528,28 @@ document.addEventListener('click', (e) => {
 //         contextMenu.style.display = 'none';
 //     }
 // });
+
+// Hàm để mở và đóng modal
+function manageEvent() {
+    // Lấy phần tử modal và các phần tử cần thiết
+
+    console.log("Đã mở modal!");
+
+    var modal = document.getElementById("modal");
+    var closeBtn = document.getElementById("closeBtn");
+
+    // Mở modal khi nhấn vào phần tử li
+    modal.style.display = "block";
+
+    // Đóng modal khi nhấn vào nút đóng
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Đóng modal khi nhấn ra ngoài modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}

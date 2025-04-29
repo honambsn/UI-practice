@@ -80,22 +80,30 @@
 
     </div>
 
-    <div class="hover-box" id="hover-box">
-        Di chuột vào đây trong 2 giây
-    </div>
 
     <div id="context-menu" class="context-menu">
         <ul>
-            <!-- <li onclick="alert('New Tab')">Mở Tab Mới</li>
-            <li onclick="alert('Reload')">Tải lại</li>
-            <li onclick="alert('Back')">Quay lại</li>
-            <li onclick="alert('Inspect')">Kiểm tra phần tử</li>
-            <li onclick="alert('Settings')">Cài đặt</li> -->
-            <li onabort="alert('ManageEvent')">Quản lý sự kiện</li>
+            <li onclick="manageEvent();" onabort="alert('ManageEvent')">Quản lý sự kiện</li>
             
         </ul>
     </div>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeBtn" class="close">&times;</span>
+            <h2>Đăng ký</h2>
+            <form id="form">
+                <label for="name">Tên:</label>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+    
     <script> window.alert = function() { }; </script>
     <script src="script.js"></script>
 </body>
