@@ -539,17 +539,27 @@ function manageEvent() {
     var closeBtn = document.getElementById("closeBtn");
 
     // Mở modal khi nhấn vào phần tử li
-    modal.style.display = "block";
+    modal.style.display = "flex";
+
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
 
     // Đóng modal khi nhấn vào nút đóng
     closeBtn.onclick = function() {
-        modal.style.display = "none";
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = "none";    
+        }, 300);
     }
 
     // Đóng modal khi nhấn ra ngoài modal
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = "none";    
+            }, 300);
         }
     }
 }

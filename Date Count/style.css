@@ -751,36 +751,103 @@ html, body{
 .modal {
     display: none; /* Ẩn modal mặc định */
     position: fixed;
+    justify-content: center;
+    align-items: center;
     z-index: 1; /* Đảm bảo modal nằm trên các phần tử khác */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    overflow: auto; /* Thêm thanh cuộn nếu nội dung lớn hơn modal */
     background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    
+    
+    /* display: flex; */
+    opacity: 0;  /* Ban đầu opacity là 0 (ẩn modal) */
+    transform: scale(0.8);  /* Ban đầu modal bị thu nhỏ */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Hiệu ứng cho opacity và transform */
 }
+
+.modal.show {
+    opacity: 1;  /* Khi modal mở, opacity trở lại 1 */
+    transform: scale(1);  /* Khi modal mở, scale về kích thước bình thường */
+  }
 
 /* Nội dung modal */
 .modal-content {
+    min-width: 360px;
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 50%;
+    max-width: 600px; /* Đặt chiều rộng tối đa cho modal */
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.3);
+    
 }
 
 /* Nút đóng */
 .close {
     color: #aaa;
-    font-size: 28px;
+    font-size: 40px;
     font-weight: bold;
     position: absolute;
     top: 10px;
     right: 25px;
+    transition: all 0.3s ease-in-out;
 }
+
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: red;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+#event-form {
+    min-width: 260px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+#event-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#event-form input,
+#event-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+#event-form button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#event-form button:hover {
+    background-color: #0056b3;
 }
