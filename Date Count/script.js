@@ -327,6 +327,7 @@ function toggleBody() {
 
         setTimeout(() => {
             h1.classList.remove('vibrate');
+            h1.textContent = "Đang chuyển đổi...";
         }, 500);
         return; // If already disable, do nothing
         

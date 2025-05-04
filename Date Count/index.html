@@ -88,24 +88,36 @@
         </ul>
     </div>
 
-    <div id="modal" class="modal">
+    <!-- <div id="modal" class="modal">
+         -->
+         <div id="modal" class="modal show" style="display: flex;">
         <div class="modal-content">
             <span id="closeBtn" class="close">&times;</span>
             <h2>Đăng ký</h2>
             <form id="event-form">
-                <h3>Thêm / Sửa Sự kiện</h3>
+                <h3><span>Thêm / Sửa Sự kiện</span></h3>
               
-                <label for="event-title">Tiêu đề:</label>
-                <input type="text" id="event-title" name="title" required>
+                
+                <div id="event-type">
+                    <label for="event-title"><span>Tiêu đề:</span></label>
+                    <input type="text" id="event-title" name="title" required>
+                </div>
+                
               
-                <label for="event-date">Ngày:</label>
-                <input type="date" id="event-date" name="date" required>
+                <div id="event-type">
+                    <label for="event-date"><span>Ngày:</span></label>
+                    <input type="date" id="event-date" name="date" required>
+                </div>
               
-                <label for="event-time">Giờ:</label>
-                <input type="time" id="event-time" name="time">
+                <div id="event-type">
+                    <label for="event-time"><span>Giờ:</span></label>
+                    <input type="time" id="event-time" name="time">
+                </div>
               
-                <label for="event-description">Mô tả:</label>
-                <textarea id="event-description" name="description"></textarea>
+                <div id="event-type">
+                    <label for="event-description"><span>Mô tả:</span></label>
+                    <textarea id="event-description" name="description"></textarea>
+                </div>
               
                 <button type="submit">Lưu sự kiện</button>
             </form>
