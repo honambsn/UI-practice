@@ -864,14 +864,9 @@ html, body{
     border-radius: 10px;
 }
 
-/* #event-form label span:hover{
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
-    border-radius: 10px;
-} */
-
 #event-form input,
-#event-form textarea {
+#event-form textarea,
+#event-form select {
     width: 100%;
     padding: 8px;
     margin-top: 4px;
@@ -881,6 +876,26 @@ html, body{
     border: 1px solid #ccc;
     resize: none;
     transition: all 0.05s ease-in-out;
+    font-family: inherit;
+}
+
+.color-wrapper {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 30%;
+    overflow: hidden;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-wrapper input[type="color"] {
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+    background: none;
 }
 
 #event-form input:focus,
@@ -888,7 +903,6 @@ html, body{
     border-color: #007BFF;
     outline: 2px solid #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    
 }
 
 #event-form button {

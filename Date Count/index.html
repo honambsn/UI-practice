@@ -98,23 +98,57 @@
                 <h3><span>Thêm / Sửa Sự kiện</span></h3>
               
                 
-                <div id="event-type">
+                <div class="event-type">
                     <label for="event-title"><span>Tiêu đề:</span></label>
                     <input type="text" id="event-title" name="title" required>
                 </div>
                 
               
-                <div id="event-type">
+                <div class="event-type">
                     <label for="event-date"><span>Ngày:</span></label>
                     <input type="date" id="event-date" name="date" required>
                 </div>
               
-                <div id="event-type">
+                <div class="event-type">
                     <label for="event-time"><span>Giờ:</span></label>
-                    <input type="time" id="event-time" name="time">
+                    <input type="time" id="event-time" name="time" required>
                 </div>
+
+                <div class="event-type">
+                    <label for="event-category"><span>Loại sự kiện:</span></label>
+                    <select id="event-category" name="category">
+                        <option value="meeting">Họp</option>
+                        <option value="birthday">Sinh nhật</option>
+                        <option value="appointment">Cuộc hẹn</option>
+                        <option value="other">Khác</option>
+                    </select>
+                </div>
+
+                <div class="event-type">
+                    <label for="event-participants"><span>Người tham gia (Email):</span></label>
+                    <textarea id="event-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
+                </div>
+
+                <div class="event-type">
+                    <label for="event-color"><span>Màu sắc:</span></label>
+                    
+                    <div class="color-wrapper">
+                        <input type="color" id="event-color" name="color" value="red">
+                    </div>
+                    
+                </div>
+                
+                <div class="event-type">
+                    <label for="event-repeat"><span>Lặp lại:</span></label>
+                    <select id="event-repeat" name="repeat">
+                        <option value="none">Không</option>
+                        <option value="daily">Hàng ngày</option>
+                        <option value="weekly">Hàng tuần</option>
+                        <option value="monthly">Hàng tháng</option>
+                    </select>
+                </div>                           
               
-                <div id="event-type">
+                <div class="event-type">
                     <label for="event-description"><span>Mô tả:</span></label>
                     <textarea id="event-description" name="description"></textarea>
                 </div>
