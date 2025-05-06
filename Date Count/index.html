@@ -116,12 +116,23 @@
 
                 <div class="event-type">
                     <label for="event-category"><span>Loại sự kiện:</span></label>
-                    <select id="event-category" name="category">
-                        <option value="meeting">Họp</option>
-                        <option value="birthday">Sinh nhật</option>
-                        <option value="appointment">Cuộc hẹn</option>
-                        <option value="other">Khác</option>
-                    </select>
+                    <div class="event-category">
+                        <!-- <div class="btn-event-category">
+                            <button class="event-category-btn">Chọn loại sự kiện</button>
+                        </div> -->
+
+                        <div class="event-category-btn">
+                            <!-- <button class="event-category-btn">Chọn loại sự kiện</button> -->
+                            <span>Chọn loại sự kiện</span>
+                        </div>
+                        <ul class="event-category-menu">
+                            <li class="event-category-item" data-value="meeting"><span>Họp</span></li>
+                            <li class="event-category-item" data-value="birthday"><span>Sinh nhật</span></li>
+                            <li class="event-category-item" data-value="appointment"><span>Cuộc hẹn</span></li>
+                            <li class="event-category-item" data-value="other"><span>Khác</span></li>
+                        </ul>
+                    </div>
+                    
                 </div>
 
                 <div class="event-type">

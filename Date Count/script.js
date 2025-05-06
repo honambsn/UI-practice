@@ -564,3 +564,12 @@ function manageEvent() {
         }
     }
 }
+
+//dropdown menu
+// document.querySelectorAll('.dropdown-item').forEach(item => {
+//     item.addEventListener('click', function() {
+//         const selectedText = this.textContent;
+//         document.querySelector('.dropdown-btn').textContent = selectedText;  // Cập nhật tên sự kiện vào nút
+//         document.querySelector('.dropdown-menu').style.display = 'none'; // Đóng menu khi chọn
+//     });
+// });
