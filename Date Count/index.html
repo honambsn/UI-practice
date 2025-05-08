@@ -100,7 +100,7 @@
                 
                 <div class="event-type">
                     <label for="event-title"><span>Tiêu đề:</span></label>
-                    <input type="text" id="event-title" name="title" required>
+                    <input type="text" id="event-title" name="title" required placeholder="Nhập tiêu đề sự kiện">
                 </div>
                 
               
@@ -114,7 +114,7 @@
                     <input type="time" id="event-time" name="time" required>
                 </div>
 
-                <div class="event-type">
+                <!-- <div class="event-type">
                     <label for="event-category"><span>Loại sự kiện:</span></label>
                     <div class="event-category">
 
@@ -130,7 +130,7 @@
                         </ul>
                     </div>
                     
-                </div>
+                </div> -->
 
                 <div class="event-type">
                     <label for="event-participants"><span>Người tham gia (Email):</span></label>
@@ -140,10 +140,17 @@
                 <div class="event-type">
                     <label for="event-color"><span>Màu sắc:</span></label>
                     
-                    <div class="color-wrapper">
-                        <input type="color" id="event-color" name="color" value="red">
-                    </div>
-                    
+                    <div class="color-options">
+                        <div class="color-option color-default selected" data-color="#1a73e8"></div>
+                        <div class="color-option color-red" data-color="#d50000"></div>
+                        <div class="color-option color-orange" data-color="#f4511e"></div>
+                        <div class="color-option color-yellow" data-color="#f6bf26"></div>
+                        <div class="color-option color-green" data-color="#0b8043"></div>
+                        <div class="color-option color-teal" data-color="#009688"></div>
+                        <div class="color-option color-blue" data-color="#3f51b5"></div>
+                        <div class="color-option color-purple" data-color="#8e24aa"></div>
+                        <div class="color-option color-pink" data-color="#e67c73"></div>
+                    </div>    
                 </div>
                 
                 <div class="event-type">
@@ -158,10 +165,13 @@
               
                 <div class="event-type">
                     <label for="event-description"><span>Mô tả:</span></label>
-                    <textarea id="event-description" name="description"></textarea>
+                    <textarea id="event-description" name="description" placeholder="Description"></textarea>
                 </div>
               
-                <button type="submit">Lưu sự kiện</button>
+                <div class="event-button-container">
+                    <button type="submit" class="event-submit-btn">Lưu sự kiện</button>
+                  </div>
+                  
             </form>
         </div>
     </div>
