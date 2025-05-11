@@ -565,11 +565,39 @@ function manageEvent() {
     }
 }
 
-//dropdown menu
-// document.querySelectorAll('.dropdown-item').forEach(item => {
-//     item.addEventListener('click', function() {
-//         const selectedText = this.textContent;
-//         document.querySelector('.dropdown-btn').textContent = selectedText;  // Cập nhật tên sự kiện vào nút
-//         document.querySelector('.dropdown-menu').style.display = 'none'; // Đóng menu khi chọn
-//     });
-// });
+// ----------------------------------------
+
+// Get the necessary DOM elements
+const colorToggleBtn = document.getElementById("toggle-colors");
+const colorOptions = document.querySelector(".hidden-colors");
+const defaultColorOption = document.querySelector(".color-default");
+
+// Toggle the visibility of the color options when the button is clicked
+colorToggleBtn.addEventListener("click", function() {
+    // Toggle visibility of the hidden color options
+    if (colorOptions.style.display === "none" || colorOptions.style.display === "") {
+        colorOptions.style.display = "block";
+    } else {
+        colorOptions.style.display = "none";
+    }
+});
+
+// Change the selected color when a color option is clicked
+document.querySelectorAll(".color-option").forEach(function(colorOption) {
+    colorOption.addEventListener("click", function() {
+        // Get the color from the clicked option
+        const color = this.getAttribute("data-color");
+        
+        // Change the background color of the default option
+        defaultColorOption.style.backgroundColor = color;
+
+        // Make the clicked color option selected and reset others
+        document.querySelectorAll(".color-option").forEach(function(option) {
+            option.classList.remove("selected");
+        });
+        this.classList.add("selected");
+
+        // Close the color options dropdown
+        colorOptions.style.display = "none";
+    });
+});
