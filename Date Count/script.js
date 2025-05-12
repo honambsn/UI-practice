@@ -583,21 +583,47 @@ colorToggleBtn.addEventListener("click", function() {
 });
 
 // Change the selected color when a color option is clicked
-document.querySelectorAll(".color-option").forEach(function(colorOption) {
-    colorOption.addEventListener("click", function() {
-        // Get the color from the clicked option
-        const color = this.getAttribute("data-color");
-        
-        // Change the background color of the default option
-        defaultColorOption.style.backgroundColor = color;
+document.addEventListener('DOMContentLoaded', function() {
+    const colorOptions = document.querySelector('.color-options');
+    const hiddenColors = document.querySelector('.hidden-colors');
+    const colorDefault = document.querySelector('.color-default');  // Default color option
 
-        // Make the clicked color option selected and reset others
-        document.querySelectorAll(".color-option").forEach(function(option) {
-            option.classList.remove("selected");
+    // Toggle display of hidden color options when clicking on color options or caret icon
+    colorOptions.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent event from bubbling up
+        hiddenColors.style.display = hiddenColors.style.display === 'none' || hiddenColors.style.display === '' ? 'block' : 'none';
+    });
+
+    // Close the hidden color options if clicking outside the color options
+    document.addEventListener('click', function(event) {
+        if (!colorOptions.contains(event.target)) {
+            hiddenColors.style.display = 'none';
+        }
+    });
+
+    // Hide the hidden colors when the mouse leaves the color options
+    colorOptions.addEventListener('mouseleave', function() {
+        hiddenColors.style.display = 'none';
+    });
+
+    // Handle the color selection event
+    const colorChoices = document.querySelectorAll('.hidden-colors .color-option');
+    colorChoices.forEach(function(color) {
+        color.addEventListener('click', function(event) {
+            // Get the color value from the data-color attribute
+            const selectedColor = color.getAttribute('data-color');
+
+            // Update the background color of the color options
+            colorOptions.style.backgroundColor = selectedColor;
+
+            // Highlight the selected color by adding 'selected' class
+            colorChoices.forEach(function(item) {
+                item.classList.remove('selected');
+            });
+            color.classList.add('selected');
+
+            // Close the hidden color options after a color is selected
+            hiddenColors.style.display = 'none';
         });
-        this.classList.add("selected");
-
-        // Close the color options dropdown
-        colorOptions.style.display = "none";
     });
 });
