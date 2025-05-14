@@ -614,16 +614,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedColor = color.getAttribute('data-color');
 
             // Update the background color of the color options
+
             colorOptions.style.backgroundColor = selectedColor;
 
+
+            // Update the background color of the color options
+            colorDefault.style.backgroundColor = selectedColor;
+
             // Highlight the selected color by adding 'selected' class
-            colorChoices.forEach(function(item) {
+            document.querySelectorAll('.color-option').forEach(function (item){
                 item.classList.remove('selected');
             });
+            
+            //for paddding color
+            colorChoices.forEach(function(item) {
+
+                item.classList.remove('selected');
+
+            });
+
+            // Add 'selected' class to the clicked color option
             color.classList.add('selected');
 
-            // Close the hidden color options after a color is selected
-            hiddenColors.style.display = 'none';
+            if (colorOptions.classList.contains('selected'))
+                // Close the hidden color options after a color is selected            
+                hiddenColors.style.display = 'none';
         });
     });
 });

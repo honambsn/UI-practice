@@ -1010,7 +1010,6 @@ html, body{
     width: 30px; /* Ensure width is set */
     height: 30px; /* Ensure height is set */
     display: inline-block; /* Ensure colors are displayed side by side */
-    margin: 5px; /* Add some spacing between color options */
     cursor: pointer; /* Indicate the color is clickable */
     border-radius: 50%; /* Optional: Makes the color blocks round */
 
@@ -1021,15 +1020,18 @@ html, body{
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+.color-options{
+    position: relative;
+}
+
 .color-options .hidden-colors {
     display: none;
     position: absolute;
-    top: 40px;
-    left: 0;
+    left: 50%; /* Đẩy sang giữa */
+    transform: translateX(-50%) scale(1);
     z-index: 10;
     background-color: white;
     border: 1px solid #ccc;
-    padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
@@ -1043,11 +1045,24 @@ html, body{
     
 }
 
+.test{
+    padding: 5px;
+    background-color: aqua;
+}
+
 .color-options .hidden-colors .color-option:hover {
-    scale: 1.2;
+    padding: 5px;
     border-color: #ffffff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     transition: all 0.3s ease-in-out;
+}
+
+.hidden-colors .color-option:first-child {
+    margin-top: 2px;
+}
+
+.hidden-colors .color-option:last-child {
+    margin-bottom: -5px;
 }
 
 .selected {
