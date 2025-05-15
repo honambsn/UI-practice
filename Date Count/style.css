@@ -1094,3 +1094,70 @@ html, body{
     background-color: #0056b3;
 }
 
+
+/* ------------------------------------------------------ */
+
+
+/* ------------------------------------------------------ */
+/* Label styling */
+.event-type label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Styling the options container */
+.event-repeat-options {
+    display: block;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Individual option styling */
+.event-repeat-option {
+    padding: 12px 18px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    transition: background-color 0.3s;
+    min-width: 100px;
+    text-transform: capitalize;
+}
+
+/* Hover effect for the options */
+.event-repeat-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* Selected state for active option */
+.event-repeat-option.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Optional: label spacing */
+.event-type > label {
+    margin-bottom: 8px;
+}
+
+/* Media query to ensure the options are spaced properly on smaller screens */
+@media (max-width: 600px) {
+    .event-repeat-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-repeat-option {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+}

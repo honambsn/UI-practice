@@ -642,3 +642,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+// Function to initialize the custom dropdown
+function initializeEventRepeatOptions() {
+    const options = document.querySelectorAll('.event-repeat-option');
+
+    // Add click event to each option
+    options.forEach(option => {
+        option.addEventListener('click', function () {
+            // Remove 'selected' class from all options
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            // Add 'selected' class to clicked option
+            option.classList.add('selected');
+
+            // Log the selected value (you can use this value as needed)
+            const selectedValue = option.getAttribute('data-value');
+            console.log("Selected value:", selectedValue);
+
+            // Optionally, do something else with the selected value
+            // For example: 
+            // updateInput(selectedValue);
+        });
+    });
+}
+
+// Call the function to initialize the event repeat options
+initializeEventRepeatOptions();
