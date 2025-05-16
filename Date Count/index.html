@@ -140,15 +140,21 @@
                     </div>    
                 </div>
                 
-                <div class="event-type">
+                <div class="event-type event-type-repeat">
                     <label for="event-repeat"><span>Lặp lại:</span></label>
 
-                    <div class="event-repeat-options">
-                        <div class="event-repeat-option selected" data-value="none">Không</div>
-                        <div class="event-repeat-option" data-value="daily">Hàng ngày</div>
-                        <div class="event-repeat-option" data-value="weekly">Hàng tuần</div>
-                        <div class="event-repeat-option" data-value="monthly">Hàng tháng</div>
-                        <div class="event-repeat-option" data-value="yearly">Hàng năm</div>
+                    <div class="repeat-options">
+                        <div class="repeat-option selected" data-value="none">Chọn thời gian</div>
+                        <i class="fa-solid fa-repeat" aria-hidden="true" id="event-repeat-select"></i>
+
+                        <div class="hidden-event" style="display: none;">
+                            <div class="repeat-option" data-value="none">Không lặp lại</div>
+                            <div class="repeat-option" data-value="none">Không</div>
+                            <div class="repeat-option" data-value="daily">Hàng ngày</div>
+                            <div class="repeat-option" data-value="weekly">Hàng tuần</div>
+                            <div class="repeat-option" data-value="monthly">Hàng tháng</div>
+                            <div class="repeat-option" data-value="yearly">Hàng năm</div>
+                        </div>
                     </div>
                 </div>
               

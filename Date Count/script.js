@@ -670,3 +670,5 @@ function initializeEventRepeatOptions() {
 
 // Call the function to initialize the event repeat options
 initializeEventRepeatOptions();
+
+
