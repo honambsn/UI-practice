@@ -1109,6 +1109,57 @@ html, body{
     cursor: pointer;    
     padding: 5px 7px;
     border-radius: 10px;
-    background-color: #e8e8e8;
+    background-color: #ededed;
     transition: all 0.3s ease-in-out;
+}
+
+.event-type-repeat .repeat-options:hover {
+    /* background-color: #ccc; */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    
+}
+
+.event-type-repeat i.fa-repeat{
+    font-size: 14px;
+    margin-left: 10px;
+    transition: transform 0.5s ease;
+}
+
+.repeat-options{
+    transition: all 0.3s ease-in-out;
+}
+
+.repeat-options:hover i.fa-repeat {
+    transform: rotate(360deg) scale(1.4);
+    transition: all 0.5s ease-in-out;
+}
+
+.repeat-options:hover .repeat-option{
+    font-weight: bold;
+}
+
+.repeat-options .hidden-event {
+    display: none;
+}
+
+.repeat-options .hidden-event.show{
+    display: inline-block;
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+}
+
+
+.repeat-options .hidden-event {
+    display: none;
+    position: absolute;
+    left: 50%; /* Đẩy sang giữa */
+    transform: translateX(-50%) scale(1);
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    width: 100%;
 }

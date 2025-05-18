@@ -644,31 +644,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Function to initialize the custom dropdown
-function initializeEventRepeatOptions() {
-    const options = document.querySelectorAll('.event-repeat-option');
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleElements = [
+        document.querySelector(".repeat-option.selected"),
+        document.getElementById("event-repeat-select")
+    ];
+    const hiddenEvent = document.querySelector(".hidden-event");
 
-    // Add click event to each option
-    options.forEach(option => {
-        option.addEventListener('click', function () {
-            // Remove 'selected' class from all options
-            options.forEach(opt => opt.classList.remove('selected'));
-
-            // Add 'selected' class to clicked option
-            option.classList.add('selected');
-
-            // Log the selected value (you can use this value as needed)
-            const selectedValue = option.getAttribute('data-value');
-            console.log("Selected value:", selectedValue);
-
-            // Optionally, do something else with the selected value
-            // For example: 
-            // updateInput(selectedValue);
+    toggleElements.forEach(el => {
+        el.addEventListener("click", function () {
+            hiddenEvent.style.display = (hiddenEvent.style.display === "block") ? "none" : "block";
         });
     });
-}
 
-// Call the function to initialize the event repeat options
-initializeEventRepeatOptions();
-
-
+    // Optional: Hide when clicking outside
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest('.repeat-options')) {
+            hiddenEvent.style.display = "none";
+        }
+    });
+});
