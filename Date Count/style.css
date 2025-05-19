@@ -1011,12 +1011,6 @@ html, body{
 
 }
 
-/* .color-option:hover {
-    scale: 1.2;
-    border-color: #ffffff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-} */
-
 .color-options{
     position: relative;
 }
@@ -1125,22 +1119,30 @@ html, body{
     transition: transform 0.5s ease;
 }
 
+
+
+.repeat-option {
+    width: auto ; /* Ensure width is set */
+    height: auto; /* Ensure height is set */
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    display: inline-block; /* Ensure colors are displayed side by side */
+    cursor: pointer; /* Indicate the color is clickable */
+    border-radius: 50%; /* Optional: Makes the color blocks round */
+}
+
 .repeat-options{
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
+
 
 .repeat-options:hover i.fa-repeat {
     transform: rotate(360deg) scale(1.4);
     transition: all 0.5s ease-in-out;
 }
 
-.repeat-options:hover .repeat-option{
-    font-weight: bold;
-}
-
-.repeat-options .hidden-event {
-    display: none;
-}
 
 .repeat-options .hidden-event.show{
     display: inline-block;
@@ -1149,10 +1151,22 @@ html, body{
     transition: all 0.3s ease-in-out;
 }
 
+.hidden-event{
+    display: none;
+    position: absolute;
+    top: 40px;
+    z-index: 10;
+    background-color: rgb(152, 152, 152);
+    border: 1px solid #ccc;
+    padding: 5px;
+}
 
 .repeat-options .hidden-event {
     display: none;
     position: absolute;
+    flex-direction: column;
+    align-items: center;
+    top: 100%;
     left: 50%; /* Đẩy sang giữa */
     transform: translateX(-50%) scale(1);
     z-index: 10;
@@ -1162,4 +1176,33 @@ html, body{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     width: 100%;
+    
+}
+
+.repeat-options .hidden-event .repeat-option {
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.repeat-options .hidden-event.show .repeat-option {
+    display: inline-block;
+    text-align: center;
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+
+}
+
+
+.repeat-options .hidden-event .repeat-option:hover {
+    border: none;
+    padding: 10px 5px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: larger;
+    width: 100%;
+    background-color: red;
 }
