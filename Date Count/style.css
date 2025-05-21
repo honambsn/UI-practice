@@ -891,6 +891,7 @@ html, body{
     font-family: inherit;
 }
 
+/* ------------------------------event color------------------------------------------ */
 
 #event-form input[type="color"]{
     width: 80px;
@@ -1087,7 +1088,7 @@ html, body{
 }
 
 
-/* ------------------------------------------------------ */
+/* -------------------------event repeat----------------------------- */
 
 
 .event-type-repeat {
@@ -1191,7 +1192,7 @@ html, body{
     text-align: center;
     opacity: 1;
     transform: scale(1);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
 
 }
 
@@ -1199,10 +1200,41 @@ html, body{
 .repeat-options .hidden-event .repeat-option:hover {
     border: none;
     padding: 10px 5px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-in-out;
     border-radius: 5px;
     font-weight: bold;
     font-size: larger;
     width: 100%;
     background-color: red;
+}
+
+
+/* ----------------------------event email----------------------------- */
+
+
+.event-type-email .email-popup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+#warning-message{
+    color: red;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    display: none; /* Ẩn mặc định */
+}
+
+.email-popup {
+    border: red;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    color: #333;
 }

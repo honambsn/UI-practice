@@ -664,3 +664,51 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+// -------------------------email-------------------------
+// Function to validate the emails and show/hide warning and popup
+function validateEmails() {
+    const textarea = document.getElementById('email-participants');
+    const warningMessage = document.getElementById('warning-message');
+    const popup = document.querySelector('.email-popup');
+    const emailList = document.getElementById('email-list');
+    const value = textarea.value.trim();
+
+    // Regular expression to validate email format
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Split the value into emails and validate each one
+    const emails = value.split(',').map(email => email.trim());
+    const allValid = emails.every(email => emailPattern.test(email));
+
+    // Show or hide the warning message based on email validity
+    if (!allValid && value) {
+        warningMessage.style.display = 'block'; // Show warning if invalid
+        popup.style.display = 'none'; // Hide popup if not all emails are valid
+    } else {
+        warningMessage.style.display = 'none'; // Hide warning if valid or empty
+        if (value) {
+            // Show the popup with valid emails if all emails are valid
+            emailList.innerHTML = ''; // Clear the previous email list
+            emails.forEach(email => {
+                if (emailPattern.test(email)) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = email;
+                    emailList.appendChild(listItem);
+                }
+            });
+            popup.style.display = 'block'; // Show the popup
+        } else {
+            popup.style.display = 'none'; // Hide the popup if the textarea is empty
+        }
+    }
+}
+
+// Event listener for when the user types in the textarea
+document.getElementById('email-participants').addEventListener('input', validateEmails);
+
+// Close popup when the close button is clicked
+document.querySelector('.popup-close').addEventListener('click', function() {
+    document.querySelector('.email-popup').style.display = 'none';
+});

@@ -114,10 +114,19 @@
                     <input type="time" id="event-time" name="time" required>
                 </div>
 
-                <div class="event-type">
-                    <label for="event-participants"><span>Người tham gia (Email):</span></label>
-                    <textarea id="event-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
-                </div>
+                    <div class="event-type event-email">
+                        <label for="email-participants"><span>Người tham gia (Email):</span></label>
+                        <textarea class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
+                        <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
+
+                        <div class="email-popup" style="display: none;">
+                            <div class="email-popup-content">
+                                <span class="popup-close">&times;</span>
+                                <p>Người tham gia:</p>
+                                <ul id="email-list"></ul>
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="event-type event-type-color">
                     <label for="event-color"><span>Màu sắc:</span></label>
@@ -147,7 +156,7 @@
                         <div class="repeat-option selected" data-value="none">Chọn thời gian</div>
                         <i class="fa-solid fa-repeat" aria-hidden="true" id="event-repeat-select"></i>
 
-                        <div class="hidden-event" style="display: inline-block;">
+                        <div class="hidden-event" style="display: none;">
                             <div class="repeat-option" data-value="none"><span>Không lặp lại</span></div>    
                             <div class="repeat-option" data-value="daily"><span>Hàng ngày</span></div>
                             <div class="repeat-option" data-value="weekly"><span>Hàng tuần</span></div>
