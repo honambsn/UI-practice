@@ -712,3 +712,53 @@ document.getElementById('email-participants').addEventListener('input', validate
 document.querySelector('.popup-close').addEventListener('click', function() {
     document.querySelector('.email-popup').style.display = 'none';
 });
+
+
+// --------------------------email capture-------------------------
+
+
+function initializeEmailCapture(textareaId, warningId) {
+    const textarea = document.getElementById(textareaId);
+    const warning = document.getElementById(warningId);
+    let capturedEmails = [];
+
+    // Helper to validate email format
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    // Keyup event listener
+    textarea.addEventListener('keyup', function (e) {
+        const input = textarea.value;
+
+        // When comma, space, or Enter is typed
+        if (e.key === ',' || e.key === ' ' || e.key === 'Enter') {
+            const parts = input.split(/[\s,]+/).filter(Boolean);
+            const lastEmail = parts[parts.length - 1];
+
+            if (isValidEmail(lastEmail)) {
+                if (!capturedEmails.includes(lastEmail)) {
+                    capturedEmails.push(lastEmail);
+                    console.log('Captured Emails:', capturedEmails);
+                }
+                warning.style.display = 'none';
+            } else if (lastEmail) {
+                warning.style.display = 'block';
+            }
+
+            textarea.value = ''; // Clear input after processing
+        }
+    });
+
+    // Return access to capturedEmails if needed
+    return {
+        getEmails: () => capturedEmails,
+        clearEmails: () => { capturedEmails = []; },
+    };
+}
+
+// Example usage
+document.addEventListener('DOMContentLoaded', function () {
+    const emailHandler = initializeEmailCapture('email-participants', 'warning-message');
+    console.log(emailHandler.getEmails());
+});
