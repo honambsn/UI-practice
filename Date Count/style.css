@@ -1287,3 +1287,30 @@ html, body{
     visibility: visible;
     opacity: 1;
 }
+
+
+/* ------------------------participants---------------------------- */
+#email-list{
+    list-style-type: circle;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease-in-out;
+    
+}
+
+.email-item{
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease-in-out;
+}
+
+.email-item:hover{
+    background-color: #ccc;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
