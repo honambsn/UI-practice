@@ -673,8 +673,12 @@ function initializeEmailCapture(textareaId, warningId) {
     const textarea = document.getElementById(textareaId);
     const warning = document.getElementById(warningId);
     const popup = document.querySelector('.email-popup');
+    const modal = document.querySelector('.email-introduce-popup');
+    const closeBtn = document.querySelector('.close-email-popup');
     const emailList = document.getElementById('email-list');
     let capturedEmails = [];
+    let hasShownPopup = false;
+
 
     // Helper to validate email format
     function isValidEmail(email) {
@@ -697,10 +701,19 @@ function initializeEmailCapture(textareaId, warningId) {
 
         // When comma, space, or Enter is typed
         // if (e.key === ',' || e.key === ' ' || e.key === 'Enter') {
+
+        if (!hasShownPopup && input.length > 0) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
+            hasShownPopup = true; // Prevent showing the popup again
+        }
+
         if (e.key === 'Enter') {
             const parts = input.split(/[\s,]+/).filter(Boolean);
             const lastEmail = parts[parts.length - 1];
-
+            
             if (isValidEmail(lastEmail)) {
                 if (!capturedEmails.includes(lastEmail)) {
                     capturedEmails.push(lastEmail);
@@ -715,18 +728,27 @@ function initializeEmailCapture(textareaId, warningId) {
             textarea.value = ''; // Clear input after processing
         }
 
-        if (capturedEmails.length > 0) {
+        if (capturedEmails.length > 0 && popup) {
             popup.style.display = 'block'; // Show the popup if there are captured emails
-        }
-        else{
+        }   
+        else if (popup) {
             popup.style.display = 'none'; // Hide the popup if no emails
         }
+    });
+
+    closeBtn.addEventListener('click', function () {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
     });
 
     // Return access to capturedEmails if needed
     return {
         getEmails: () => capturedEmails,
-        clearEmails: () => { capturedEmails = []; },
+        clearEmails: () => { capturedEmails = []; 
+            updateEmailList(); // Clear the displayed email list
+        },
     };
 }
 

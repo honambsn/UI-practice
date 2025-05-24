@@ -1305,12 +1305,61 @@ html, body{
     gap: 10px;
     cursor: pointer;
     padding: 5px 10px;
+    margin: 5px 10px;
     border-radius: 10px;
     background-color: #f8f8f8;
     transition: all 0.3s ease-in-out;
 }
 
 .email-item:hover{
-    background-color: #ccc;
+    background-color: #ccfb70;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+                            /* email popup */
+.email-introduce-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.participants-popup-content {
+    background-color: white;
+    padding: 50px 30px 30px; /* Extra bottom padding for the button */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    min-width: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Close button inside content, centered */
+.close-email-popup {
+    margin-top: 30px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-email-popup:hover {
+    background-color: #c0392b;
+}
+.close-email-popup:active {
+    transform: scale(0.95);
 }
