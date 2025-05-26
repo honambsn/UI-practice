@@ -116,7 +116,7 @@
 
                     <div class="event-type event-email">
                         <label for="email-participants"><span>Người tham gia (Email):</span></label>
-                        <textarea class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
+                        <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
                         <div class="tooltip">
                             <i class="fa-solid fa-question"></i>
                             <div class="tooltip-text">
@@ -190,7 +190,7 @@
                 </div>
               
                 <div class="event-button-container">
-                    <button type="submit" class="event-submit-btn">Lưu sự kiện</button>
+                    <button type="submit" class="event-submit-btn" id="event-submit-btn">Lưu sự kiện</button>
                   </div>
                   
             </form>
@@ -198,6 +198,7 @@
     </div>
     
     <script> window.alert = function() { }; </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

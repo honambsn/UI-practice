@@ -757,3 +757,49 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailHandler = initializeEmailCapture('email-participants', 'warning-message');
     console.log(emailHandler.getEmails());
 });
+
+
+// --------------------------email js-----------------------
+// Init with your public key
+emailjs.init('WOi1QcnE--DgnuoUI');
+
+// function to send email using EmailJS
+function sendEmail() {
+    const name = document.getElementById('user_name').value;
+    const email = document.getElementById('user_email').value;
+
+    const title = document.getElementById('event-title').value;
+    const date = document.getElementById('event-date').value;
+    const time = document.getElementById('event-time').value;
+    const description = document.getElementById('event-description').value;
+
+    // Validate inputs
+    if (!title || !date || !time || !description) {
+        alert('Vui lòng điền đầy đủ thông tin.');
+        return;
+    }
+
+    const templateParams = {
+        title: title,
+        name: name || 'Không có tên',      // Matches {{name}} in your template
+        email: email || 'Không có email',  // Matches {{email}} in your template
+        date: date,
+        time: time,
+        description: description,
+        from_name: 'Date Count App'         // You can add this if your template uses it
+    };
+
+    emailjs.send('service_mpqab0f', 'template_n9v5n8l', templateParams)
+        .then(function (response) {
+            console.log('✅ Gửi thành công:', response.status, response.text);
+            alert('Đã gửi thành công!');
+        })
+        .catch(function (error) {
+            console.error('❌ Gửi thất bại:', error);
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        });
+}
+
+
+// add event listener to the submit button
+document.getElementById('event-submit-btn').addEventListener('click', sendEmail);

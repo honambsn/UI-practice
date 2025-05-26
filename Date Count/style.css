@@ -1360,6 +1360,28 @@ html, body{
 .close-email-popup:hover {
     background-color: #c0392b;
 }
+
 .close-email-popup:active {
     transform: scale(0.95);
+}
+
+.email-popup-content p{
+    font-weight: bold;
+}
+
+
+/* --------------------------event time---------------------------- */
+
+.event-type input[type="time"] {
+    padding: 8px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.event-type input[type="time"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
 }
