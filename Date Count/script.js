@@ -752,7 +752,7 @@ function initializeEmailCapture(textareaId, warningId) {
     };
 }
 
-// Example usage
+//usage
 document.addEventListener('DOMContentLoaded', function () {
     const emailHandler = initializeEmailCapture('email-participants', 'warning-message');
     console.log(emailHandler.getEmails());
@@ -765,8 +765,12 @@ emailjs.init('WOi1QcnE--DgnuoUI');
 
 // function to send email using EmailJS
 function sendEmail() {
-    const name = document.getElementById('user_name').value;
-    const email = document.getElementById('user_email').value;
+    console.log("Đã gửi email!");
+    
+    const emailCapture = initializeEmailCapture('email-participants', 'warning-message');
+    console.log(emailCapture.getEmails());
+    //const name = document.getElementById('user_name').value;
+    //const email = document.getElementById('user_email').value;
 
     const title = document.getElementById('event-title').value;
     const date = document.getElementById('event-date').value;
@@ -781,12 +785,12 @@ function sendEmail() {
 
     const templateParams = {
         title: title,
-        name: name || 'Không có tên',      // Matches {{name}} in your template
-        email: email || 'Không có email',  // Matches {{email}} in your template
+        name: 'Date Count App',           // From Name
+        email: 'youremail@example.com',  // Matches {{email}} in your template  // From Email (bạn có thể để mặc định hoặc email của bạn)
         date: date,
         time: time,
         description: description,
-        from_name: 'Date Count App'         // You can add this if your template uses it
+        to_email: 'honam3107@gmail.com'  // Email người nhận
     };
 
     emailjs.send('service_mpqab0f', 'template_n9v5n8l', templateParams)
@@ -801,5 +805,15 @@ function sendEmail() {
 }
 
 
-// add event listener to the submit button
-document.getElementById('event-submit-btn').addEventListener('click', sendEmail);
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("event-form");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Ngăn trang reload
+
+        // Gửi email bằng EmailJS
+        sendEmail();
+
+        // Bạn có thể thêm xử lý form ở đây nếu muốn
+    });
+});
