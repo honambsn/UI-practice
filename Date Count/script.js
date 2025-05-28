@@ -756,6 +756,21 @@ function initializeEmailCapture(textareaId, warningId) {
 document.addEventListener('DOMContentLoaded', function () {
     const emailHandler = initializeEmailCapture('email-participants', 'warning-message');
     console.log(emailHandler.getEmails());
+
+    document.getElementById("event-form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Ngăn trang reload
+
+        // Gửi email bằng EmailJS
+        sendEmail(emailHandler);
+
+        // // Clear captured emails after sending
+        // emailHandler.clearEmails();
+        // console.log("Captured Emails after sending:", emailHandler.getEmails());
+
+        // // Reset the textarea
+        // document.getElementById('email-participants').value = '';
+        
+    });
 });
 
 
@@ -764,11 +779,12 @@ document.addEventListener('DOMContentLoaded', function () {
 emailjs.init('WOi1QcnE--DgnuoUI');
 
 // function to send email using EmailJS
-function sendEmail() {
+function sendEmail(emailHandler) {
     console.log("Đã gửi email!");
     
-    const emailCapture = initializeEmailCapture('email-participants', 'warning-message');
-    console.log(emailCapture.getEmails());
+    const capturedEmails = emailHandler.getEmails(); 
+    console.log(capturedEmails);
+
     //const name = document.getElementById('user_name').value;
     //const email = document.getElementById('user_email').value;
 
@@ -790,7 +806,7 @@ function sendEmail() {
         date: date,
         time: time,
         description: description,
-        to_email: 'honam3107@gmail.com'  // Email người nhận
+        to_email: capturedEmails.join(', ')  // Email người nhận
     };
 
     emailjs.send('service_mpqab0f', 'template_n9v5n8l', templateParams)
@@ -805,15 +821,15 @@ function sendEmail() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("event-form");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const form = document.getElementById("event-form");
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault(); // Ngăn trang reload
+//     form.addEventListener("submit", function (e) {
+//         e.preventDefault(); // Ngăn trang reload
 
-        // Gửi email bằng EmailJS
-        sendEmail();
+//         // Gửi email bằng EmailJS
+//         sendEmail();
 
-        // Bạn có thể thêm xử lý form ở đây nếu muốn
-    });
-});
+//         // Bạn có thể thêm xử lý form ở đây nếu muốn
+//     });
+// });
