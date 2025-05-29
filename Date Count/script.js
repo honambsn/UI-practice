@@ -721,6 +721,7 @@ function initializeEmailCapture(textareaId, warningId) {
                     console.log('Captured Emails:', capturedEmails);
                 }
                 warning.style.display = 'none';
+                textarea.required = false; // Remove required attribute if valid email is entered
             } else if (lastEmail) {
                 warning.style.display = 'block';
             }
@@ -759,7 +760,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById("event-form").addEventListener("submit", function (e) {
         e.preventDefault(); // Ngăn trang reload
-
+        console.log("Đã gửi form!");
+        console.log("Captured Emails before sending:", emailHandler.getEmails());
         // Gửi email bằng EmailJS
         sendEmail(emailHandler);
 
