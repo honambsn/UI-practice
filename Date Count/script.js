@@ -835,3 +835,6 @@ function sendEmail(emailHandler) {
 //         // Bạn có thể thêm xử lý form ở đây nếu muốn
 //     });
 // });
+
+
+// ------------------------------cookieStore
