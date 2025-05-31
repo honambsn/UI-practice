@@ -702,13 +702,25 @@ function initializeEmailCapture(textareaId, warningId) {
         // When comma, space, or Enter is typed
         // if (e.key === ',' || e.key === ' ' || e.key === 'Enter') {
 
-        if (!hasShownPopup && input.length > 0) {
+        // old way to prevent showing popup
+        // if (!hasShownPopup && input.length > 0) {
+        //     modal.style.display = 'flex';
+        //     setTimeout(() => {
+        //         modal.classList.add('show');
+        //     }, 10);
+        //     hasShownPopup = true; // Prevent showing the popup again
+        // }
+
+        // new way to show popup
+        if (!getCookie('popupShown') && input.length > 0) {
             modal.style.display = 'flex';
             setTimeout(() => {
                 modal.classList.add('show');
             }, 10);
-            hasShownPopup = true; // Prevent showing the popup again
+
+            setCookie('popupShown', 'true', 30)
         }
+
 
         if (e.key === 'Enter') {
             const parts = input.split(/[\s,]+/).filter(Boolean);
@@ -838,3 +850,69 @@ function sendEmail(emailHandler) {
 
 
 // ------------------------------cookieStore
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    console.log(`Cookie set: ${name}=${value}, expires in ${days} days`);
+    console.log("Current cookies:", document.cookie);
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        // while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        //better to use trim() for whitespace
+        // if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+
+// Thêm thư viện CryptoJS (có thể tải qua CDN hoặc npm)
+// generateSecretKey(); // Gọi hàm để tạo khóa bí mật
+function generateSecretKey(length = 32) {
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?';
+    let secretKey = '';
+    
+    const cryptoObj = window.crypto || window.msCrypto; // For secure random generation
+
+    if (!cryptoObj) {
+        throw new Error("No secure crypto object available");
+    }
+
+    const array = new Uint8Array(length);
+    cryptoObj.getRandomValues(array);
+
+    for (let i = 0; i < length; i++) {
+        secretKey += charset[array[i] % charset.length];
+    }
+
+    return secretKey;
+}
+
+
+// Mã hóa cookie với AES
+function setEncryptedCookie(name, value, days) {
+    const encryptedValue = CryptoJS.AES.encrypt(value, 'your-secret-key').toString();
+    setCookie(name, encryptedValue, days);
+}
+
+// Giải mã cookie với AES
+function getEncryptedCookie(name) {
+    const encryptedValue = getCookie(name);
+    if (encryptedValue) {
+        const bytes = CryptoJS.AES.decrypt(encryptedValue, 'your-secret-key');
+        return bytes.toString(CryptoJS.enc.Utf8); // Giải mã trở lại giá trị gốc
+    }
+    return null;
+}
