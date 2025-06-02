@@ -711,16 +711,24 @@ function initializeEmailCapture(textareaId, warningId) {
         //     hasShownPopup = true; // Prevent showing the popup again
         // }
 
-        // new way to show popup
-        if (!getCookie('popupShown') && input.length > 0) {
+        // new way to show popup by cookie 
+        // if (!getCookie('popupShown') && input.length > 0) {
+        //     modal.style.display = 'flex';
+        //     setTimeout(() => {
+        //         modal.classList.add('show');
+        //     }, 10);
+
+        //     setCookie('popupShown', 'true', 30)
+        // }
+
+        // prevent showing popup by sessionStorage
+        if (!sessionStorage.getItem('popupShown') && input.length > 0) {
             modal.style.display = 'flex';
             setTimeout(() => {
                 modal.classList.add('show');
             }, 10);
-
-            setCookie('popupShown', 'true', 30)
+            sessionStorage.setItem('popupShown', 'true'); // Prevent showing the popup again
         }
-
 
         if (e.key === 'Enter') {
             const parts = input.split(/[\s,]+/).filter(Boolean);
