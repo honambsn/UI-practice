@@ -5,6 +5,8 @@ export function handleHoverTimeout(element, delay) {
     element.addEventListener('mouseenter', (e) => {
         hoverTimeout = setTimeout(() => {
             element.classList.add('active');
+            const activeElements = document.querySelectorAll('.calendar-day-date.curr-date');
+            activeElements.classList.add('actived');
             alert("Bạn đã di chuột trong 1 giây!");
             console.log("Bạn đã di chuột trong 1 giây!");
 

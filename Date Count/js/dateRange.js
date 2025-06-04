@@ -57,6 +57,7 @@ export function resetAll() {
     document.querySelector('.date-range').textContent = 'Date range: ';
     alert("Đã xóa tất cả các ngày và khoảng cách.");
     console.log("Đã xóa tất cả các ngày và khoảng cách.");
+    displaySelectedDate(new Date()); // Reset to today's date
 }
 
 function isToday(date) {

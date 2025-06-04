@@ -49,6 +49,7 @@ function highlightCurrentMonth() {
 function createCalendarDay(dayNumber, month, year) {
   const day = document.createElement('div');
   day.classList.add('calendar-day-date');
+  day.setAttribute('data-date', `${year}-${month + 1}-${dayNumber}`);
   day.innerHTML = `${dayNumber} <span></span><span></span><span></span><span></span>`;
 
   if (dayNumber === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
