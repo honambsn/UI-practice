@@ -565,6 +565,8 @@ function manageEvent() {
     }
 }
 
+document.getElementById('manageEvent').addEventListener('click', manageEvent);
+
 // ----------------------------------------
 
 // Get the necessary DOM elements

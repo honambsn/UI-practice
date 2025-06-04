@@ -1,5 +1,11 @@
 import { getFebDays, isLeapYear } from './utils.js';
 
+let displayDateCallback = null;
+
+export function setDisplayDateCallback(fn) {
+  displayDateCallback = fn;
+}
+
 const month_names = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -51,7 +57,9 @@ function createCalendarDay(dayNumber, month, year) {
 
   day.onclick = () => {
     const selectedDate = new Date(year, month, dayNumber);
-    window.displaySelectedDate(selectedDate); // external function
+    if (displayDateCallback) {
+      displayDateCallback(selectedDate);
+    }
   };
 
   return day;

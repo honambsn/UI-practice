@@ -1,3 +1,5 @@
+import { displaySelectedDate } from './dateRange.js';
+
 export function isLeapYear(year) {
     return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
 }
@@ -61,6 +63,7 @@ export function getEncryptedCookie(name) {
 
 export function changeToCountDown() {
     const today = new Date();
-    const formattedDate = today.toLocaleDateString('vi-VN');
-    document.querySelector('.date-1').textContent = `Hôm nay: ${formattedDate}`;
+    // const formattedDate = today.toLocaleDateString('vi-VN');
+    // document.querySelector('.date-1').textContent = `Hôm nay: ${formattedDate}`;
+    displaySelectedDate(today); //assigns the current date as the 1st selected date
 }
