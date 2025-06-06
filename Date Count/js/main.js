@@ -30,6 +30,11 @@ const emailHandler = initializeEmailCapture('email-participants', 'warning-messa
 document.getElementById("event-form").addEventListener("submit", function (e) {
   e.preventDefault();
   sendEmail(emailHandler);
+
+
+  document.getElementById("event-form").reset();
+  emailHandler.clearEmails();
+  //document.querySelectorAll('.calendar-day-date.curr-date.actived').classList.remove('actived');
 });
 
 // Khởi tạo context menu & color picker & repeat

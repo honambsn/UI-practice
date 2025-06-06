@@ -82,7 +82,12 @@ export function sendEmail(emailHandler) {
     const description = document.getElementById('event-description').value;
 
     if (!title || !date || !time || !description) {
-        alert('Vui lòng điền đầy đủ thông tin.');
+        console.warn('Vui lòng điền đầy đủ thông tin sự kiện.');
+        return;
+    }
+    
+    if (capturedEmails.length === 0) {
+        console.warn('Không có email nào được cung cấp.');
         return;
     }
 
