@@ -32,7 +32,7 @@ document.getElementById("event-form").addEventListener("submit", function (e) {
   sendEmail(emailHandler);
 
 
-  document.getElementById("event-form").reset();
+  //document.getElementById("event-form").reset();
   emailHandler.clearEmails();
   //document.querySelectorAll('.calendar-day-date.curr-date.actived').classList.remove('actived');
 });
