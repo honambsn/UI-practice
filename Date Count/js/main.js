@@ -30,22 +30,22 @@ const emailHandler = initializeEmailCapture('email-participants', 'warning-messa
 document.getElementById("event-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  //get selected date color
-  const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('date-color');
-  const selectedDate = getSelectedDate();
+  // //get selected date color
+  // const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('date-color');
+  // const selectedDate = getSelectedDate();
 
-  if (selectedColor && selectedDate){
-    // save to localStorage
-    let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
-    savedColors[selectedDate] = selectedColor;
-    localStorage.setItem('calendarColors', JSON.stringify(savedColors));
+  // if (selectedColor && selectedDate){
+  //   // save to localStorage
+  //   let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+  //   savedColors[selectedDate] = selectedColor;
+  //   localStorage.setItem('calendarColors', JSON.stringify(savedColors));
 
-    const dateElement = document.querySelector(`.calendar-day-date[data-date="${selectedDate}"]`);
+  //   const dateElement = document.querySelector(`.calendar-day-date[data-date="${selectedDate}"]`);
 
-    if (dateElement) {
-      dateElement.style.backgroundColor = selectedColor;
-    }
-  }
+  //   if (dateElement) {
+  //     dateElement.style.backgroundColor = selectedColor;
+  //   }
+  // }
   sendEmail(emailHandler);
   emailHandler.clearEmails();
 

@@ -63,10 +63,10 @@ function createCalendarDay(dayNumber, month, year) {
     }
   };
 
-  document.querySelectorAll('.calendar-day-date').forEach(day => {
-    day.classList.remove('active');
-  });
-  day.classList.add('active');
+  // document.querySelectorAll('.calendar-day-date').forEach(day => {
+  //   day.classList.remove('active');
+  // });
+  // day.classList.add('active');
 
   return day;
 }
@@ -97,14 +97,14 @@ export function generateCalendar(month, year) {
     calendar_days.appendChild(day);
   }
 
-  let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
-  for (let i = 1; i <= days_of_month[month]; i++) {
-    const dateKey = `${year}-${month + 1}-${i}`;
+  // let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+  // for (let i = 1; i <= days_of_month[month]; i++) {
+  //   const dateKey = `${year}-${month + 1}-${i}`;
     
-    if (savedColors[dateKey]) {
-      day.style.backgroundColor = savedColors[dateKey];
-    }
-  }
+  //   if (savedColors[dateKey]) {
+  //     day.style.backgroundColor = savedColors[dateKey];
+  //   }
+  // }
 }
 
 export function generateMonthList() {

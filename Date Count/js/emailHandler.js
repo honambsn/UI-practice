@@ -74,12 +74,51 @@ export function initializeEmailCapture(textareaId, warningId) {
     };
 }
 
+function getSelectedColor() {
+    const selectedColorElement = document.querySelector('.color-option.selected');
+    return selectedColorElement ? selectedColorElement.getAttribute('date-color') : '#1a73e8';
+}
+
+function applyColorToDate(dateString, color) {
+    //const calendarDay = document.querySelector(`.calendar-day-date[data-date="${dateString}"]`);
+    const calendarDay = document.querySelector(`[data-date="${dateString}"]`);
+
+
+    if (calendarDay) {
+        calendarDay.style.backgroundColor = color;
+        calendarDay.style.color = '#fff'; // Đặt màu chữ cho phù hợp với nền
+    
+        let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+        savedColors[dateString] = color;
+        localStorage.setItem('calendarColors', JSON.stringify(savedColors));
+
+        console.log(`Đã áp dụng màu ${color} cho ngày ${dateString}`);
+    }
+    else{
+        console.warn(`Không tìm thấy ngày ${dateString} trong lịch.`);
+    }
+}
+
+export function loadSavedColors() {
+    const savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+
+    Object.keys(savedColors).forEach(dateString => {
+        const calendarDay = document.querySelector(`[data-date="${dateString}"]`);
+        if (calendarDay) {
+            calendarDay.style.backgroundColor = savedColors[dateString];
+            calendarDay.style.color = '#fff'; // Đặt màu chữ cho phù hợp với nền
+        }
+    });
+}
+
 export function sendEmail(emailHandler) {
     const capturedEmails = emailHandler.getEmails();
     const title = document.getElementById('event-title').value;
     const date = document.getElementById('event-date').value;
     const time = document.getElementById('event-time').value;
     const description = document.getElementById('event-description').value;
+
+    const selectedColor = getSelectedColor();
 
     if (!title || !date || !time || !description) {
         console.warn('Vui lòng điền đầy đủ thông tin sự kiện.');
@@ -90,6 +129,11 @@ export function sendEmail(emailHandler) {
         console.warn('Không có email nào được cung cấp.');
         return;
     }
+
+    const eventDate = new Date(date);
+    const formattedDate = `${eventDate.getDate()}/${eventDate.getMonth() + 1}/${eventDate.getFullYear()}`;
+
+    applyColorToDate(formattedDate, selectedColor)
 
     const templateParams = {
         title,
@@ -105,6 +149,24 @@ export function sendEmail(emailHandler) {
         .then(response => {
             console.log('✅ Gửi thành công:', response.status, response.text);
             alert('Đã gửi thành công!');
+
+            //close modal
+            const modal = document.getElementById("modal");
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
+
+            ///reset form
+            document.getElementById("event-form").reset();
+            emailHandler.clearEmails();
+
+            //reset color selection to default
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector('.color-option.default').classList.add('selected');
+            //document.querySelector('.color-default').classList.add('selected');
         })
         .catch(error => {
             console.error('❌ Gửi thất bại:', error);

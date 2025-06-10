@@ -1,18 +1,18 @@
-let selectedDate = null;
+// let selectedDate = null;
 
-export function setSelectedDate(date) {
-    selectedDate = date;
-    console.log("Selected date set to:", selectedDate);
-}
+// export function setSelectedDate(date) {
+//     selectedDate = date;
+//     console.log("Selected date set to:", selectedDate);
+// }
 
 export function manageEvent() {
     console.log("Đã mở modal!");
 
-    //get currently active date
-    const activeDateElement = document.querySelector('.calendar-day-date.active');
-    if(activeDateElement) {
-        selectedDate = activeDateElement.getAttribute('data-date');
-    }
+    // //get currently active date
+    // const activeDateElement = document.querySelector('.calendar-day-date.active');
+    // if(activeDateElement) {
+    //     selectedDate = activeDateElement.getAttribute('data-date');
+    // }
 
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");
@@ -39,6 +39,6 @@ export function manageEvent() {
     };
 }
 
-export function getSelectedDate() {
-    return selectedDate;
-}
+// export function getSelectedDate() {
+//     return selectedDate;
+// }
