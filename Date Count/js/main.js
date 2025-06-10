@@ -6,7 +6,7 @@ import { initializeEmailCapture, sendEmail } from './emailHandler.js';
 import { setupContextMenu } from './contextMenu.js';
 import { initColorPicker } from './colorPicker.js';
 import { setupRepeatEventOptions } from './repeatEvent.js';
-import { manageEvent } from './modal.js';
+import { getSelectedDate, manageEvent } from './modal.js';
 
 document.getElementById('manageEvent').addEventListener('click', manageEvent);
 
@@ -29,11 +29,28 @@ document.querySelector('.resetButton').addEventListener('click', resetAll);
 const emailHandler = initializeEmailCapture('email-participants', 'warning-message');
 document.getElementById("event-form").addEventListener("submit", function (e) {
   e.preventDefault();
-  sendEmail(emailHandler);
 
+  //get selected date color
+  const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('date-color');
+  const selectedDate = getSelectedDate();
+
+  if (selectedColor && selectedDate){
+    // save to localStorage
+    let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+    savedColors[selectedDate] = selectedColor;
+    localStorage.setItem('calendarColors', JSON.stringify(savedColors));
+
+    const dateElement = document.querySelector(`.calendar-day-date[data-date="${selectedDate}"]`);
+
+    if (dateElement) {
+      dateElement.style.backgroundColor = selectedColor;
+    }
+  }
+  sendEmail(emailHandler);
+  emailHandler.clearEmails();
 
   //document.getElementById("event-form").reset();
-  emailHandler.clearEmails();
+  //emailHandler.clearEmails();
   //document.querySelectorAll('.calendar-day-date.curr-date.actived').classList.remove('actived');
 });
 

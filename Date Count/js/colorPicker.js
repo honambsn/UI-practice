@@ -36,24 +36,6 @@ export function initColorPicker() {
             color.classList.add('selected');
             hiddenColors.style.display = 'none';
 
-            //document.querySelectorAll('.calendar-day-date curr-date').classList.add('active');
-            let selectedDayElement = document.querySelector('.calendar-day-date.active');
-            
-            if (selectedDayElement == null) {
-                console.log("Vui lòng chọn một ngày trước khi thay đổi màu sắc.");
-                return;
-            }
-
-            const dateKey = selectedDayElement.getAttribute('data-date');
-            color = document.querySelector('input[name="event-color"]:checked').value;
-
-            selectedDayElement.style.backgroundColor = color;
-
-            // Lưu vào localStorage
-            let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
-            savedColors[dateKey] = color;
-            localStorage.setItem('calendarColors', JSON.stringify(savedColors));
-
         });
     });
 }

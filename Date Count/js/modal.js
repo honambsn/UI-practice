@@ -1,5 +1,18 @@
+let selectedDate = null;
+
+export function setSelectedDate(date) {
+    selectedDate = date;
+    console.log("Selected date set to:", selectedDate);
+}
+
 export function manageEvent() {
     console.log("Đã mở modal!");
+
+    //get currently active date
+    const activeDateElement = document.querySelector('.calendar-day-date.active');
+    if(activeDateElement) {
+        selectedDate = activeDateElement.getAttribute('data-date');
+    }
 
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");
@@ -24,4 +37,8 @@ export function manageEvent() {
             }, 300);
         }
     };
+}
+
+export function getSelectedDate() {
+    return selectedDate;
 }
