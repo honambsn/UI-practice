@@ -13,6 +13,8 @@ export function manageEvent() {
     // if(activeDateElement) {
     //     selectedDate = activeDateElement.getAttribute('data-date');
     // }
+    const activeElements = document.querySelectorAll('.calendar-day-date.active');
+    console.log(activeElements);
 
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");

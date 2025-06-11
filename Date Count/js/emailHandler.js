@@ -74,6 +74,8 @@ export function initializeEmailCapture(textareaId, warningId) {
     };
 }
 
+
+//
 function getSelectedColor() {
     const selectedColorElement = document.querySelector('.color-option.selected');
     return selectedColorElement ? selectedColorElement.getAttribute('date-color') : '#1a73e8';
@@ -110,6 +112,8 @@ export function loadSavedColors() {
         }
     });
 }
+
+///
 
 export function sendEmail(emailHandler) {
     const capturedEmails = emailHandler.getEmails();
@@ -161,12 +165,24 @@ export function sendEmail(emailHandler) {
             document.getElementById("event-form").reset();
             emailHandler.clearEmails();
 
-            //reset color selection to default
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector('.color-option.default').classList.add('selected');
-            //document.querySelector('.color-default').classList.add('selected');
+            const activeElements = document.querySelectorAll('.calendar-day-date.active');
+
+            if (activeElements.length > 0) {
+                activeElements.forEach((element) => {
+                    element.classList.add('actived');
+                });
+            } else {
+                console.log('Không có phần tử nào thỏa mãn điều kiện.');
+            }
+
+            
+
+            // //reset color selection to default
+            // document.querySelectorAll('.color-option').forEach(option => {
+            //     option.classList.remove('selected');
+            // });
+            // document.querySelector('.color-option.default').classList.add('selected');
+            // //document.querySelector('.color-default').classList.add('selected');
         })
         .catch(error => {
             console.error('❌ Gửi thất bại:', error);

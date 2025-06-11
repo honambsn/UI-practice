@@ -2,11 +2,11 @@ import { toggleDarkMode } from './themeToggle.js';
 import { generateCalendar, generateMonthList, setDisplayDateCallback } from './calendar.js';
 import { toggleBody, backToday } from './modeToggle.js';
 import { resetAll, displaySelectedDate } from './dateRange.js';
-import { initializeEmailCapture, sendEmail } from './emailHandler.js';
+import { initializeEmailCapture, loadSavedColors, sendEmail } from './emailHandler.js';
 import { setupContextMenu } from './contextMenu.js';
 import { initColorPicker } from './colorPicker.js';
 import { setupRepeatEventOptions } from './repeatEvent.js';
-import { getSelectedDate, manageEvent } from './modal.js';
+import { manageEvent } from './modal.js';
 
 document.getElementById('manageEvent').addEventListener('click', manageEvent);
 
@@ -18,6 +18,10 @@ setDisplayDateCallback(displaySelectedDate);
 const currDate = new Date();
 generateCalendar(currDate.getMonth(), currDate.getFullYear());
 generateMonthList();
+
+setTimeout(() => {
+  loadSavedColors();
+}, 200);
 
 // Khởi tạo các sự kiện
 document.querySelector('.dark-mode-switch').addEventListener('click', toggleDarkMode);

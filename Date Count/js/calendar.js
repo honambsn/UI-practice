@@ -1,3 +1,4 @@
+import { loadSavedColors } from './emailHandler.js';
 import { getFebDays, isLeapYear } from './utils.js';
 
 let displayDateCallback = null;
@@ -77,6 +78,18 @@ function createEmptyDay() {
   return emptyDay;
 }
 
+function loadedSavedColors(month, year) {
+  const savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
+
+  Object.keys(savedColors).forEach(dateString => {
+    const calendarDay = document.querySelector(`[data-date="${dateString}"]`);
+    if (calendarDay) {
+      calendarDay.style.backgroundColor = savedColors[dateString];
+      calendarDay.style.color = '#fff'; // Set text color for better contrast
+    }
+  });
+}
+
 export function generateCalendar(month, year) {
   const calendar_days = document.querySelector('.calendar-days');
   const calendar_header_year = document.querySelector('#year');
@@ -96,6 +109,10 @@ export function generateCalendar(month, year) {
     const day = createCalendarDay(i, month, year);
     calendar_days.appendChild(day);
   }
+
+  setTimeout(()=>{
+    loadSavedColors();
+  }, 100);
 
   // let savedColors = JSON.parse(localStorage.getItem('calendarColors')) || {};
   // for (let i = 1; i <= days_of_month[month]; i++) {
