@@ -14,6 +14,15 @@ export function manageEvent() {
     //     selectedDate = activeDateElement.getAttribute('data-date');
     // }
     const activeElements = document.querySelectorAll('.calendar-day-date.active');
+    if (activeElements.length === 0) {
+        console.warn("Không có ngày nào được chọn.");
+        return;
+    } else {
+        activeElements.forEach(element => {
+            element.classList.add('actived');
+        });
+    }
+
     console.log(activeElements);
 
     const modal = document.getElementById("modal");

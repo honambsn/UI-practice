@@ -149,7 +149,7 @@ export function sendEmail(emailHandler) {
         to_email: capturedEmails.join(', ')
     };
 
-    emailjs.send('service_mpqab0f', 'template_n9v5n8l', templateParams)
+    emailjs.send('service_mpqab0f', 'template_bddd5w3', templateParams)
         .then(response => {
             console.log('✅ Gửi thành công:', response.status, response.text);
             alert('Đã gửi thành công!');
@@ -165,15 +165,7 @@ export function sendEmail(emailHandler) {
             document.getElementById("event-form").reset();
             emailHandler.clearEmails();
 
-            const activeElements = document.querySelectorAll('.calendar-day-date.active');
-
-            if (activeElements.length > 0) {
-                activeElements.forEach((element) => {
-                    element.classList.add('actived');
-                });
-            } else {
-                console.log('Không có phần tử nào thỏa mãn điều kiện.');
-            }
+            
 
             
 
@@ -190,4 +182,4 @@ export function sendEmail(emailHandler) {
         });
 }
 
-emailjs.init('WOi1QcnE--DgnuoUI');
+emailjs.init('AeeUF306QbzsJfvWp');
