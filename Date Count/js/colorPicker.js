@@ -1,3 +1,5 @@
+window.appState = window.appState || {};
+
 export function initColorPicker() {
     const colorOptions = document.querySelector('.color-options');
     const hiddenColors = document.querySelector('.hidden-colors');
@@ -28,6 +30,10 @@ export function initColorPicker() {
             const selectedColor = color.getAttribute('data-color');
             colorOptions.style.backgroundColor = selectedColor;
             colorDefault.style.backgroundColor = selectedColor;
+
+            window.appState.tempSelectedColor = selectedColor;
+            //localStorage.setItem('savedColor', selectedColor);
+            console.log('Selected color:', selectedColor);
 
             document.querySelectorAll('.color-option').forEach(function (item) {
                 item.classList.remove('selected');

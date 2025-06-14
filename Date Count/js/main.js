@@ -62,3 +62,4 @@ document.getElementById("event-form").addEventListener("submit", function (e) {
 setupContextMenu();
 initColorPicker();
 setupRepeatEventOptions();
+

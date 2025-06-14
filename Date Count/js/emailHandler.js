@@ -139,6 +139,13 @@ export function sendEmail(emailHandler) {
 
     applyColorToDate(formattedDate, selectedColor)
 
+
+    const selectedColorPicker = window.appState?.tempSelectedColor;
+    if (!selectedColorPicker) {
+        console.error('Color picker not be selected');
+        return;
+    }
+
     const templateParams = {
         title,
         name: 'Date Count App',
@@ -151,6 +158,11 @@ export function sendEmail(emailHandler) {
 
     emailjs.send('service_mpqab0f', 'template_bddd5w3', templateParams)
         .then(response => {
+               if (selectedColorPicker) {
+                saveColor(selectedColorPicker);
+                alert('Màu đã được lưu: ' + selectedColorPicker);
+               }
+
             console.log('✅ Gửi thành công:', response.status, response.text);
             alert('Đã gửi thành công!');
 
@@ -165,6 +177,14 @@ export function sendEmail(emailHandler) {
             document.getElementById("event-form").reset();
             emailHandler.clearEmails();
 
+            const activedElement = document.querySelector('.calendar-day-date.actived');
+            if (activedElement) {
+                activedElement.classList.remove('actived');
+                console.log('Đã bỏ chọn ngày hiện tại after submited.');
+            }
+            else{
+                console.warn('Không tìm thấy ngày hiện tại để bỏ chọn after submited.');
+            }
             
 
             
@@ -183,3 +203,9 @@ export function sendEmail(emailHandler) {
 }
 
 emailjs.init('AeeUF306QbzsJfvWp');
+
+
+
+function saveColor(color) {
+    localStorage.setItem('savedColor', color);
+}

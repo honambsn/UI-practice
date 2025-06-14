@@ -8,6 +8,8 @@
 export function manageEvent() {
     console.log("Đã mở modal!");
 
+    window.appState.tempSelectedColor = null;
+    localStorage.removeItem('savedColor');
     // //get currently active date
     // const activeDateElement = document.querySelector('.calendar-day-date.active');
     // if(activeDateElement) {
