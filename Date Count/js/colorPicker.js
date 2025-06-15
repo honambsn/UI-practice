@@ -1,4 +1,6 @@
 window.appState = window.appState || {};
+//window.appState.tempSelectedColor = "#1a73e8";
+
 
 export function initColorPicker() {
     const colorOptions = document.querySelector('.color-options');

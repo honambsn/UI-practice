@@ -142,8 +142,13 @@ export function sendEmail(emailHandler) {
 
     const selectedColorPicker = window.appState?.tempSelectedColor;
     if (!selectedColorPicker) {
-        console.error('Color picker not be selected');
-        return;
+        console.log('Color picker not be selected');
+        //return;
+    }
+    else{
+        window.appState.tempSelectedColor = "#1a73e8";
+        selectedColorPicker = window.appState.tempSelectedColor;
+        console.log('Selected color from picker:', selectedColorPicker);
     }
 
     const templateParams = {
@@ -166,6 +171,16 @@ export function sendEmail(emailHandler) {
             console.log('✅ Gửi thành công:', response.status, response.text);
             alert('Đã gửi thành công!');
 
+            const activedElement = document.querySelector('.calendar-day-date.actived');
+            const dateSelected = activedElement ? activedElement.getAttribute('data-date') : null;
+
+            if (activedElement) {
+                  console.log("activeElements:", activedElement.getAttribute('data-date'));
+            }
+            if (dateSelected) {
+                console.log("Ngày đã chọn:", dateSelected);
+            }
+
             //close modal
             const modal = document.getElementById("modal");
             modal.classList.remove('show');
@@ -177,7 +192,7 @@ export function sendEmail(emailHandler) {
             document.getElementById("event-form").reset();
             emailHandler.clearEmails();
 
-            const activedElement = document.querySelector('.calendar-day-date.actived');
+            
             if (activedElement) {
                 activedElement.classList.remove('actived');
                 console.log('Đã bỏ chọn ngày hiện tại after submited.');
@@ -185,7 +200,6 @@ export function sendEmail(emailHandler) {
             else{
                 console.warn('Không tìm thấy ngày hiện tại để bỏ chọn after submited.');
             }
-            
 
             
 

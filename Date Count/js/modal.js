@@ -7,9 +7,11 @@
 
 export function manageEvent() {
     console.log("Đã mở modal!");
-
+    console.log(localStorage.getItem('savedColor'));
     window.appState.tempSelectedColor = null;
     localStorage.removeItem('savedColor');
+
+    console.log("Đã xóa savedColor trong localStorage", localStorage.getItem('savedColor'));
     // //get currently active date
     // const activeDateElement = document.querySelector('.calendar-day-date.active');
     // if(activeDateElement) {
