@@ -10,6 +10,11 @@ import { manageEvent } from './modal.js';
 
 document.getElementById('manageEvent').addEventListener('click', manageEvent);
 
+for (let i = 0; i < localStorage.length; i++) {
+  const key = localStorage.key(i); // Get the key at index i
+  const value = localStorage.getItem(key); // Get the value associated with that key
+  console.log(`${key}: ${value}`);
+}
 
 // Set callback để calendar.js gọi displaySelectedDate đúng từ dateRange.js
 setDisplayDateCallback(displaySelectedDate);

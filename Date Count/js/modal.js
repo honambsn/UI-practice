@@ -38,6 +38,11 @@ export function manageEvent() {
     }, 10);
 
     closeBtn.onclick = function () {
+        console.log("Đã đóng modal!");
+        const activedElements = document.querySelectorAll('.calendar-day-date.actived');
+        activedElements.forEach(element => {
+            element.classList.remove('actived');
+        });
         modal.classList.remove('show');
         setTimeout(() => {
             modal.style.display = "none";

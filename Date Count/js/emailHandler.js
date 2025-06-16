@@ -140,15 +140,19 @@ export function sendEmail(emailHandler) {
     applyColorToDate(formattedDate, selectedColor)
 
 
-    const selectedColorPicker = window.appState?.tempSelectedColor;
+    let selectedColorPicker = window.appState?.tempSelectedColor;
     if (!selectedColorPicker) {
         console.log('Color picker not be selected');
+        window.appState.tempSelectedColor = "#1a73e8";
+        selectedColorPicker = window.appState.tempSelectedColor;
+        console.log('Using default color:', selectedColorPicker);
         //return;
     }
     else{
-        window.appState.tempSelectedColor = "#1a73e8";
+        //window.appState.tempSelectedColor = "#1a73e8";
         selectedColorPicker = window.appState.tempSelectedColor;
         console.log('Selected color from picker:', selectedColorPicker);
+        //return;
     }
 
     const templateParams = {
@@ -171,14 +175,22 @@ export function sendEmail(emailHandler) {
             console.log('✅ Gửi thành công:', response.status, response.text);
             alert('Đã gửi thành công!');
 
+            //set color picker to actived date
+            console.log("Đã gửi thành công! Màu đã được áp dụng cho ngày đã chọn.");
             const activedElement = document.querySelector('.calendar-day-date.actived');
             const dateSelected = activedElement ? activedElement.getAttribute('data-date') : null;
 
             if (activedElement) {
                   console.log("activeElements:", activedElement.getAttribute('data-date'));
             }
+            else{
+                console.warn("Không tìm thấy ngày hiện tại để áp dụng màu sắc.");
+            }
             if (dateSelected) {
                 console.log("Ngày đã chọn:", dateSelected);
+            }
+            else{
+                console.warn("Không tìm thấy ngày đã chọn để áp dụng màu sắc.");
             }
 
             //close modal
@@ -195,11 +207,12 @@ export function sendEmail(emailHandler) {
             
             if (activedElement) {
                 activedElement.classList.remove('actived');
-                console.log('Đã bỏ chọn ngày hiện tại after submited.');
+                console.log('Đã bỏ chọn ngày hiện tại actived after submited.');
             }
             else{
                 console.warn('Không tìm thấy ngày hiện tại để bỏ chọn after submited.');
             }
+
 
             
 
