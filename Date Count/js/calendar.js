@@ -161,3 +161,32 @@ window.addEventListener('resize', () => {
     month_list.addEventListener('transitionend', onTransitionEnd);
   }
 });
+
+
+export function PickedDate() {
+  // Retrieve the array of date-color pairs from localStorage
+  const storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs"));
+
+  // Check if data exists
+  if (storedDataPairs && storedDataPairs.length > 0) {
+    // Loop through each pair in the stored data
+    storedDataPairs.forEach(pair => {
+      // Find the calendar day div that matches the date in the pair
+      const calendarDay = document.querySelector(`.calendar-day-date[data-date="${pair.date}"]`);
+      
+      // If the matching day exists in the calendar
+      if (calendarDay) {
+        // Set the background color of the calendar day (or any other style you'd like)
+        calendarDay.classList.add('picked');
+        calendarDay.style.backgroundColor = pair.color;
+        
+        // Optionally, you can add the color as a class or to the span tags, etc.
+        // Example: Add a class to indicate the color has been applied
+        calendarDay.classList.add(`color-${pair.color}`);
+        calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+      }
+    });
+  } else {
+    console.log("No data found in localStorage.");
+  }
+}

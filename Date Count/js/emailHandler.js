@@ -193,6 +193,37 @@ export function sendEmail(emailHandler) {
                 console.warn("Không tìm thấy ngày đã chọn để áp dụng màu sắc.");
             }
 
+            // save pair of color and date to localStorage
+
+            const newPair = {
+                date: dateSelected,
+                color: selectedColorPicker
+            };
+            console.log("Cặp ngày-màu mới:", newPair);
+
+            //// Check if "dateColorPairs" exists in localStorage
+
+            let storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs"));
+
+            if (!storedDataPairs) {
+                console.log("Không tìm thấy 'dateColorPairs' trong localStorage, tạo mới...");
+                storedDataPairs = [];
+            }
+
+            storedDataPairs.push(newPair);
+
+            localStorage.setItem("dateColorPairs", JSON.stringify(storedDataPairs));
+            console.log("Đã lưu cặp ngày-màu vào localStorage:", localStorage.getItem("dateColorPairs"));
+            
+
+            if (localStorage.getItem('dataColorPair')) {
+                console.log('dataColorPair đã được lưu vào localStorage:', localStorage.getItem('dataColorPair'));
+            }
+            else{
+                console.warn('Không thể lưu dataColorPair vào localStorage.');
+            }
+
+            //return;
             //close modal
             const modal = document.getElementById("modal");
             modal.classList.remove('show');

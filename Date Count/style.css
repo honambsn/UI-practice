@@ -1389,3 +1389,42 @@ html, body{
 /* .calendar-day-date {
     transition: background-color 0.3s ease;
 } */
+
+
+/* ===============color picked day================== */
+/* Kiểu dáng cho ngày có lớp 'picked' */
+.calendar-day-date.picked {
+  background-color: var(--curr-color); /* Màu nền đã được cập nhật từ JavaScript */
+  color: var(--white, #fff); /* Màu chữ trắng */
+  border-radius: 30%;  /* Viền tròn */
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  box-shadow: 0 0 5px var(--curr-color);  /* Bóng đổ với màu đã lưu */
+  transition: all 0.3s ease-in-out;  /* Hiệu ứng chuyển động mượt mà khi thay đổi */
+  cursor: pointer;
+}
+
+/* Khi hover trên ngày đã chọn */
+.calendar-day-date.picked:hover {
+  transform: scale(1.1);  /* Phóng to nhẹ khi hover */
+  box-shadow: 0 0 10px var(--curr-color);  /* Tăng độ bóng đổ khi hover */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng khi ngày được chọn (active) */
+.calendar-day-date.picked.active {
+  border: 2px solid var(--curr-color);  /* Viền nổi bật khi được chọn */
+  background-color: var(--curr-color);  /* Màu nền khi click */
+  color: var(--white, #fff);  /* Chữ màu trắng */
+}
+
+/* Chỉ thị nhỏ bên trong ngày */
+.calendar-day-date.picked span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 12px;
+  color: var(--curr-color);  /* Màu nhỏ của chỉ thị */
+}
+

@@ -1,5 +1,5 @@
 import { toggleDarkMode } from './themeToggle.js';
-import { generateCalendar, generateMonthList, setDisplayDateCallback } from './calendar.js';
+import { generateCalendar, generateMonthList, PickedDate, setDisplayDateCallback } from './calendar.js';
 import { toggleBody, backToday } from './modeToggle.js';
 import { resetAll, displaySelectedDate } from './dateRange.js';
 import { initializeEmailCapture, loadSavedColors, sendEmail } from './emailHandler.js';
@@ -16,6 +16,15 @@ for (let i = 0; i < localStorage.length; i++) {
   console.log(`${key}: ${value}`);
 }
 
+const storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs"));
+
+// Check if data exists
+if (storedDataPairs) {
+  console.log(storedDataPairs);  // This will log the entire array of pairs
+} else {
+  console.log("No pairs found in localStorage.");
+}
+
 // Set callback để calendar.js gọi displaySelectedDate đúng từ dateRange.js
 setDisplayDateCallback(displaySelectedDate);
 
@@ -23,6 +32,7 @@ setDisplayDateCallback(displaySelectedDate);
 const currDate = new Date();
 generateCalendar(currDate.getMonth(), currDate.getFullYear());
 generateMonthList();
+PickedDate();
 
 setTimeout(() => {
   loadSavedColors();
