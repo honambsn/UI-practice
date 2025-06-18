@@ -7,6 +7,7 @@ import { setupContextMenu } from './contextMenu.js';
 import { initColorPicker } from './colorPicker.js';
 import { setupRepeatEventOptions } from './repeatEvent.js';
 import { manageEvent } from './modal.js';
+import { resetAllSelectedDate } from './calendar.js';
 
 document.getElementById('manageEvent').addEventListener('click', manageEvent);
 
@@ -43,6 +44,7 @@ document.querySelector('.dark-mode-switch').addEventListener('click', toggleDark
 document.querySelector('.header').addEventListener('click', toggleBody);
 document.querySelector('.today-info i').addEventListener('click', backToday);
 document.querySelector('.resetButton').addEventListener('click', resetAll);
+document.querySelector('.resetButton.date').addEventListener('click', resetAllSelectedDate);
 
 // Khởi tạo email
 const emailHandler = initializeEmailCapture('email-participants', 'warning-message');

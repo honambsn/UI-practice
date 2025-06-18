@@ -178,15 +178,27 @@ export function PickedDate() {
       if (calendarDay) {
         // Set the background color of the calendar day (or any other style you'd like)
         calendarDay.classList.add('picked');
-        calendarDay.style.backgroundColor = pair.color;
+        //calendarDay.style.backgroundColor = pair.color;
+        //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+        calendarDay.style.setProperty('--curr-color', pair.color);
+
         
         // Optionally, you can add the color as a class or to the span tags, etc.
         // Example: Add a class to indicate the color has been applied
-        calendarDay.classList.add(`color-${pair.color}`);
-        calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+        //calendarDay.classList.add(`background-color-${pair.color}`);
+        //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
       }
     });
   } else {
     console.log("No data found in localStorage.");
   }
+}
+
+
+
+export function resetAllSelectedDate(){
+  localStorage.clear();
+  console.log("All selected dates have been reset.");
+  window.location.replace(window.location.href);
+
 }

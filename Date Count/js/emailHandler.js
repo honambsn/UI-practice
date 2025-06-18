@@ -245,7 +245,7 @@ export function sendEmail(emailHandler) {
             }
 
 
-            
+            location.reload(); // Reload the page to reflect changes in the calendar
 
             // //reset color selection to default
             // document.querySelectorAll('.color-option').forEach(option => {
