@@ -1,5 +1,6 @@
 import { resetAll } from './dateRange.js';
 import { changeToCountDown } from './utils.js';
+import { generateCalendar } from './calendar.js';
 
 export function toggleBody() {
     const body = document.body;
@@ -58,5 +59,5 @@ export function backToday() {
     const today_month = today.getMonth();
     const today_year = today.getFullYear();
 
-    window.generateCalendar(today_month, today_year); // gọi hàm toàn cục
+    generateCalendar(today_month, today_year); // gọi hàm toàn cục
 }

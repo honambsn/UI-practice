@@ -148,6 +148,45 @@ document.querySelector('#next-year').onclick = () => {
   generateCalendar(curr_month.value, curr_year.value);
 };
 
+// function toggleResetButton() {
+//   const resetButton = document.querySelector('.today-info');
+//   //resetButton.style.visibility = (resetButton.style.visibility === 'visible') ? 'hidden' : 'visible';
+// //  resetButton.style.pointerEvents = (resetButton.style.pointerEvents === 'auto') ? ('none', yearChangeCount = 0) : 'auto';
+//   if (resetButton.style.pointerEvents === 'auto') {
+//     resetButton.style.pointerEvents = 'none';
+//     yearChangeCount = 0;
+//   }
+//   else
+//   resetButton.style.pointerEvents = 'auto';
+  
+// }
+
+// let yearChangeCount = 0;
+// const changeYear = (increment) => {
+//   curr_year.value += increment;
+//   generateCalendar(curr_month.value, curr_year.value);
+  
+//   yearChangeCount += increment;
+  
+//   if (yearChangeCount === 0) {
+//     document.querySelector('.today-info').style.pointerEvents = 'none';
+//   }
+//   else{
+//     document.querySelector('.today-info').style.pointerEvents = 'auto';
+//   }
+  
+// };
+
+// document.querySelector('#prev-year').onclick = () => changeYear(-1)
+
+// document.querySelector('#next-year').onclick = () => changeYear(1)
+
+// document.querySelector('.today-info').onclick = () => {
+//   // hide reset button when clicked
+//   toggleResetButton();
+// };
+
+
 window.addEventListener('resize', () => {
   if (month_list.classList.contains('show')) {
     month_list.classList.remove('show');

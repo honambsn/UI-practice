@@ -213,15 +213,17 @@ html, body{
 }
 
 .dark .calendar-days div.curr-date{
-    background-color: red;
-    color: var(--dark-text);
-    box-shadow: 0 0 5px red;
+    background-color: white;
+    /* color: var(--dark-text); */
+    color: black;
+    box-shadow: 0 0 5px white;
 }
 
 .dark .calendar-days div.curr-date:hover{
-    background-color: red;
-    color: var(--dark-text);
-    box-shadow: 0 0 20px rgb(255, 0, 0),
+    background-color: white;
+    /* color: var(--dark-text); */
+    color: black;
+    box-shadow: 0 0 20px rgb(255, 255, 255),
                 0 0 30px #ff9999;
 }
 
