@@ -241,3 +241,27 @@ export function resetAllSelectedDate(){
   window.location.replace(window.location.href);
 
 }
+
+
+export function deleteSpecificEvent(date) {
+  // Retrieve the array of date-color pairs from localStorage
+  let storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs")) || [];
+
+  // Filter out the pair that matches the given date
+  storedDataPairs = storedDataPairs.filter(pair => pair.date !== date);
+
+  // Save the updated array back to localStorage
+  localStorage.setItem("dateColorPairs", JSON.stringify(storedDataPairs));
+
+  // Optionally, you can also remove the color from the calendar day element
+  const calendarDay = document.querySelector(`.calendar-day-date[data-date="${date}"]`);
+  if (calendarDay) {
+    calendarDay.classList.remove('picked');
+    ///need to check later
+    calendarDay.style.backgroundColor = ''; // Reset background color
+    calendarDay.style.boxShadow = ''; // Reset box shadow
+  }
+
+  console.log(`Event on ${date} has been deleted.`);
+  
+}
