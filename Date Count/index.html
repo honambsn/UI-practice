@@ -94,15 +94,12 @@
         </ul>
     </div>
     
-    <div id="delete-confirmation" class="delete-confirmation">
-        <div class="delete-confirmation-content">
-            <p>Bạn có chắc chắn muốn xóa sự kiện này không?</p>
-            <button id="confirm-delete">Xóa</button>
-            <button id="cancel-delete">Hủy</button>
-        </div>
+    <div id="delete-menu" class="context-menu">
+        <ul>
+            <li id="deleteEvent">Xóa sự kiện</li>
+        </ul>
     </div>
 
-    
     <div id="modal" class="modal">
         
         <!-- <div id="modal" class="modal show" style="display: flex;"> -->
@@ -211,7 +208,17 @@
             </form>
         </div>
     </div>
-    
+
+    <div class="delete-modal" id="delete-modal">
+        <div class="delete-modal-content">
+            <span class="close-delete">&times;</span>
+            <h2>Xóa sự kiện</h2>
+            <p>Bạn có chắc chắn muốn xóa sự kiện này không?</p>
+            <button class="confirm-delete-btn">Xóa</button>
+            <button class="cancel-delete-btn">Hủy</button>
+        </div>
+    </div>
+
     <script> window.alert = function() { }; </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>

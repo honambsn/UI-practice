@@ -1,13 +1,22 @@
 export function handleHoverTimeout(element, delay) {
-    const contextMenu = document.getElementById('context-menu');
+    let contextMenu = document.getElementById('context-menu');
     let hoverTimeout;
+
+    element.addEventListener('mouseenter', (e) => {
+        if (element.classList.contains('picked')) {
+            contextMenu = document.getElementById('delete-menu')
+            console.log("Đã chọn ngày, sử dụng menu xóa");
+        }
+        else {
+            contextMenu = document.getElementById('context-menu');
+            console.log("Không chọn ngày, sử dụng menu mặc định");
+        }
+    });
 
     element.addEventListener('mouseenter', (e) => {
         hoverTimeout = setTimeout(() => {
             element.classList.add('active');
             
-
-            alert("Bạn đã di chuột trong 1 giây!");
             console.log("Bạn đã di chuột trong 1 giây!");
 
             const mouseX = e.pageX;

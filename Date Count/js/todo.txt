@@ -1,4 +1,8 @@
 delete event date menu:
     delete Specific date by delete pair in localStorage filter code already,
     set up for ui and menu late
+    
 date in form logic
+
+
+new event as ribbon tag
