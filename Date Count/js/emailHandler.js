@@ -165,6 +165,13 @@ export function sendEmail(emailHandler) {
         to_email: capturedEmails.join(', ')
     };
 
+    //console.log('Gửi email với các thông tin sau:', templateParams);
+    let dateField = {templateParams, selectedColorPicker};
+    console.log('Gửi email với các thông tin sau:', dateField);
+
+    localStorage.setItem('dataField', JSON.stringify(dateField));
+    
+
     emailjs.send('service_mpqab0f', 'template_bddd5w3', templateParams)
         .then(response => {
                if (selectedColorPicker) {
@@ -222,33 +229,6 @@ export function sendEmail(emailHandler) {
             else{
                 console.warn('Không thể lưu dataColorPair vào localStorage.');
             }
-
-                                        // new event as a ribbon
-            // if (activedElement) {
-            //     activedElement.classList.remove('actived');
-            //     console.log('Đã bỏ chọn ngày hiện tại actived after submited.');
-            // }
-            // else{
-            //     console.warn('Không tìm thấy ngày hiện tại để bỏ chọn after submited.');
-            // }
-            // const calendarDayHeight = document.querySelector('.calendar-day-date').offsetHeight;
-            // console.log('Chiều cao của ngày trong lịch:', calendarDayHeight);
-            // const square = activedElement || document.querySelector('.calendar-day-date.actived');
-            // if (!square) {
-            //     console.warn('Không tìm thấy ngày để thêm ribbon.');
-            //     return;
-            // }
-            // const newRibbon = document.createElement('div');
-            // console.log('Tạo ribbon mới với màu:', selectedColorPicker);
-            // newRibbon.className = 'ribbon';
-            
-            // newRibbon.style.backgroundColor = selectedColorPicker;
-            // newRibbon.style.color = '#fff'; // Đặt màu chữ cho phù hợp với nền
-            // newRibbon.textContent = 'Đã chọn';
-            // newRibbon.style.top = `${(20  / 100) * calendarDayHeight}px`; // Đặt vị trí của ribbon
-            // console.log('Đã tạo ribbon mới:', newRibbon);
-            // square.appendChild(newRibbon);
-
 
             //return;
             //close modal

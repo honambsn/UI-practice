@@ -6,3 +6,5 @@ date in form logic
 
 
 new event as ribbon tag
+style ribbon later
+todo

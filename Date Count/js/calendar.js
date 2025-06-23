@@ -221,7 +221,7 @@ export function PickedDate() {
         //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
         calendarDay.style.setProperty('--curr-color', pair.color);
 
-        
+        setRibbon(calendarDay, pair.color);
         // Optionally, you can add the color as a class or to the span tags, etc.
         // Example: Add a class to indicate the color has been applied
         //calendarDay.classList.add(`background-color-${pair.color}`);
@@ -233,6 +233,45 @@ export function PickedDate() {
   }
 }
 
+function setRibbon(calendarDay, color) {
+  const ribbonElement = calendarDay;
+
+  console.log('Đang thêm ribbon vào ngày:', calendarDay);
+
+  
+  const calendarDayHeight = document.querySelector('.calendar-day-date').offsetHeight;
+  console.log('Chiều cao của ngày trong lịch:', calendarDayHeight);
+  const square = ribbonElement;
+  if (!square) {
+      console.warn('Không tìm thấy ngày để thêm ribbon.');
+      return;
+  }
+  const newRibbon = document.createElement('div');
+  console.log('Tạo ribbon mới với màu:', color);
+  newRibbon.className = 'ribbon';
+  
+  //newRibbon.style.backgroundColor = color;
+  newRibbon.style.backgroundColor = 'black';
+  newRibbon.style.position = 'absolute'; // Đặt vị trí tuyệt đối để có thể điều chỉnh
+  newRibbon.style.width = '100%'; // Đặt chiều rộng của ribbon
+  newRibbon.style.height = `${(20 / 100) * calendarDayHeight}px`; // Đặt chiều cao của ribbon
+  newRibbon.style.left = '-10%'; // Đặt vị trí bên trái của ribbon
+  newRibbon.style.zIndex = '1'; // Đặt z-index để hiển thị
+  newRibbon.style.borderRadius = '30%'; // Thêm bo góc cho ribbon
+  //newRibbon.style.borderBottomRightRadius = '20%'; // Thêm bo góc cho ribbon,
+  //newRibbon.style.borderTopRightRadius = '20%'; // Thêm bo góc cho ribbon,
+
+  newRibbon.style.display = 'flex'; // Đặt hiển thị là flex để căn
+  newRibbon.style.alignItems = 'center'; // Căn giữa theo chiều dọc
+  newRibbon.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
+
+  //newRibbon.style.color = '#fff'; // Đặt màu chữ cho phù hợp với nền
+  //newRibbon.textContent = 'Đã chọn';
+  //newRibbon.style.top = `${(20  / 100) * calendarDayHeight}px`; // Đặt vị trí của ribbon
+  newRibbon.style.top = '4px'; // Đặt vị trí của ribbon
+  console.log('Đã tạo ribbon mới:', newRibbon);
+  square.appendChild(newRibbon);
+}
 
 
 export function resetAllSelectedDate(){
