@@ -202,76 +202,83 @@ window.addEventListener('resize', () => {
 });
 
 
+// export function PickedDate() {
+//   // Retrieve the array of date-color pairs from localStorage
+//   const storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs"));
+
+//   // Check if data exists
+//   if (storedDataPairs && storedDataPairs.length > 0) {
+//     // Loop through each pair in the stored data
+//     storedDataPairs.forEach(pair => {
+//       // Find the calendar day div that matches the date in the pair
+//       const calendarDay = document.querySelector(`.calendar-day-date[data-date="${pair.date}"]`);
+      
+//       // If the matching day exists in the calendar
+//       if (calendarDay) {
+//         // Set the background color of the calendar day (or any other style you'd like)
+//         calendarDay.classList.add('picked');
+//         //calendarDay.style.backgroundColor = pair.color;
+//         //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+//         calendarDay.style.setProperty('--curr-color', pair.color);
+
+//         //setRibbon(calendarDay, pair.color);
+//         // Optionally, you can add the color as a class or to the span tags, etc.
+//         // Example: Add a class to indicate the color has been applied
+//         //calendarDay.classList.add(`background-color-${pair.color}`);
+//         //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+//       }
+//     });
+//   } else {
+//     console.log("No data found in localStorage.");
+//   }
+// }
+
 export function PickedDate() {
-  // Retrieve the array of date-color pairs from localStorage
+  // Lấy mảng các cặp ngày-màu từ localStorage
   const storedDataPairs = JSON.parse(localStorage.getItem("dateColorPairs"));
 
-  // Check if data exists
+  // Kiểm tra nếu dữ liệu tồn tại
   if (storedDataPairs && storedDataPairs.length > 0) {
-    // Loop through each pair in the stored data
-    storedDataPairs.forEach(pair => {
-      // Find the calendar day div that matches the date in the pair
-      const calendarDay = document.querySelector(`.calendar-day-date[data-date="${pair.date}"]`);
-      
-      // If the matching day exists in the calendar
-      if (calendarDay) {
-        // Set the background color of the calendar day (or any other style you'd like)
-        calendarDay.classList.add('picked');
-        //calendarDay.style.backgroundColor = pair.color;
-        //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
-        calendarDay.style.setProperty('--curr-color', pair.color);
+    // Lưu trữ các màu theo ngày
+    const dateColorMap = {};
 
-        setRibbon(calendarDay, pair.color);
-        // Optionally, you can add the color as a class or to the span tags, etc.
-        // Example: Add a class to indicate the color has been applied
-        //calendarDay.classList.add(`background-color-${pair.color}`);
-        //calendarDay.style.boxShadow = `0 0 5px ${pair.color}`;
+    // Lặp qua từng cặp trong dữ liệu đã lưu và nhóm các màu theo ngày
+    storedDataPairs.forEach(pair => {
+      if (!dateColorMap[pair.date]) {
+        dateColorMap[pair.date] = [];
+      }
+      dateColorMap[pair.date].push(pair.color);
+    });
+
+    // Lặp qua các ngày trong dateColorMap
+    Object.keys(dateColorMap).forEach(date => {
+      // Tìm phần tử div trong lịch có ngày tương ứng với date
+      const calendarDay = document.querySelector(`.calendar-day-date[data-date="${date}"]`);
+      
+      // Nếu tìm thấy ngày tương ứng trong lịch
+      if (calendarDay) {
+        const colors = dateColorMap[date];
+        let currentColorIndex = 0;
+
+        // Thiết lập màu nền ban đầu từ mảng colors (màu đầu tiên)
+        calendarDay.style.setProperty('--curr-color', colors[currentColorIndex]);
+        calendarDay.classList.add('picked');  // Thêm lớp 'picked' cho ngày đã chọn
+
+        // Hàm thay đổi màu nền theo chu kỳ
+        const colorCycleInterval = setInterval(() => {
+          currentColorIndex = (currentColorIndex + 1) % colors.length;  // Lặp qua các màu
+          calendarDay.style.setProperty('--curr-color', colors[currentColorIndex]);  // Cập nhật màu nền
+        }, 1000); // Thay đổi màu nền mỗi 1000ms (1 giây)
+
+        // Lưu ID của interval nếu cần dừng chu kỳ sau này
+        calendarDay.setAttribute('data-colorInterval', colorCycleInterval);
       }
     });
   } else {
-    console.log("No data found in localStorage.");
+    console.log("Không tìm thấy dữ liệu trong localStorage.");
   }
 }
 
-function setRibbon(calendarDay, color) {
-  const ribbonElement = calendarDay;
-
-  console.log('Đang thêm ribbon vào ngày:', calendarDay);
-
-  
-  const calendarDayHeight = document.querySelector('.calendar-day-date').offsetHeight;
-  console.log('Chiều cao của ngày trong lịch:', calendarDayHeight);
-  const square = ribbonElement;
-  if (!square) {
-      console.warn('Không tìm thấy ngày để thêm ribbon.');
-      return;
-  }
-  const newRibbon = document.createElement('div');
-  console.log('Tạo ribbon mới với màu:', color);
-  newRibbon.className = 'ribbon';
-  
-  //newRibbon.style.backgroundColor = color;
-  newRibbon.style.backgroundColor = 'black';
-  newRibbon.style.position = 'absolute'; // Đặt vị trí tuyệt đối để có thể điều chỉnh
-  newRibbon.style.width = '100%'; // Đặt chiều rộng của ribbon
-  newRibbon.style.height = `${(20 / 100) * calendarDayHeight}px`; // Đặt chiều cao của ribbon
-  newRibbon.style.left = '-10%'; // Đặt vị trí bên trái của ribbon
-  newRibbon.style.zIndex = '1'; // Đặt z-index để hiển thị
-  newRibbon.style.borderRadius = '30%'; // Thêm bo góc cho ribbon
-  //newRibbon.style.borderBottomRightRadius = '20%'; // Thêm bo góc cho ribbon,
-  //newRibbon.style.borderTopRightRadius = '20%'; // Thêm bo góc cho ribbon,
-
-  newRibbon.style.display = 'flex'; // Đặt hiển thị là flex để căn
-  newRibbon.style.alignItems = 'center'; // Căn giữa theo chiều dọc
-  newRibbon.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
-
-  //newRibbon.style.color = '#fff'; // Đặt màu chữ cho phù hợp với nền
-  //newRibbon.textContent = 'Đã chọn';
-  //newRibbon.style.top = `${(20  / 100) * calendarDayHeight}px`; // Đặt vị trí của ribbon
-  newRibbon.style.top = '4px'; // Đặt vị trí của ribbon
-  console.log('Đã tạo ribbon mới:', newRibbon);
-  square.appendChild(newRibbon);
-}
 
 
 export function resetAllSelectedDate(){

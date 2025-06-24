@@ -2,16 +2,16 @@ export function handleHoverTimeout(element, delay) {
     let contextMenu = document.getElementById('context-menu');
     let hoverTimeout;
 
-    element.addEventListener('mouseenter', (e) => {
-        if (element.classList.contains('picked')) {
-            contextMenu = document.getElementById('delete-menu')
-            console.log("Đã chọn ngày, sử dụng menu xóa");
-        }
-        else {
-            contextMenu = document.getElementById('context-menu');
-            console.log("Không chọn ngày, sử dụng menu mặc định");
-        }
-    });
+    // element.addEventListener('mouseenter', (e) => {
+    //     if (element.classList.contains('picked')) {
+    //         contextMenu = document.getElementById('delete-menu')
+    //         console.log("Đã chọn ngày, sử dụng menu xóa");
+    //     }
+    //     else {
+    //         contextMenu = document.getElementById('context-menu');
+    //         console.log("Không chọn ngày, sử dụng menu mặc định");
+    //     }
+    // });
 
     element.addEventListener('mouseenter', (e) => {
         hoverTimeout = setTimeout(() => {
