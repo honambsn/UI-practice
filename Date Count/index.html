@@ -116,47 +116,64 @@
                 </div>
                 
               
-                <div class="event-type">
+                <div class="event-type date-picker">
                     <label for="event-date"><span>Ngày:</span></label>
                     <input type="date" id="event-date" name="date" required>
                 </div>
               
-                <div class="event-type">
+                <div class="event-type time-picker">
                     <label for="event-time"><span>Giờ:</span></label>
                     <input type="time" id="event-time" name="time" required>
                 </div>
 
-                    <div class="event-type event-email">
-                        <label for="email-participants"><span>Người tham gia (Email):</span></label>
-                        <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
-                        <div class="tooltip">
-                            <i class="fa-solid fa-question"></i>
-                            <div class="tooltip-text">
-                            Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
-                            </div>
-                        </div>
-                        <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
+                <div class="event-type event-type-repeat">
+                    <label for="event-repeat"><span>Lặp lại:</span></label>
 
-                        <div class="email-popup" style="display: none;">
-                            <div class="email-popup-content">
-                                <p>Người tham gia:</p>
-                                <ul id="email-list">
-                                    <li class="email-item">test@test.com</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="repeat-options">
+                        <div class="repeat-option selected" data-value="none">Chọn thời gian</div>
+                        <i class="fa-solid fa-repeat" aria-hidden="true" id="event-repeat-select"></i>
 
-                        <div class="email-introduce-popup" style="display: none;">
-                            <div class="participants-popup-content">
-                                Enter to capture email addresses  
-
-                                <div class="close-email-popup">
-                                    Close
-                                </div>
-                            </div>
+                        <div class="hidden-event" style="display: none;">
+                            <div class="repeat-option" data-value="none"><span>Không lặp lại</span></div>    
+                            <div class="repeat-option" data-value="daily"><span>Hàng ngày</span></div>
+                            <div class="repeat-option" data-value="weekly"><span>Hàng tuần</span></div>
+                            <div class="repeat-option" data-value="monthly"><span>Hàng tháng</span></div>
+                            <div class="repeat-option" data-value="yearly"><span>Hàng năm</span></div>
                         </div>
-                        
                     </div>
+                </div>
+
+                <div class="event-type event-email">
+                    <label for="email-participants"><span>Người tham gia (Email):</span></label>
+                    <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
+                    <div class="tooltip">
+                        <i class="fa-solid fa-question"></i>
+                        <div class="tooltip-text">
+                        Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
+                        </div>
+                    </div>
+                    <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
+
+                    <div class="email-popup" style="display: none;">
+                        <div class="email-popup-content">
+                            <p>Người tham gia:</p>
+                            <ul id="email-list">
+                                <li class="email-item">test@test.com</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="email-introduce-popup" style="display: none;">
+                        <div class="participants-popup-content">
+                            Enter to capture email addresses  
+
+                            <div class="close-email-popup">
+                                Close
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
 
                 <div class="event-type event-type-color">
                     <label for="event-color"><span>Màu sắc:</span></label>
@@ -179,22 +196,7 @@
                     </div>    
                 </div>
                 
-                <div class="event-type event-type-repeat">
-                    <label for="event-repeat"><span>Lặp lại:</span></label>
-
-                    <div class="repeat-options">
-                        <div class="repeat-option selected" data-value="none">Chọn thời gian</div>
-                        <i class="fa-solid fa-repeat" aria-hidden="true" id="event-repeat-select"></i>
-
-                        <div class="hidden-event" style="display: none;">
-                            <div class="repeat-option" data-value="none"><span>Không lặp lại</span></div>    
-                            <div class="repeat-option" data-value="daily"><span>Hàng ngày</span></div>
-                            <div class="repeat-option" data-value="weekly"><span>Hàng tuần</span></div>
-                            <div class="repeat-option" data-value="monthly"><span>Hàng tháng</span></div>
-                            <div class="repeat-option" data-value="yearly"><span>Hàng năm</span></div>
-                        </div>
-                    </div>
-                </div>
+                
               
                 <div class="event-type">
                     <label for="event-description"><span>Mô tả:</span></label>

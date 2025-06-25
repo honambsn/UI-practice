@@ -166,20 +166,23 @@ export function sendEmail(emailHandler) {
     };
 
     //console.log('Gửi email với các thông tin sau:', templateParams);
-    let dateField = {templateParams, selectedColorPicker};
-    console.log('Gửi email với các thông tin sau:', dateField);
+    const dataField = {templateParams, selectedColorPicker};
+    console.log('Gửi email với các thông tin sau:', dataField);
+    
 
     let storedData = JSON.parse(localStorage.getItem('dataField'));
     console.log('Dữ liệu cũ:', storedData); // Xem dữ liệu có đúng không
+
     if (!storedData) {
         console.log('Không có dữ liệu cũ trong localStorage.');
-        storedData = {}; // Nếu không có, khởi tạo đối tượng rỗng
+        storedData = []; // Nếu không có, khởi tạo đối tượng rỗng
     }
 
-    Object.assign(storedData, dateField);
+    storedData.push(dataField);
+    console.log('Dữ liệu mới:', storedData); // Xem dữ liệu mới sau
 
     localStorage.setItem('dataField', JSON.stringify(storedData));
-
+    console.log('Đã lưu dữ liệu vào localStorage:', localStorage.getItem('dataField'));
 
     emailjs.send('service_mpqab0f', 'template_bddd5w3', templateParams)
         .then(response => {

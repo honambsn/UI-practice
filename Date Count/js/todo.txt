@@ -5,6 +5,6 @@ delete event date menu:
 date in form logic
 
 
-new event as ribbon tag
-style ribbon later
-todo
+context menu to show event plant
+
+restyle the form later
