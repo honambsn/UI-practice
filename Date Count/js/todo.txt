@@ -8,3 +8,9 @@ date in form logic
 context menu to show event plant
 
 restyle the form later
+
+https://www.google.com/search?q=event+calendar+setup&sca_esv=daa994d4f615f536&udm=2&biw=2040&bih=1004&ei=jCpfaL20HLDB4-EP_-HXqAM&ved=0ahUKEwi9qvf34ZKOAxWw4DgGHf_wFTUQ4dUDCBE&uact=5&oq=event+calendar+setup&gs_lp=EgNpbWciFGV2ZW50IGNhbGVuZGFyIHNldHVwSPYVULkFWOUTcAF4AJABAJgBW6AB9AOqAQE2uAEDyAEA-AEBmAIFoALkAsICBhAAGAcYHsICChAAGIAEGEMYigXCAgUQABiABMICBBAAGB7CAgcQABiABBgTwgIGEAAYExgewgIGEAAYCBgemAMAiAYBkgcBNaAH4hiyBwE0uAfgAsIHBTAuMy4yyAcM&sclient=img#vhid=j0onMIQluOWVuM&vssid=mosaic
+
+https://karenapp.io/books/gc/google-calendar-events/how-do-i-create-a-google-calendar-event-that-repeats-on-the-first-monday-of-every-may/
+
+https://support.google.com/calendar/community-guide/242782525/how-to-create-a-google-calendar-event-that-repeats-once-a-year-on-the-same-day-of-the-month?hl=en

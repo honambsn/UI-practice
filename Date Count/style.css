@@ -893,9 +893,31 @@ html, body{
     font-family: inherit;
 }
 
-#event-form textarea {
-    width: 100%;
+
+.event-type.description, 
+.event-type.event-email{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
 }
+
+#datetime,
+#event-title,
+#email-participants,
+#event-description
+{
+    cursor: pointer;
+}
+
+/* .event-email{
+    display: inline-block;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+} */
 
 
 
@@ -1249,14 +1271,14 @@ html, body{
 
 
 /* ---------------------question----------------------------- */
-.event-email{
+/* .event-email{
     display: inline-block;
     position: relative;
     align-items: center;
     justify-content: center;
     gap: 10px;
     cursor: pointer;
-}
+} */
 
 
 .email-input {
@@ -1265,27 +1287,34 @@ html, body{
     box-sizing: border-box;
 }
 
+.label-with-tooltip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* Khoảng cách giữa label và icon */
+}
+
 .tooltip {
-    position: absolute;
+    position: relative;
     display: inline-block;
-    margin-left: 10px;
+    /* margin-left: 10px;
     left: auto;
     top: 10px;
-    color: #888;
+    color: #888; */
     cursor: pointer;
 }
 
-.tooltip .tooltip-text {
+.tooltip-text {
     visibility: hidden;
-    background-color: #333;
+    background-color: #525252;
     color: #fff;
     text-align: left;
-    border-radius: 4px;
+    border-radius: 5px;
     padding: 6px 10px;
     position: absolute;
     z-index: 1;
     top: -5px;
-    right: 25px;
+    /* right: 25px; */
+    left: 50%;
     width: 220px;
     font-size: 13px;
     white-space: normal;
@@ -1572,4 +1601,8 @@ button {
   background-color: #e74c3c; /* Default red ribbon color */
   width: 100%;
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+label{
+    visibility: hidden;
 }

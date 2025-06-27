@@ -139,14 +139,17 @@
                 </div>
 
                 <div class="event-type event-email">
-                    <label for="email-participants"><span>Người tham gia:</span>
+
+                    <div class="label-with-tooltip">
+                        <label for="email-participants"><span>Người tham gia:</span></label>
+
                         <div class="tooltip">
-                        <i class="fa-solid fa-question"></i>
-                        <div class="tooltip-text">
-                        Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
+                            <i class="fa-solid fa-question"></i>
+                            <div class="tooltip-text">
+                            Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
+                            </div>
                         </div>
                     </div>
-                    </label>
                     
                     <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
                     <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
