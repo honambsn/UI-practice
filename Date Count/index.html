@@ -100,9 +100,9 @@
         </ul>
     </div>
 
-    <div id="modal" class="modal">
+    <!-- <div id="modal" class="modal"> -->
         
-        <!-- <div id="modal" class="modal show" style="display: flex;"> -->
+        <div id="modal" class="modal show" style="display: flex;">
         <div class="modal-content">
             <span id="closeBtn" class="close">&times;</span>
             <h2>Đăng ký</h2>
@@ -115,16 +115,11 @@
                     <input type="text" id="event-title" name="title" required placeholder="Nhập tiêu đề sự kiện">
                 </div>
                 
-              
-                <div class="event-type date-picker">
-                    <label for="event-date"><span>Ngày:</span></label>
-                    <input type="date" id="event-date" name="date" required>
+                <div class="event-type datetime-picker">
+                    <label for="datetime"><span>Ngày giờ:</span></label>
+                    <input type="datetime-local" id="datetime" name="datetime" required>
                 </div>
-              
-                <div class="event-type time-picker">
-                    <label for="event-time"><span>Giờ:</span></label>
-                    <input type="time" id="event-time" name="time" required>
-                </div>
+
 
                 <div class="event-type event-type-repeat">
                     <label for="event-repeat"><span>Lặp lại:</span></label>
@@ -144,14 +139,16 @@
                 </div>
 
                 <div class="event-type event-email">
-                    <label for="email-participants"><span>Người tham gia (Email):</span></label>
-                    <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
-                    <div class="tooltip">
+                    <label for="email-participants"><span>Người tham gia:</span>
+                        <div class="tooltip">
                         <i class="fa-solid fa-question"></i>
                         <div class="tooltip-text">
                         Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
                         </div>
                     </div>
+                    </label>
+                    
+                    <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
                     <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
 
                     <div class="email-popup" style="display: none;">
@@ -198,7 +195,7 @@
                 
                 
               
-                <div class="event-type">
+                <div class="event-type description">
                     <label for="event-description"><span>Mô tả:</span></label>
                     <textarea id="event-description" name="description" placeholder="Description"></textarea>
                 </div>

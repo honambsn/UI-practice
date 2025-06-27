@@ -783,7 +783,7 @@ html, body{
     padding: 20px;
     border-radius: 20px;
     width: 50%;
-    max-width: 600px; /* Đặt chiều rộng tối đa cho modal */
+    max-width: 1000px; /* Đặt chiều rộng tối đa cho modal */
     box-shadow: 0 12px 12px rgba(0, 0, 0, 0.3);
     
 }
@@ -881,7 +881,7 @@ html, body{
 #event-form input,
 #event-form textarea,
 #event-form select {
-    width: 100%;
+    width: 50%;
     padding: 8px;
     margin-top: 4px;
     margin-bottom: 8px;
@@ -892,6 +892,12 @@ html, body{
     transition: all 0.05s ease-in-out;
     font-family: inherit;
 }
+
+#event-form textarea {
+    width: 100%;
+}
+
+
 
 /* ------------------------------event color------------------------------------------ */
 
@@ -1261,7 +1267,9 @@ html, body{
 
 .tooltip {
     position: absolute;
-    right: 10px;
+    display: inline-block;
+    margin-left: 10px;
+    left: auto;
     top: 10px;
     color: #888;
     cursor: pointer;
