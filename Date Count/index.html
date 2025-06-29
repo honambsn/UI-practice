@@ -100,9 +100,9 @@
         </ul>
     </div>
 
-    <!-- <div id="modal" class="modal"> -->
+    <div id="modal" class="modal">
         
-        <div id="modal" class="modal show" style="display: flex;">
+        <!-- <div id="modal" class="modal show" style="display: flex;"> -->
         <div class="modal-content">
             <span id="closeBtn" class="close">&times;</span>
             <h2>Đăng ký</h2>
@@ -140,19 +140,25 @@
 
                 <div class="event-type event-email">
 
-                    <div class="label-with-tooltip">
+                    <!-- <div class="label-with-tooltip"> -->
                         <label for="email-participants"><span>Người tham gia:</span></label>
-
-                        <div class="tooltip">
+                        <!-- <div class="tooltip">
                             <i class="fa-solid fa-question"></i>
                             <div class="tooltip-text">
                             Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
                     
                     <textarea required class="email-input" id="email-participants" name="participants" placeholder="abc@example.com, xyz@example.com"></textarea>
                     <p id="warning-message" style="color: red; display: none;">Email must be in correctly type</p>
+
+                    <div class="tooltip">
+                        <i class="fa-solid fa-question"></i>
+                        <div class="tooltip-text">
+                        Enter email addresses separated by commas. Example: user1@example.com, user2@example.com
+                        </div>
+                    </div>
 
                     <div class="email-popup" style="display: none;">
                         <div class="email-popup-content">
@@ -222,6 +228,13 @@
     </div>
 
     <script> window.alert = function() { }; </script>
+    <script>
+        const labels = document.querySelectorAll('label');
+        labels.forEach(label => {
+            label.classList.add('disabled');
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="module" src="js/main.js"></script>

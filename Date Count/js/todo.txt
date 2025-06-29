@@ -14,3 +14,8 @@ https://www.google.com/search?q=event+calendar+setup&sca_esv=daa994d4f615f536&ud
 https://karenapp.io/books/gc/google-calendar-events/how-do-i-create-a-google-calendar-event-that-repeats-on-the-first-monday-of-every-may/
 
 https://support.google.com/calendar/community-guide/242782525/how-to-create-a-google-calendar-event-that-repeats-once-a-year-on-the-same-day-of-the-month?hl=en
+
+
+
+
+api js
