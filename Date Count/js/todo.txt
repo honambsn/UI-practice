@@ -19,3 +19,4 @@ https://support.google.com/calendar/community-guide/242782525/how-to-create-a-go
 
 
 api js
+https://openweathermap.org/price

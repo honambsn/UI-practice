@@ -8,6 +8,7 @@ import { initColorPicker } from './colorPicker.js';
 import { setupRepeatEventOptions } from './repeatEvent.js';
 import { manageEvent } from './modal.js';
 import { resetAllSelectedDate } from './calendar.js';
+import { setupApiButton } from './api-test.js';
 
 document.getElementById('manageEvent').addEventListener('click', manageEvent);
 
@@ -80,3 +81,5 @@ setupContextMenu();
 initColorPicker();
 setupRepeatEventOptions();
 
+setupApiButton();
+//footballAPI();
