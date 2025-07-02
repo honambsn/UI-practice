@@ -1,0 +1,10 @@
+https://publicapis.io/pokeapi-api
+
+https://pokeapi.co/
+
+https://stackblitz.com/edit/pokemon-api?file=index.js
+
+https://dev.pokemontcg.io/dashboard => h....7@mail.com => 1...3A.....c@@
+https://docs.pokemontcg.io/getting-started/authentication
+
+https://github.com/PokemonTCG/pokemon-tcg-sdk-javascript?tab=readme-ov-file
