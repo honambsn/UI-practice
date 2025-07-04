@@ -95,3 +95,71 @@ async function fetchData() {
 }
 
 fetchData();
+
+
+fetch('https://pokeapi.co/api/v2/pokemon/charizard')
+  .then(response => response.json())
+  .then(data => {
+    // Remove the 'moves' attribute from the data
+    const { moves, ...filteredData } = data;
+    
+    // Now 'filteredData' has all attributes except 'moves'
+    console.log(filteredData);
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+
+
+const cardId = 'base1-4';  // Replace with the actual card ID
+const url = `https://api.pokemontcg.io/v2/cards/${cardId}`;
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Do something with the returned data
+
+    const cardImage = data.data.images.large; // Access the card image URL
+    console.log(`Card Image URL: ${cardImage}`); // Log the card image URL
+
+    const imgElement = document.getElementById('image');
+    imgElement.src = cardImage; // Set the image source to the card image URL
+    imgElement.setAttribute('data-src', cardImage); // Set the data-src attribute for lazy loading
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          imgElement.src = imgElement.getAttribute('data-src'); // Set the src attribute to the data-src value
+
+          imgElement.onload = () => {
+            imgElement.classList.add('loaded'); // Add a class to indicate
+            document.getElementById('loading-text').style.display = 'none'; // Hide loading text
+          };
+          observer.disconnect(); // Stop observing once the image is loaded
+        }
+      });
+    }, {
+      //root: null, // Use the viewport as the root
+      threshold: 0.1 // Trigger when 10% of the image is visible
+    });
+
+    observer.observe(imgElement); // Start observing the image element
+    
+    
+    const card = data.data; // Access the card data
+    const cardName = card.name; // Get the card name
+    console.log(`Card Name: ${cardName}`); // Log the card name
+
+    fetch(`https://pokeapi.co/api/v2/pokemon/${cardName.toLowerCase()}`)
+    .then(response => response.json())
+    .then(data => {
+      // Remove the 'moves' attribute from the data
+      const { moves, ...filteredData } = data;
+      
+      // Now 'filteredData' has all attributes except 'moves'
+      console.log(filteredData);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
