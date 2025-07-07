@@ -8,3 +8,10 @@ https://dev.pokemontcg.io/dashboard => h....7@mail.com => 1...3A.....c@@
 https://docs.pokemontcg.io/getting-started/authentication
 
 https://github.com/PokemonTCG/pokemon-tcg-sdk-javascript?tab=readme-ov-file
+
+https://tcgdex.dev/
+
+https://api.pokemontcg.io/v2/cards?name=charizard
+https://pokemontcg.guru/search?view=List&order=name&sort=Asc&q=charizard
+
+https://api.pokemontcg.io/v2/cards?q=name:charizard
