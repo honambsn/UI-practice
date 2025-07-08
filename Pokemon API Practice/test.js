@@ -155,6 +155,7 @@ function fetchCard(cardId) {
     .then(data => {
       console.log(data); // Do something with the returned data
 
+
       const cardImage = data.data.images.large; // Access the card image URL
       console.log(`Card Image URL: ${cardImage}`); // Log the card image URL
 
@@ -205,7 +206,7 @@ function fetchCard(cardId) {
 
 }
 
-document.addEventListener('DOMContentLoaded', setupCardFetcher);
+//document.addEventListener('DOMContentLoaded', setupCardFetcher);
 
 
 
@@ -267,48 +268,63 @@ document.addEventListener('DOMContentLoaded', setupCardFetcher);
 
 
 
-// document.addEventListener('keydown', (event) => {
-//   let pokeName = document.getElementById('poke-name');
+document.addEventListener('keydown', (event) => {
+  let pokeName = document.getElementById('poke-name');
 
-//   if (event.key === 'Enter') {
-//     pokeName = pokeName.value.trim();
-//     pokeName.toLowerCase(); // Convert to lowercase for consistency
-//     pokeName.value = ''; // Clear the input field after fetching
-//     if (pokeName) {
-//       console.log(`Fetching card - pokemon Name: ${pokeName}`);
-      
-//       //const url = `https://api.pokemontcg.io/v2/cards?name=${pokeName}`;
-//       const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
-      
-//       //let url = `https://api.pokemontcg.io/v2/cards?name=charizard`;
-//     fetch(url)
-//       .then(response => response.json())
-//       .then(data => {
-//         if (data.data && data.data.length > 0) {
-//           const card = data.data;
+  if (event.key === 'Enter') {
+    pokeName = pokeName.value.trim();
+    pokeName.toLowerCase(); // Convert to lowercase for consistency
+    pokeName.value = ''; // Clear the input field after fetching
+    if (pokeName) {
+      console.log(`Fetching card - pokemon Name: ${pokeName}`);
+      pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
+      const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.data && data.data.length > 0) {
+          const card = data.data;
 
-//           console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
+          console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
 
           
-//           const ids = card
-//             .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
-//             .map(c => c.id);
+          const ids = card
+            .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
+            .map(c => c.id);
           
           
-//           console.log(`Card ID: ${ids}`); // Log the card ID
+          console.log(`Card IDs: ${ids}`); // Log the card ID
+
+          console.log(`data type: ${typeof ids}`); // Log the type of ids
+
           
-//           //fetchCard(cardId); // Call the function to fetch the card details
-//         } else {
-//           console.log('No cards found for this Pokémon name.');
-//         }
-//       })
-//       .catch(error => console.error('Error fetching card:', error));
-//     }
-//     else {
-//       console.log('Please enter a valid Pokémon name or ID.');
-//     }
-//   }
-// });
+          
+            // Check if ids is an array, not just an object
+            if (Array.isArray(ids)) {
+              console.log('ids is an array');
+            } else {
+              console.error('Error: ids is not an array');
+            }
+
+            // Loop through each id and log it separately
+            ids.forEach(id => {
+              console.log(`Card ID: ${id}`);
+            });
+
+
+          
+          //fetchCard(cardId); // Call the function to fetch the card details
+        } else {
+          console.log('No cards found for this Pokémon name.');
+        }
+      })
+      .catch(error => console.error('Error fetching card:', error));
+    }
+    else {
+      console.log('Please enter a valid Pokémon name or ID.');
+    }
+  }
+});
 
 
 
