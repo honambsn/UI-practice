@@ -1,0 +1,54 @@
+
+/* General body settings */
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #000;
+  color: #0f0;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Console Container */
+#console {
+  width: 80%;
+  height: 60%;
+  border: 2px solid #0f0;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Output area */
+#output {
+  flex-grow: 1;
+  white-space: pre-wrap; /* To preserve newlines and spaces */
+  word-wrap: break-word;  /* Prevent horizontal scrolling */
+  overflow-y: auto;       /* Scroll vertically if needed */
+  max-height: 100%;       /* Prevent overflow beyond the container */
+}
+
+/* Input container */
+#input-container {
+  display: flex;
+  align-items: center;
+}
+
+#input-container span {
+  margin-right: 5px;
+}
+
+#input {
+  background: transparent;
+  border: none;
+  color: #0f0;
+  outline: none;
+  width: 100%;
+  font-size: 1.2rem;
+}

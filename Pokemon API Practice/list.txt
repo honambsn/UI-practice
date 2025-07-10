@@ -15,3 +15,6 @@ https://api.pokemontcg.io/v2/cards?name=charizard
 https://pokemontcg.guru/search?view=List&order=name&sort=Asc&q=charizard
 
 https://api.pokemontcg.io/v2/cards?q=name:charizard
+
+
+https://tcg.pokemon.com/en-us/galleries/destined-rivals/

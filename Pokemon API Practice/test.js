@@ -148,6 +148,14 @@ function fetchCard(cardId) {
   input.style.display = 'none'; // Hide the input field
   loadingText.innerHTML = "Loading..."; // Set loading text
 
+  var loading = document.getElementById('loading-text');
+  var img = document.createElement('img'); // Use document.createElement, not loading.createElement
+  img.src = "pokemon_backside.jpeg"; // Set the image source
+  img.style.width = '600px'; // Set the width of the image
+  img.style.height = '825px'; // Set the height of the image
+  loading.appendChild(img); // Append the image to the loading element
+
+  // Fetch the card data from the Pokémon TCG API
   const url = `https://api.pokemontcg.io/v2/cards/${cardId}`;
 
   fetch(url)
@@ -277,7 +285,7 @@ document.addEventListener('keydown', (event) => {
     pokeName.value = ''; // Clear the input field after fetching
     if (pokeName) {
       console.log(`Fetching card - pokemon Name: ${pokeName}`);
-      pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
+      //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
       const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
     fetch(url)
       .then(response => response.json())
@@ -389,3 +397,153 @@ console.log(getPokemonRandom(arr)); // This will log a random Pokémon name from
 
 
 // Card ID: dp3-3,pl4-1,base4-4,base6-3,det1-5,sm75-3,base1-4,sm9-14,ecard1-6,ex16-6,bw11-19,xy12-11,bw7-20,swsh4-25,ecard1-39,ecard1-40,swshp-SWSH066,g1-RC5,ex3-100,dp7-103,bw8-136,smp-SM158,ecard3-146,smp-SM226,cel25c-4_A,pgo-10,swsh11tg-TG03
+
+
+
+
+
+
+
+//////////////////////*css*/`
+
+function setupConsole() {
+  // Create the Toggle Button
+  const toggleButton = document.createElement('button');
+  toggleButton.id = 'toggle-button';
+  toggleButton.textContent = 'Toggle Console';
+
+  // Append the toggle button to the body
+  document.body.appendChild(toggleButton);
+
+  // Create the Console Container
+  const consoleContainer = document.createElement('div');
+  consoleContainer.id = 'console';
+  document.body.appendChild(consoleContainer);
+
+  // Create the Output Area
+  const outputDiv = document.createElement('div');
+  outputDiv.id = 'output';
+  consoleContainer.appendChild(outputDiv);
+
+  // Create the Input Area
+  const inputContainer = document.createElement('div');
+  inputContainer.id = 'input-container';
+  consoleContainer.appendChild(inputContainer);
+
+  const inputSpan = document.createElement('span');
+  inputSpan.textContent = '>';
+  inputContainer.appendChild(inputSpan);
+
+  const inputField = document.createElement('input');
+  inputField.id = 'input';
+  inputField.type = 'text';
+  inputField.autofocus = true;
+  inputContainer.appendChild(inputField);
+
+  // Toggle button functionality
+  toggleButton.addEventListener('click', function () {
+    if (consoleContainer.style.display === 'none') {
+      consoleContainer.style.display = 'flex';
+    } else {
+      consoleContainer.style.display = 'none';
+    }
+  });
+
+  // Handle input
+  inputField.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      const inputValue = inputField.value.trim();
+      
+      if (inputValue !== "") {
+        const newOutput = document.createElement('div');
+        newOutput.textContent = `> ${inputValue}`;
+        outputDiv.appendChild(newOutput);
+
+        // You can add any custom command logic here
+        const commandResponse = document.createElement('div');
+        commandResponse.textContent = `Executed: ${inputValue}`;
+        outputDiv.appendChild(commandResponse);
+
+        // Scroll to the bottom
+        outputDiv.scrollTop = outputDiv.scrollHeight;
+
+        // Clear the input field for the next command
+        inputField.value = "";
+      }
+    }
+  });
+}
+
+
+
+function setupConsoleNew() {
+  // Create the Toggle Button
+  const toggleButton = document.createElement('button');
+  toggleButton.id = 'toggle-button';
+  toggleButton.textContent = 'Toggle Console';
+
+  // Append the toggle button to the body (You can place this in any desired position)
+  document.body.appendChild(toggleButton);
+
+  // Create the Console Container
+  const consoleContainer = document.createElement('div');
+  consoleContainer.id = 'console';
+  document.body.appendChild(consoleContainer);
+
+  // Create the Output Area
+  const outputDiv = document.createElement('div');
+  outputDiv.id = 'output';
+  consoleContainer.appendChild(outputDiv);
+
+  // Create the Input Area
+  const inputContainer = document.createElement('div');
+  inputContainer.id = 'input-container';
+  consoleContainer.appendChild(inputContainer);
+
+  const inputSpan = document.createElement('span');
+  inputSpan.textContent = '>';
+  inputContainer.appendChild(inputSpan);
+
+  const inputField = document.createElement('input');
+  inputField.id = 'input';
+  inputField.type = 'text';
+  inputField.autofocus = true;
+  inputContainer.appendChild(inputField);
+
+  // Toggle button functionality
+  toggleButton.addEventListener('click', function () {
+    if (consoleContainer.style.display === 'none') {
+      consoleContainer.style.display = 'flex';
+    } else {
+      consoleContainer.style.display = 'none';
+    }
+  });
+
+  // Handle input
+  inputField.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      const inputValue = inputField.value.trim();
+      
+      if (inputValue !== "") {
+        const newOutput = document.createElement('div');
+        newOutput.textContent = `> ${inputValue}`;
+        outputDiv.appendChild(newOutput);
+
+        // You can add any custom command logic here
+        const commandResponse = document.createElement('div');
+        commandResponse.textContent = `Executed: ${inputValue}`;
+        outputDiv.appendChild(commandResponse);
+
+        // Scroll to the bottom
+        outputDiv.scrollTop = outputDiv.scrollHeight;
+
+        // Clear the input field for the next command
+        inputField.value = "";
+      }
+    }
+  });
+};
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   setupConsoleNew(); // Initialize the console when the DOM is fully loaded
+// });

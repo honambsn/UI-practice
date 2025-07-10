@@ -5,7 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
+    background-color: #F0C1E1;
 }
 
 .image-container {
@@ -25,6 +26,10 @@ body {
     transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
     opacity: 0;
     display: none; /* Hide the image by default */;
+}
+
+#image:hover{
+    cursor: pointer; /* Change cursor to pointer on hover */
 }
 
 #image.lazy.loaded {
