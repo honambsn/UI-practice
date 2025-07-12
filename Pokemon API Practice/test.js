@@ -148,12 +148,6 @@ function fetchCard(cardId) {
   input.style.display = 'none'; // Hide the input field
   loadingText.innerHTML = "Loading..."; // Set loading text
 
-  var loading = document.getElementById('loading-text');
-  var img = document.createElement('img'); // Use document.createElement, not loading.createElement
-  img.src = "pokemon_backside.jpeg"; // Set the image source
-  img.style.width = '600px'; // Set the width of the image
-  img.style.height = '825px'; // Set the height of the image
-  loading.appendChild(img); // Append the image to the loading element
 
   // Fetch the card data from the Pokémon TCG API
   const url = `https://api.pokemontcg.io/v2/cards/${cardId}`;
