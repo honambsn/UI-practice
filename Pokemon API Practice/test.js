@@ -541,3 +541,55 @@ function setupConsoleNew() {
 // document.addEventListener('DOMContentLoaded', () => {
 //   setupConsoleNew(); // Initialize the console when the DOM is fully loaded
 // });
+
+
+
+
+
+
+
+
+
+
+
+////// suggertions for fetching Pokémon cards 
+// let isFetching = false; // Cờ để ngăn chặn việc fetch trùng lặp
+
+// // Hàm để thực hiện fetch thẻ
+// function fetchCardDetails() {
+//   // Lấy một ID ngẫu nhiên mới từ mảng các ID
+//   let randomID = getPokemonRandom(ids);
+//   console.log("ID ngẫu nhiên trong ids: ", randomID);
+
+//   // Thực hiện fetch dữ liệu cho ID ngẫu nhiên
+//   fetchCard(randomID)
+//     .then(response => {
+//       console.log("Dữ liệu thẻ đã được lấy thành công:", response);
+//     })
+//     .catch(error => {
+//       console.error('Lỗi khi lấy dữ liệu thẻ:', error);
+//     })
+//     .finally(() => {
+//       isFetching = false; // Reset cờ sau khi fetch hoàn tất
+//     });
+// }
+
+// // Fetch lần đầu tiên khi trang tải
+// fetchCardDetails(); // Gọi hàm ngay khi tải trang
+
+// // Lắng nghe sự kiện click để fetch lại dữ liệu khi người dùng click
+// document.addEventListener('click', (e) => {
+//   // Nếu đang fetch, ngừng xử lý thêm click
+//   if (isFetching) {
+//     console.log("Đang fetch thẻ, vui lòng đợi.");
+//     e.preventDefault(); // Ngừng hành động mặc định nếu cần
+//     e.stopPropagation(); // Ngừng sự kiện tiếp tục lây lan
+//     return; // Không thực hiện fetch mới
+//   }
+
+//   // Đặt cờ là true để báo đang fetch
+//   isFetching = true;
+
+//   // Gọi lại hàm fetch khi có click
+//   fetchCardDetails();
+// });
