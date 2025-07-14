@@ -137,6 +137,7 @@ function setupCardFetcher() {
 }
 
 function fetchCard(cardId) {
+  return new Promise((resolve, reject) => {
   const input = document.getElementById('poke-name');
   const loadingText = document.getElementById('loading-text');
   const image = document.getElementById('image');
@@ -197,6 +198,9 @@ function fetchCard(cardId) {
         
         // Now 'filteredData' has all attributes except 'moves'
         console.log(filteredData);
+
+
+        resolve(filteredData);
       })
       .catch(error => console.error('Error 1 fetching data:', error));
     })
@@ -204,8 +208,10 @@ function fetchCard(cardId) {
       document.getElementById("loading-text").innerHTML = "Card not found. Please try again.";
       document.getElementById("loading-text").style.display = "block";
       console.error('Error 2 fetching data:', error);
-    });
 
+      reject(error); // Từ chối promise nếu có lỗi
+    });
+  });
 }
 
 //document.addEventListener('DOMContentLoaded', setupCardFetcher);
@@ -313,17 +319,53 @@ document.addEventListener('keydown', (event) => {
           });
 
 
-          console.log("get random id in ids: ", getPokemonRandom(ids));
+          let randomID = getPokemonRandom(ids); // Get a random ID from the array
+          console.log("get random id in ids: ", randomID);
+
+          let isFetching = false; // Flag to prevent duplicate fetches
+
+          
+
+          function fetchingCard(randomID) {
+            document.body.style.backgroundColor = "red";
+            console.log(`Fetching card with ID: ${randomID}`);
+            fetchCard(randomID).then(() => {
+              console.log(`Card with ID ${randomID} fetched successfully.`);
+            })
+            .catch(error => {
+              console.error(`Error fetching card with ID ${randomID}:`, error);
+            })
+            .finally(() => {
+              console.log(`Finished fetching card with ID: ${randomID}`);
+              isFetching = false; // Reset the flag after fetching
+
+              const originalBackgroundColor = window.getComputedStyle(document.body).backgroundColor;
+              document.body.style.backgroundColor = "blue"; // Reset background color
+            });
+          }
   
-          fetchCard(getPokemonRandom(ids)); // Call the function to fetch the card details
+          //fetchCard(randomId); // Call the function to fetch the card details
+          fetchingCard(randomID); // Call the function to fetch the card details
+          //console.log(fetchCard(randomId)); // Log the fetchCard function call
             
           document.addEventListener('click', (e) =>{
-            console.log("get random id in ids: ", getPokemonRandom(ids));
-    
-            fetchCard(getPokemonRandom(ids)); // Call the function to fetch the card details
+            if (isFetching) {
+              console.log("Already fetching a card, please wait.");
+              e.preventDefault(); // Prevent default action if needed
+              e.stopPropagation(); // Stop the event from propagating further
+              return; // Exit the function to prevent duplicate fetches
+            }
+
+            isFetching = true; // Set the flag to true to indicate fetching is in progress
+            randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
+            console.log("get random id in ids: ", randomID);
+            
+
+            fetchingCard(randomID);
+            
+            
           });
           // get random card ID from the array of IDs
-          
 
 
         } else {
