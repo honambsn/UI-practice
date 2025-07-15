@@ -280,6 +280,15 @@ document.addEventListener('keydown', (event) => {
   let pokeName = document.getElementById('poke-name');
 
   if (event.key === 'Enter') {
+    const loadingText = document.getElementById('loading-text');
+    const image = document.getElementById('image');
+    const input = document.getElementById('poke-name');
+    loadingText.style.display = 'block'; // Show loading text
+    image.style.display = 'none'; // Hide the image element
+    loadingText.innerHTML = "Loading..."; // Set loading text
+    input.style.display = 'none'; // Hide the input field
+
+
     pokeName = pokeName.value.trim();
     pokeName.toLowerCase(); // Convert to lowercase for consistency
     pokeName.value = ''; // Clear the input field after fetching
@@ -287,92 +296,120 @@ document.addEventListener('keydown', (event) => {
       console.log(`Fetching card - pokemon Name: ${pokeName}`);
       //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
       const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data.data && data.data.length > 0) {
-          const card = data.data;
+      const getByName = () =>{
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.data && data.data.length > 0) {
+            const card = data.data;
 
-          console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
+            console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
 
-          
-          const ids = card
-            .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
-            .map(c => c.id);
-          
-          
-          console.log(`Card IDs: ${ids}`); // Log the card ID
-
-          console.log(`data type: ${typeof ids}`); // Log the type of ids
-
-          
-          // Check if ids is an array, not just an object
-          if (Array.isArray(ids)) {
-            console.log('ids is an array');
-          } else {
-            console.error('Error: ids is not an array');
-          }
-
-          // Loop through each id and log it separately
-          ids.forEach(id => {
-            console.log(`Card ID: ${id}`);
-          });
-
-
-          let randomID = getPokemonRandom(ids); // Get a random ID from the array
-          console.log("get random id in ids: ", randomID);
-
-          let isFetching = false; // Flag to prevent duplicate fetches
-
-          
-
-          function fetchingCard(randomID) {
-            document.body.style.backgroundColor = "red";
-            console.log(`Fetching card with ID: ${randomID}`);
-            fetchCard(randomID).then(() => {
-              console.log(`Card with ID ${randomID} fetched successfully.`);
-            })
-            .catch(error => {
-              console.error(`Error fetching card with ID ${randomID}:`, error);
-            })
-            .finally(() => {
-              console.log(`Finished fetching card with ID: ${randomID}`);
-              isFetching = false; // Reset the flag after fetching
-
-              const originalBackgroundColor = window.getComputedStyle(document.body).backgroundColor;
-              document.body.style.backgroundColor = "blue"; // Reset background color
-            });
-          }
-  
-          //fetchCard(randomId); // Call the function to fetch the card details
-          fetchingCard(randomID); // Call the function to fetch the card details
-          //console.log(fetchCard(randomId)); // Log the fetchCard function call
             
-          document.addEventListener('click', (e) =>{
-            if (isFetching) {
-              console.log("Already fetching a card, please wait.");
-              e.preventDefault(); // Prevent default action if needed
-              e.stopPropagation(); // Stop the event from propagating further
-              return; // Exit the function to prevent duplicate fetches
+            const ids = card
+              .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
+              .map(c => c.id);
+            
+            
+            console.log(`Card IDs: ${ids}`); // Log the card ID
+
+            console.log(`data type: ${typeof ids}`); // Log the type of ids
+
+            
+            // Check if ids is an array, not just an object
+            if (Array.isArray(ids)) {
+              console.log('ids is an array');
+            } else {
+              console.error('Error: ids is not an array');
             }
 
-            isFetching = true; // Set the flag to true to indicate fetching is in progress
-            randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
+            // Loop through each id and log it separately
+            ids.forEach(id => {
+              console.log(`Card ID: ${id}`);
+            });
+
+
+            let randomID = getPokemonRandom(ids); // Get a random ID from the array
             console.log("get random id in ids: ", randomID);
+
+            let isFetching = false; // Flag to prevent duplicate fetches
+
             
 
-            fetchingCard(randomID);
-            
-            
-          });
-          // get random card ID from the array of IDs
+            function fetchingCard(randomID) {
+              document.body.style.backgroundColor = "#393E46"; // Change background color to indicate fetching
+              console.log(`Fetching card with ID: ${randomID}`);
+              fetchCard(randomID).then(() => {
+                console.log(`Card with ID ${randomID} fetched successfully.`);
+              })
+              .catch(error => {
+                console.error(`Error fetching card with ID ${randomID}:`, error);
+              })
+              .finally(() => {
+                console.log(`Finished fetching card with ID: ${randomID}`);
+                isFetching = false; // Reset the flag after fetching
+
+                const originalBackgroundColor = window.getComputedStyle(document.body).backgroundColor;
+                document.body.style.backgroundColor = originalBackgroundColor; // Reset background color
+              });
+            }
+    
+            //fetchCard(randomId); // Call the function to fetch the card details
+            fetchingCard(randomID); // Call the function to fetch the card details
+            //console.log(fetchCard(randomId)); // Log the fetchCard function call
+              
+            document.addEventListener('click', (e) =>{
+              if (isFetching) {
+                console.log("Already fetching a card, please wait.");
+                e.preventDefault(); // Prevent default action if needed
+                e.stopPropagation(); // Stop the event from propagating further
+                return; // Exit the function to prevent duplicate fetches
+              }
+
+              isFetching = true; // Set the flag to true to indicate fetching is in progress
+              randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
+              console.log("get random id in ids: ", randomID);
+              
+
+              fetchingCard(randomID);
+            });
+            // get random card ID from the array of IDs
 
 
-        } else {
-          console.log('No cards found for this Pokémon name.');
-        }
-      })
-      .catch(error => console.error('Error fetching card:', error));
+          } else {
+            console.log('No cards found for this Pokémon name.');
+          }
+        })
+        .catch(error => console.error('Error fetching card:', error)).finally(() => {
+          loadingText.style.display = 'none'; // Hide loading text after fetching
+          // image.style.display = 'block'; // Show the image element
+          // input.style.display = 'block'; // Show the input field again
+        });
+      };
+      getByName();
+
+      // const loadObserver = () => {
+      //   const observe = new IntersectionObserver((entries, observerInstance) => {
+      //     entries.forEach(entry =>{
+      //       if (entry.isIntersecting){
+      //         console.log('Element is in view:');
+      //         fetchCard(); // Call the fetchCard function when the element is in view
+      //         observerInstance.disconnect(); // Stop observing after the first intersection
+      //       }
+      //     });
+      //   }, {
+      //     threshold: 0.1 // Trigger when 10% of the element is visible
+      //   });
+
+      //   const targetElement = document.getElementById('.loading-text');
+      //   if (targetElement) {
+      //     observe.observe(targetElement); // Start observing the target element
+      //   } else {
+      //     console.error('Target element not found for intersection observer.');
+      //   }
+      // };
+
+      // loadObserver(); // Call the function to set up the observer
     }
     else {
       console.log('Please enter a valid Pokémon name or ID.');
