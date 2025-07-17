@@ -277,15 +277,27 @@ function fetchCard(cardId) {
 
 
 document.addEventListener('keydown', (event) => {
+
+  let isError = false; // Flag to track if an error occurs
+
+  if (isError === true){
+    event.preventDefault(); // Prevent default action if needed
+    //event.stopPropagation(); // Stop the event from propagating further
+    return;
+  }
+
   let pokeName = document.getElementById('poke-name');
 
-  if (event.key === 'Enter') {
-    const loadingText = document.getElementById('loading-text');
+  if (event.key === 'Enter' && isError === false) {
+    let loadingText = document.getElementById('loading-text');
     const image = document.getElementById('image');
     const input = document.getElementById('poke-name');
+
     loadingText.style.display = 'block'; // Show loading text
-    image.style.display = 'none'; // Hide the image element
     loadingText.innerHTML = "Loading..."; // Set loading text
+    
+    
+    image.style.display = 'none'; // Hide the image element
     input.style.display = 'none'; // Hide the input field
 
 
@@ -349,8 +361,8 @@ document.addEventListener('keydown', (event) => {
                 console.log(`Finished fetching card with ID: ${randomID}`);
                 isFetching = false; // Reset the flag after fetching
 
-                const originalBackgroundColor = window.getComputedStyle(document.body).backgroundColor;
-                document.body.style.backgroundColor = originalBackgroundColor; // Reset background color
+              
+                document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
               });
             }
     
@@ -377,11 +389,45 @@ document.addEventListener('keydown', (event) => {
 
 
           } else {
-            console.log('No cards found for this Pokémon name.');
+            loadingText.style.display = 'block'; // Show loading text
+            loadingText.innerHTML = "No cards found for this Pokémon name. Click here to try again."; // Set loading text
+            loadingText.style.cursor = 'pointer'; // Change cursor to pointer for clickable text
+            
+            
+            loadingText.addEventListener('mouseover', e =>{
+              loadingText.style.color = 'red'; // Change text color to red for visibility
+            });
+
+            loadingText.addEventListener('mouseout', e =>{
+              loadingText.style.color = ''; // Reset text color when mouse leaves
+            });
+
+
+            loadingText.addEventListener('click', function() {
+              // loadingText.style.display = 'none'; // Hide loading text
+              // input.style.display = 'block'; // Show the input field again
+              // input.focus(); // Focus on the input field
+
+
+                        //reload the page to reset the input field and loading text
+              //loadingText.remove(); // Remove the loading text element
+              //location.reload(); // Reload the page to reset the input field and loading text
+
+
+                        // not reload the page, just reset the input field and loading text
+              input.value = ''; // Clear the input field
+              input.style.display = 'block'; // Show the input field again
+              loadingText.style.display = 'none'; // Hide loading text
+              input.focus(); // Focus on the input field
+            });
+            
+            console.log('No cards found for this Pokémon name...');
           }
         })
-        .catch(error => console.error('Error fetching card:', error)).finally(() => {
-          loadingText.style.display = 'none'; // Hide loading text after fetching
+        .catch(error => console.error('Error fetching card:', error), isError = true).finally(() => {
+          //loadingText.style.display = 'block'; // Hide loading text after fetching
+          //loadingText.innerHTML = "Something went wrong. Please try again.";
+          //console.error('Error fetching card:', error);
           // image.style.display = 'block'; // Show the image element
           // input.style.display = 'block'; // Show the input field again
         });
