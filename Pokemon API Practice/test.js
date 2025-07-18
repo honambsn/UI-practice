@@ -15,6 +15,9 @@
 //   .then(response => response.json())
 //   .then(data => console.log(data));
 
+window.onload = function() {
+  document.getElementById('poke-name').focus(); // Focus on the input field when the page loads
+};
 
 async function getAllPokemon() {
   let url = 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=0'; // 100 Pokémon per page
@@ -295,6 +298,10 @@ document.addEventListener('keydown', (event) => {
 
     loadingText.style.display = 'block'; // Show loading text
     loadingText.innerHTML = "Loading..."; // Set loading text
+    loadingText.style.color = 'red';
+    loadingText.style.cursor = 'default'; // Change cursor to default for loading text
+    loadingText.style.fontSize = '20px'; // Set font size for loading text
+    loadingText.style.zIndex = '99999'; // Ensure loading text is on top of other elements
     
     
     image.style.display = 'none'; // Hide the image element
@@ -346,10 +353,40 @@ document.addEventListener('keydown', (event) => {
 
             let isFetching = false; // Flag to prevent duplicate fetches
 
-            
+            function createBlur() {
+              let blurDiv = document.createElement('div');
+              blurDiv.className = 'blur'; // Add a class for styling
+              document.body.appendChild(blurDiv); // Append the blur div to the body
+              blurDiv.style.position = 'fixed'; // Make it fixed position
+              blurDiv.style.top = '0';
+              blurDiv.style.left = '0';
+              blurDiv.style.width = '100%';
+              blurDiv.style.height = '100%';
+              blurDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
+              blurDiv.style.zIndex = '9999'; // Ensure it is on top of other elements
+              // blurDiv.style.display = 'flex'; // Use flexbox for centering
+              // blurDiv.style.justifyContent = 'center'; // Center horizontally
+              // blurDiv.style.alignItems = 'center'; // Center vertically
+              blurDiv.style.transition = 'opacity 0.3s ease'; // Smooth transition for opacity
+              blurDiv.style.opacity = '0'; // Start with opacity 0 for fade-in effect
+              setTimeout(() => {
+                blurDiv.style.opacity = '1'; // Fade in the blur effect
+              }, 10); // Small delay to allow the initial styles to apply
+            }
+
+            function removeBlur() {
+              let blurDiv = document.querySelector('.blur'); // Select the blur div
+              if (blurDiv) {
+                blurDiv.style.opacity = '0'; // Fade out the blur effect
+                setTimeout(() => {
+                  blurDiv.remove(); // Remove the blur div after fade-out
+                }, 300); // Match the transition duration
+              }
+            }
 
             function fetchingCard(randomID) {
               document.body.style.backgroundColor = "#393E46"; // Change background color to indicate fetching
+              createBlur(); // Create a blur effect while fetching
               console.log(`Fetching card with ID: ${randomID}`);
               fetchCard(randomID).then(() => {
                 console.log(`Card with ID ${randomID} fetched successfully.`);
@@ -361,7 +398,8 @@ document.addEventListener('keydown', (event) => {
                 console.log(`Finished fetching card with ID: ${randomID}`);
                 isFetching = false; // Reset the flag after fetching
 
-              
+                removeBlur(); // Remove the blur effect after fetching
+
                 document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
               });
             }
