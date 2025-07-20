@@ -394,6 +394,19 @@ document.addEventListener('keydown', (event) => {
                 console.log(`Card with ID ${randomID} fetched successfully.`);                
 
                 console.log(`Card ---data:`, card_data); // Log the fetched card data
+                
+                
+                // const details = document.getElementById('details');
+                // if (details) {
+                //   console.log(`Details element found: ${details.id}`); // Log the details element ID
+                // } else {
+                //   console.error('Details element not found.'); // Log an error if the details element is not found
+                // }
+                // details.style.display = 'block'; // Show the details section
+                const details = 'details'; // Set the details section ID
+
+                typeData(card_data, details);
+
               })
               .catch(error => {
                 console.error(`Error fetching card with ID ${randomID}:`, error);
@@ -403,7 +416,7 @@ document.addEventListener('keydown', (event) => {
                 details.style.display = 'block'; // Show the details section
 
                 //typeData(data, outputElement)
-                typeData(card_data, details);
+                
                 console.log(`Finished fetching card with ID: ${randomID}`);
                 isFetching = false; // Reset the flag after fetching
 
@@ -418,6 +431,8 @@ document.addEventListener('keydown', (event) => {
             //console.log(fetchCard(randomId)); // Log the fetchCard function call
               
             document.addEventListener('click', (e) =>{
+              document.getElementById('details').textContent = '';
+
               if (isFetching) {
                 console.log("Already fetching a card, please wait.");
                 e.preventDefault(); // Prevent default action if needed
@@ -715,14 +730,27 @@ function setupConsoleNew() {
 // });
 
 
-function typeData(data, outputElement) {
-  const target = document.getElementById(outputElement);
-  let i = 0;
+function typeData(data, outputElement, i = 0) {
+  const details =  document.getElementById(outputElement)
 
-  if (i < data.length){
-    target.textContent += data.charAt(i);
-    i++;
-    setTimeout(typeData(data, outputElement), 200); // Adjust the speed of typing here
+  if (!details) {
+    console.error(`Element with ID '${outputElement}' not found.`);
+    return; // Exit if the details element is not found
+  }
+  details.style.display = 'block'; // Ensure the details section is visible
+
+  console.log(`Typing data: ${data}`); // Log the data being typed
+
+
+  const text = typeof data === 'object' ? JSON.stringify(data, null, 2) : data; // Convert object to string if needed
+
+  if (i < text.length){
+    details.textContent += text.charAt(i);
+    setTimeout(typeData(data, outputElement, i + 1), 50); // Adjust the speed of typing here
+  }
+  else {
+    console.log('Typing complete/err.');
+    return;
   }
 }
 
