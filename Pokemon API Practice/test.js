@@ -730,8 +730,28 @@ function setupConsoleNew() {
 // });
 
 
-function typeData(data, outputElement, i = 0) {
+function typeData(data, outputElement, i = 0, currentFieldIndex = 0) {
   let details =  document.getElementById(outputElement)
+  function checkPokeDetails() {
+    if (!document.getElementById('pokemon-id') || !document.getElementById('pokemon-height') || 
+    !document.getElementById('pokemon-weight') || !document.getElementById('pokemon-height') || 
+    !document.getElementById('types') ||
+    !document.getElementById('pokemon-name')) {
+      console.log("Poke details elements not found.");
+    }
+    else{
+
+      // Usage
+      //saddDetail('Ability', 'Levitate', 'pokemon-ability');
+      //addDetail('Base Experience', 270, 'pokemon-base-exp');
+      addPokemonDetail('ID', data.id); // Add Pokémon ID
+      addPokemonDetail('Height', data.height); // Add Pokémon height
+      addPokemonDetail('Weight', data.weight); // Add Pokémon weight
+      //addPokemonDetail('Types', data.types.map(type => type.type.name).join(', ')); // Add Pokémon types
+      addPokemonDetail('Name', data.name); // Add Pokémon name
+      console.log("Poke details elements found.");
+    }
+  }
   checkPokeDetails(); // Check if the Pokémon details elements exist
 
   if (!details) {
@@ -763,31 +783,8 @@ function typeData(data, outputElement, i = 0) {
   }
 
 
-  function checkPokeDetails() {
-    if (document.getElementById('pokemon-id') || document.getElementById('pokemon-height') || document.getElementById('pokemon-weight') || document.getElementById('pokemon-height') || document.getElementById('types') ||
-    document.getElementById('pokemon-name')) {
-      console.log("Poke details elements not found.");
-    }
-    else{
-
-      // Usage
-      //saddDetail('Ability', 'Levitate', 'pokemon-ability');
-      //addDetail('Base Experience', 270, 'pokemon-base-exp');
-      addPokemonDetail('ID', data.id); // Add Pokémon ID
-      addPokemonDetail('Height', data.height); // Add Pokémon height
-      addPokemonDetail('Weight', data.weight); // Add Pokémon weight
-      //addPokemonDetail('Types', data.types.map(type => type.type.name).join(', ')); // Add Pokémon types
-      addPokemonDetail('Name', data.name); // Add Pokémon name
-      console.log("Poke details elements found.");
-    }
-  }
-
-  // console.log(`Text to type: ${text}`); // Log the text to be typed
-  // console.log(`Text length: ${text.length}`); // Log the length of the text
-  // console.log(`Text type: ${typeof text}`); // Log the type of text)
-  //return; // Exit the function if no text to type
-
   const pokeName =  document.getElementById('pokemon-name');
+
   if (!pokeName) {
     console.log("Element with ID 'pokemon-name' not found.");
     return; // Exit if the pokeName element is not found
@@ -795,23 +792,49 @@ function typeData(data, outputElement, i = 0) {
   else{
     console.log("Element with ID 'pokemon-name' found.");
   }
-  if (i < data.name.length) {
-    pokeName.textContent += data.name.charAt(i); // Type the ID character by character
-    setTimeout(() => typeData(data, outputElement, i + 1), 100);
-  } else {
-    console.log('ID typing complete/err.');
-    return;
+
+  const fields = [
+    {label: 'ID', value: data.id},
+    {label: 'Name', value: data.name},
+    {label: 'Height', value: data.height},
+    {label: 'Weight', value: data.weight},
+    //{ label: 'Types', value: data.types ? data.types.map(type => type.type.name).join(', ') : '' }
+  ]
+
+  if (i === 0 && currentFieldIndex === 0)
+  {
+    pokeName.textContent = ''; // Clear the text content before starting to type
   }
-  
-  // if (i < text.length){
-  //   details.textContent += text.charAt(i);
-  //   //setTimeout(typeData(data, outputElement, i + 1), 50); // Adjust the speed of typing here
-  //   setTimeout(() => typeData(data, outputElement, i + 1), 50);
-  // }
-  // else {
-  //   console.log('Typing complete/err.');
+
+  if (currentFieldIndex < fields.length) {
+    const field = fields[currentFieldIndex];
+    const fieldElement = document.getElementById(`pokemon-${field.label.toLowerCase()}`);
+
+    if (i < field.value.toString().length) {
+      if (fieldElement) {
+        fieldElement.textContent + field.value.toString().charAt(i); // Type the field value character by character
+      }
+      setTimeout(() => typeData(data, outputElement, i + 1, currentFieldIndex), 100);
+    } else {
+      console.log(`${field.label} typing complete.`);
+      if (currentFieldIndex + 1 < fields.length) {
+        // Move to the next field
+        setTimeout(() => typeData(data, outputElement, 0, currentFieldIndex + 1), 100); // delay before moving to the next field
+      } else{
+        console.log('All fields typing complete.');
+        return; // Exit if all fields have been typed
+      }
+    }
+  }
+
+  // if (i < data.name.length) {
+  //   pokeName.textContent += data.name.charAt(i); // Type the ID character by character
+  //   setTimeout(() => typeData(data, outputElement, i + 1), 100);
+  // } else {
+  //   console.log('ID typing complete/err.');
   //   return;
   // }
+  
 }
 
 
