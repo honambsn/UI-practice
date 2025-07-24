@@ -405,7 +405,7 @@ document.addEventListener('keydown', (event) => {
                 // details.style.display = 'block'; // Show the details section
                 const details = 'details'; // Set the details section ID
 
-                typeData(card_data, details);
+                showDetails(card_data, details);
 
               })
               .catch(error => {
@@ -415,7 +415,7 @@ document.addEventListener('keydown', (event) => {
                 const details = document.getElementById('details');
                 details.style.display = 'block'; // Show the details section
 
-                //typeData(data, outputElement)
+                //showDetails(data, outputElement)
                 
                 console.log(`Finished fetching card with ID: ${randomID}`);
                 isFetching = false; // Reset the flag after fetching
@@ -730,8 +730,16 @@ function setupConsoleNew() {
 // });
 
 
-function typeData(data, outputElement, i = 0, currentFieldIndex = 0) {
+function showDetails(data, outputElement) {
   let details =  document.getElementById(outputElement)
+
+  function addPokemonDetail(label, value) {
+    const detailsDiv = document.getElementById('details');
+    const p = document.createElement('p');
+    p.textContent = `${label}: ${value}`;
+    detailsDiv.appendChild(p);
+  }
+
   function checkPokeDetails() {
     if (!document.getElementById('pokemon-id') || !document.getElementById('pokemon-height') || 
     !document.getElementById('pokemon-weight') || !document.getElementById('pokemon-height') || 
@@ -761,6 +769,7 @@ function typeData(data, outputElement, i = 0, currentFieldIndex = 0) {
   else{
     console.log(`Element with ID '${outputElement}' found.`);
   }
+
   details.style.display = 'block'; // Ensure the details section is visible
 
   console.log(`Typing data: ${data}`); // Log the data being typed
@@ -775,13 +784,6 @@ function typeData(data, outputElement, i = 0, currentFieldIndex = 0) {
 
   const text = typeof data === 'object' ? JSON.stringify(data, null, 2) : data; // Convert object to string if needed
 
-  function addPokemonDetail(label, value) {
-    const detailsDiv = document.getElementById('details');
-    const p = document.createElement('p');
-    p.textContent = `${label}: ${value}`;
-    detailsDiv.appendChild(p);
-  }
-
 
   const pokeName =  document.getElementById('pokemon-name');
 
@@ -793,51 +795,76 @@ function typeData(data, outputElement, i = 0, currentFieldIndex = 0) {
     console.log("Element with ID 'pokemon-name' found.");
   }
 
-  const fields = [
-    {label: 'ID', value: data.id},
-    {label: 'Name', value: data.name},
-    {label: 'Height', value: data.height},
-    {label: 'Weight', value: data.weight},
-    //{ label: 'Types', value: data.types ? data.types.map(type => type.type.name).join(', ') : '' }
-  ]
+  // const fields = [
+  //   {label: 'ID', value: data.id},
+  //   {label: 'Name', value: data.name},
+  //   {label: 'Height', value: data.height},
+  //   {label: 'Weight', value: data.weight},
+  //   //{ label: 'Types', value: data.types ? data.types.map(type => type.type.name).join(', ') : '' }
+  // ]
 
-  if (i === 0 && currentFieldIndex === 0)
-  {
-    pokeName.textContent = ''; // Clear the text content before starting to type
-  }
+  // if (i === 0 && currentFieldIndex === 0)
+  // {
+  //   pokeName.textContent = ''; // Clear the text content before starting to type
+  // }
 
-  if (currentFieldIndex < fields.length) {
-    const field = fields[currentFieldIndex];
-    const fieldElement = document.getElementById(`pokemon-${field.label.toLowerCase()}`);
+  // if (currentFieldIndex < fields.length) {
+  //   const field = fields[currentFieldIndex];
+  //   const fieldElement = document.getElementById(`pokemon-${field.label.toLowerCase()}`);
 
-    if (i < field.value.toString().length) {
-      if (fieldElement) {
-        fieldElement.textContent + field.value.toString().charAt(i); // Type the field value character by character
-      }
-      setTimeout(() => typeData(data, outputElement, i + 1, currentFieldIndex), 100);
-    } else {
-      console.log(`${field.label} typing complete.`);
-      if (currentFieldIndex + 1 < fields.length) {
-        // Move to the next field
-        setTimeout(() => typeData(data, outputElement, 0, currentFieldIndex + 1), 100); // delay before moving to the next field
-      } else{
-        console.log('All fields typing complete.');
-        return; // Exit if all fields have been typed
-      }
-    }
-  }
+  //   if (i < field.value.toString().length) {
+  //     if (fieldElement) {
+  //       fieldElement.textContent + field.value.toString().charAt(i); // Type the field value character by character
+  //     }
+  //     setTimeout(() => showDetails(data, outputElement, i + 1, currentFieldIndex), 100);
+  //   } else {
+  //     console.log(`${field.label} typing complete.`);
+  //     if (currentFieldIndex + 1 < fields.length) {
+  //       // Move to the next field
+  //       setTimeout(() => showDetails(data, outputElement, 0, currentFieldIndex + 1), 100); // delay before moving to the next field
+  //     } else{
+  //       console.log('All fields typing complete.');
+  //       return; // Exit if all fields have been typed
+  //     }
+  //   }
+  // }
 
   // if (i < data.name.length) {
   //   pokeName.textContent += data.name.charAt(i); // Type the ID character by character
-  //   setTimeout(() => typeData(data, outputElement, i + 1), 100);
+  //   setTimeout(() => showDetails(data, outputElement, i + 1), 100);
   // } else {
   //   console.log('ID typing complete/err.');
   //   return;
   // }
-  
+ 
+  try{
+    typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
+    typeText(data.name, 'pokemon-name'); // Type the name character by character
+    typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
+    typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
+    typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
+    console.log('Details typing complete.'); // Log when all details have been typed
+  }
+  catch (error) {
+    console.error('Error typing details:', error);
+    return; // Exit if there is an error
+  }
 }
 
+function typeText(text, elementId, i = 0) {
+  const element = document.getElementById(elementId);
+  if (!element) {
+    console.error(`Element with ID '${elementId}' not found.`);
+    return; // Exit if the element is not found
+  }
 
+  if (i < text.length) {
+    element.textContent += text.charAt(i); // Type the text character by character
+    setTimeout(() => typeText(text, elementId, i + 1), 100); // Adjust the typing speed as needed
+  } else {
+    console.log(`${elementId} typing complete.`);
+  }
+}
 
 
 
