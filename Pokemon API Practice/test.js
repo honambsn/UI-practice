@@ -315,8 +315,10 @@ document.addEventListener('keydown', (event) => {
       console.log(`Fetching card - pokemon Name: ${pokeName}`);
       //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
       const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+      //const new_url = `https://cors-anywhere.herokuapp.com/https://api.pokemontcg.io/v2/cards?q=name:${pokeName}` // Example URL for testing with CORS proxy
       const getByName = () =>{
         fetch(url)
+        //fetch(new_url)
         .then(response => response.json())
         .then(data => {
           if (data.data && data.data.length > 0) {
@@ -343,9 +345,9 @@ document.addEventListener('keydown', (event) => {
             }
 
             // Loop through each id and log it separately
-            ids.forEach(id => {
-              console.log(`Card ID: ${id}`);
-            });
+            // ids.forEach(id => {
+            //   console.log(`Card ID: ${id}`);
+            // });
 
 
             let randomID = getPokemonRandom(ids); // Get a random ID from the array
@@ -487,6 +489,7 @@ document.addEventListener('keydown', (event) => {
           }
         })
         .catch(error => console.error('Error fetching card:', error), isError = true).finally(() => {
+          //console.error('Error fetching card:', error);
           //loadingText.style.display = 'block'; // Hide loading text after fetching
           //loadingText.innerHTML = "Something went wrong. Please try again.";
           //console.error('Error fetching card:', error);
@@ -526,7 +529,7 @@ document.addEventListener('keydown', (event) => {
 
   //console.log(getPokemonRandom(arr)); // This will log a random Pokémon name from the array
 });
-
+2
 
 function getRandomSeed(){
   const now = new Date();
@@ -755,6 +758,7 @@ function showDetails(data, outputElement) {
       addPokemonDetail('ID', data.id); // Add Pokémon ID
       addPokemonDetail('Height', data.height); // Add Pokémon height
       addPokemonDetail('Weight', data.weight); // Add Pokémon weight
+      addPokemonDetail('HP', data.hp); // Add Pokémon HP
       //addPokemonDetail('Types', data.types.map(type => type.type.name).join(', ')); // Add Pokémon types
       addPokemonDetail('Name', data.name); // Add Pokémon name
       console.log("Poke details elements found.");
@@ -836,13 +840,17 @@ function showDetails(data, outputElement) {
   //   console.log('ID typing complete/err.');
   //   return;
   // }
+
+  console.log(`type of height: ${typeof data.height}`); // Log the type of height
  
   try{
     typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
     typeText(data.name, 'pokemon-name'); // Type the name character by character
-    typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
-    typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
-    typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
+    //typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
+    //typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
+    //typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
+    typeText(data.types, 'types'); // Type the types character by character
+    typeText(data.hp, 'HP')
     console.log('Details typing complete.'); // Log when all details have been typed
   }
   catch (error) {
