@@ -736,50 +736,133 @@ function setupConsoleNew() {
 function showDetails(data, outputElement) {
   let details =  document.getElementById(outputElement)
 
-  function addPokemonDetail(label, value) {
+  function addPokemonDetail(label, id) {
+    if (!document.getElementById(id)) {
+      console.log(`Element with ID '${id}' not found. Creating it now.`);
+
+
     const detailsDiv = document.getElementById('details');
     const p = document.createElement('p');
-    p.textContent = `${label}: ${value}`;
+    p.id = id; // Set the ID for the new element
+    p.textContent = label;
     detailsDiv.appendChild(p);
-  }
-
-  function checkPokeDetails() {
-    if (!document.getElementById('pokemon-id') || !document.getElementById('pokemon-height') || 
-    !document.getElementById('pokemon-weight') || !document.getElementById('pokemon-height') || 
-    !document.getElementById('types') ||
-    !document.getElementById('pokemon-hp') ||
-    !document.getElementById('pokemon-subtypes') ||
-    !document.getElementById('number') ||
-    !document.getElementById('pokemon-artist') ||
-    !document.getElementById('pokemon-rarity') ||
-    !document.getElementById('pokemon-flavorText') ||
-    !document.getElementById('pokemon-nationalPokedexNumbers') ||
-    !document.getElementById('pokemon-name')) {
-      console.log("Poke details elements not found.");
-    }
-    else{
-
-      // Usage
-      //saddDetail('Ability', 'Levitate', 'pokemon-ability');
-      //addDetail('Base Experience', 270, 'pokemon-base-exp');
-      addPokemonDetail('ID', 'pokemon-id'); // Add Pokémon ID
-      addPokemonDetail('Height', 'pokemon-height'); // Add Pokémon height
-      addPokemonDetail('Weight', 'pokemon-weight'); // Add Pokémon weight
-      addPokemonDetail('HP', 'pokemon-hp'); // Add Pokémon HP
-      addPokemonDetail('Subtypes', 'pokemon-subtypes'); // Add Pokémon subtypes
-      addPokemonDetail('Types', 'pokemon-types'); // Add Pokémon types
-      //addPokemonDetail('Types', data.types.map(type => type.type.name).join(', ')); // Add Pokémon types
-      addPokemonDetail('Name', 'pokemon-name'); // Add Pokémon name
-      addPokemonDetail('Artist', 'pokemon-artist'); // Add Pokémon artist
-      addPokemonDetail('Rarity', 'pokemon-rarity'); // Add Pokémon rarity
-      addPokemonDetail('Flavor Text', 'pokemon-flavorText'); // Add Pokémon flavor text
-      addPokemonDetail('National Pokedex Numbers', 'pokemon-nationalPokedexNumbers'); // Add Pokémon national Pokedex numbers
-      addPokemonDetail('Number', 'pokemon-number'); // Add Pokémon number
-
-      console.log("Poke details elements found.");
     }
   }
-  checkPokeDetails(); // Check if the Pokémon details elements exist
+
+
+
+  // function checkPokeDetails() {
+  //   if (!document.getElementById('pokemon-id') || !document.getElementById('pokemon-height') || 
+  //   !document.getElementById('pokemon-weight') ||
+  //   !document.getElementById('pokemon-types') ||
+  //   !document.getElementById('types') ||
+  //   !document.getElementById('pokemon-hp') ||
+  //   !document.getElementById('pokemon-subtypes') ||
+  //   !document.getElementById('number') ||
+  //   !document.getElementById('pokemon-artist') ||
+  //   !document.getElementById('pokemon-rarity') ||
+  //   !document.getElementById('pokemon-flavorText') ||
+  //   !document.getElementById('pokemon-nationalPokedexNumbers') ||
+  //   !document.getElementById('pokemon-name')) {
+  //     console.log("Some Poke details elements not found.");
+      
+  //     // const pokeData = [
+  //     //   { label: 'ID', value: data.id, id: 'pokemon-id' },
+  //     //   { label: 'Height', value: data.height, id: 'pokemon-height' },
+  //     //   { label: 'Weight', value: data.weight, id: 'pokemon-weight' },
+  //     //   { label: 'Types', value: data.types.map(type => type.type.name).join(', '), id: 'pokemon-types' },
+  //     //   { label: 'HP', value: data.stats.find(stat => stat.stat.name === 'hp').base_stat, id: 'pokemon-hp' },
+  //     //   { label: 'Subtypes', value: data.subtypes ? data.subtypes.join(', ') : '', id: 'pokemon-subtypes' },
+  //     //   { label: 'Number', value: data.number, id: 'number' },
+  //     //   { label: 'Artist', value: data.artist || '', id: 'pokemon-artist' },
+  //     //   { label: 'Rarity', value: data.rarity || '', id: 'pokemon-rarity' },
+  //     //   { label: 'Flavor Text', value: data.flavorText || '', id: 'pokemon-flavorText' },
+  //     //   { label: 'National Pokedex Numbers', value: data.nationalPokedexNumbers ? data.nationalPokedexNumbers.join(', ') : '', id: 'pokemon-nationalPokedexNumbers' },
+  //     //   { label: 'Name', value: data.name, id: 'pokemon-name' }
+  //     //   ];
+
+  //     const pokeData = [
+  //       { label: 'ID', id: 'pokemon-id' },
+  //       { label: 'Height', id: 'pokemon-height' },
+  //       { label: 'Weight', id: 'pokemon-weight' },
+  //       { label: 'Types', id: 'pokemon-types' },
+  //       { label: 'HP', id: 'pokemon-hp' },
+  //       { label: 'Subtypes', id: 'pokemon-subtypes' },
+  //       { label: 'Number', id: 'number' },
+  //       { label: 'Artist', id: 'pokemon-artist' },
+  //       { label: 'Rarity', id: 'pokemon-rarity' },
+  //       { label: 'Flavor Text', id: 'pokemon-flavorText' },
+  //       { label: 'National Pokedex Numbers', id: 'pokemon-nationalPokedexNumbers' },
+  //       { label: 'Name', id: 'pokemon-name' }
+  //       ];
+
+      
+  //       pokeData.forEach(({ label, id }) => {
+  //       console.log(`Adding detail: ${label} with id: ${id}`);
+  //       addPokemonDetail(label, id); // Add Pokémon details dynamically
+  //     });
+        
+  //     console.log("Poke details elements created.");  
+  //   }
+  //   else{
+
+  //     // Usage
+  //     //saddDetail('Ability', 'Levitate', 'pokemon-ability');
+  //     //addDetail('Base Experience', 270, 'pokemon-base-exp');
+  //     addPokemonDetail('ID', 'pokemon-id'); // Add Pokémon ID
+  //     addPokemonDetail('Height', 'pokemon-height'); // Add Pokémon height
+  //     addPokemonDetail('Weight', 'pokemon-weight'); // Add Pokémon weight
+  //     addPokemonDetail('HP', 'pokemon-hp'); // Add Pokémon HP
+  //     addPokemonDetail('Subtypes', 'pokemon-subtypes'); // Add Pokémon subtypes
+  //     addPokemonDetail('Types', 'pokemon-types'); // Add Pokémon types
+  //     //addPokemonDetail('Types', data.types.map(type => type.type.name).join(', ')); // Add Pokémon types
+  //     addPokemonDetail('Name', 'pokemon-name'); // Add Pokémon name
+  //     addPokemonDetail('Artist', 'pokemon-artist'); // Add Pokémon artist
+  //     addPokemonDetail('Rarity', 'pokemon-rarity'); // Add Pokémon rarity
+  //     addPokemonDetail('Flavor Text', 'pokemon-flavorText'); // Add Pokémon flavor text
+  //     addPokemonDetail('National Pokedex Numbers', 'pokemon-nationalPokedexNumbers'); // Add Pokémon national Pokedex numbers
+  //     addPokemonDetail('Number', 'pokemon-number'); // Add Pokémon number
+
+  //     console.log("Poke details elements found.");
+  //   }
+  // }
+  // checkPokeDetails(); // Check if the Pokémon details elements exist
+
+  function ensuredDetails(details) {
+    details.forEach(({ label, id }) => {
+      const existingElement = document.getElementById(id);
+
+      if (!existingElement) {
+        console.log(`Element with ID '${id}' not found. Creating it now.`);
+
+        const detailsDiv = document.getElementById('details');
+        const p = document.createElement('p');
+        p.id = id; // Set the ID for the new element
+        p.textContent = label;
+        detailsDiv.appendChild(p);
+      }
+    });
+    
+    console.log("All details elements ensured.");
+  }
+
+  const pokeData = [
+    { label: 'ID: ', id: 'pokemon-id' },
+    { label: 'Height: ', id: 'pokemon-height' },
+    { label: 'Weight: ', id: 'pokemon-weight' },
+    { label: 'Types: ', id: 'pokemon-types' },
+    { label: 'HP: ', id: 'pokemon-hp' },
+    { label: 'Subtypes: ', id: 'pokemon-subtypes' },
+    { label: 'Number: ', id: 'pokemon-number' },
+    { label: 'Artist: ', id: 'pokemon-artist' },
+    { label: 'Rarity: ', id: 'pokemon-rarity' },
+    { label: 'Flavor Text: ', id: 'pokemon-flavorText' },
+    { label: 'National Pokedex Numbers: ', id: 'pokemon-nationalPokedexNumbers' },
+    { label: 'Name: ', id: 'pokemon-name' }
+  ];
+
+  ensuredDetails(pokeData); // Ensure all details elements exist
+
 
   if (!details) {
     console.error(`Element with ID '${outputElement}' not found.`);
@@ -814,53 +897,12 @@ function showDetails(data, outputElement) {
     console.log("Element with ID 'pokemon-name' found.");
   }
 
-  // const fields = [
-  //   {label: 'ID', value: data.id},
-  //   {label: 'Name', value: data.name},
-  //   {label: 'Height', value: data.height},
-  //   {label: 'Weight', value: data.weight},
-  //   //{ label: 'Types', value: data.types ? data.types.map(type => type.type.name).join(', ') : '' }
-  // ]
-
-  // if (i === 0 && currentFieldIndex === 0)
-  // {
-  //   pokeName.textContent = ''; // Clear the text content before starting to type
-  // }
-
-  // if (currentFieldIndex < fields.length) {
-  //   const field = fields[currentFieldIndex];
-  //   const fieldElement = document.getElementById(`pokemon-${field.label.toLowerCase()}`);
-
-  //   if (i < field.value.toString().length) {
-  //     if (fieldElement) {
-  //       fieldElement.textContent + field.value.toString().charAt(i); // Type the field value character by character
-  //     }
-  //     setTimeout(() => showDetails(data, outputElement, i + 1, currentFieldIndex), 100);
-  //   } else {
-  //     console.log(`${field.label} typing complete.`);
-  //     if (currentFieldIndex + 1 < fields.length) {
-  //       // Move to the next field
-  //       setTimeout(() => showDetails(data, outputElement, 0, currentFieldIndex + 1), 100); // delay before moving to the next field
-  //     } else{
-  //       console.log('All fields typing complete.');
-  //       return; // Exit if all fields have been typed
-  //     }
-  //   }
-  // }
-
-  // if (i < data.name.length) {
-  //   pokeName.textContent += data.name.charAt(i); // Type the ID character by character
-  //   setTimeout(() => showDetails(data, outputElement, i + 1), 100);
-  // } else {
-  //   console.log('ID typing complete/err.');
-  //   return;
-  // }
 
   console.log(`type of height: ${typeof data.height}`); // Log the type of height
  
   try{
     typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
-    typeText(data.name, 'pokemon-name'); // Type the name character by character
+    typeText(data.name.toString(), 'pokemon-name'); // Type the name character by character
     //typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
     //typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
     //typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
