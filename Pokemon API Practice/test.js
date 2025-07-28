@@ -488,7 +488,7 @@ document.addEventListener('keydown', (event) => {
             console.log('No cards found for this Pokémon name...');
           }
         })
-        .catch(error => console.error('Error fetching card:', error), isError = true).finally(() => {
+        .catch(error => console.error('Error fetching card:', error), isError = true, loadingText.innerHTML = "").finally(() => {
           //console.error('Error fetching card:', error);
           //loadingText.style.display = 'block'; // Hide loading text after fetching
           //loadingText.innerHTML = "Something went wrong. Please try again.";
@@ -590,143 +590,143 @@ function getPokemonRandom(arr){
 
 //////////////////////*css*/`
 
-function setupConsole() {
-  // Create the Toggle Button
-  const toggleButton = document.createElement('button');
-  toggleButton.id = 'toggle-button';
-  toggleButton.textContent = 'Toggle Console';
+// function setupConsole() {
+//   // Create the Toggle Button
+//   const toggleButton = document.createElement('button');
+//   toggleButton.id = 'toggle-button';
+//   toggleButton.textContent = 'Toggle Console';
 
-  // Append the toggle button to the body
-  document.body.appendChild(toggleButton);
+//   // Append the toggle button to the body
+//   document.body.appendChild(toggleButton);
 
-  // Create the Console Container
-  const consoleContainer = document.createElement('div');
-  consoleContainer.id = 'console';
-  document.body.appendChild(consoleContainer);
+//   // Create the Console Container
+//   const consoleContainer = document.createElement('div');
+//   consoleContainer.id = 'console';
+//   document.body.appendChild(consoleContainer);
 
-  // Create the Output Area
-  const outputDiv = document.createElement('div');
-  outputDiv.id = 'output';
-  consoleContainer.appendChild(outputDiv);
+//   // Create the Output Area
+//   const outputDiv = document.createElement('div');
+//   outputDiv.id = 'output';
+//   consoleContainer.appendChild(outputDiv);
 
-  // Create the Input Area
-  const inputContainer = document.createElement('div');
-  inputContainer.id = 'input-container';
-  consoleContainer.appendChild(inputContainer);
+//   // Create the Input Area
+//   const inputContainer = document.createElement('div');
+//   inputContainer.id = 'input-container';
+//   consoleContainer.appendChild(inputContainer);
 
-  const inputSpan = document.createElement('span');
-  inputSpan.textContent = '>';
-  inputContainer.appendChild(inputSpan);
+//   const inputSpan = document.createElement('span');
+//   inputSpan.textContent = '>';
+//   inputContainer.appendChild(inputSpan);
 
-  const inputField = document.createElement('input');
-  inputField.id = 'input';
-  inputField.type = 'text';
-  inputField.autofocus = true;
-  inputContainer.appendChild(inputField);
+//   const inputField = document.createElement('input');
+//   inputField.id = 'input';
+//   inputField.type = 'text';
+//   inputField.autofocus = true;
+//   inputContainer.appendChild(inputField);
 
-  // Toggle button functionality
-  toggleButton.addEventListener('click', function () {
-    if (consoleContainer.style.display === 'none') {
-      consoleContainer.style.display = 'flex';
-    } else {
-      consoleContainer.style.display = 'none';
-    }
-  });
+//   // Toggle button functionality
+//   toggleButton.addEventListener('click', function () {
+//     if (consoleContainer.style.display === 'none') {
+//       consoleContainer.style.display = 'flex';
+//     } else {
+//       consoleContainer.style.display = 'none';
+//     }
+//   });
 
-  // Handle input
-  inputField.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      const inputValue = inputField.value.trim();
+//   // Handle input
+//   inputField.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//       const inputValue = inputField.value.trim();
       
-      if (inputValue !== "") {
-        const newOutput = document.createElement('div');
-        newOutput.textContent = `> ${inputValue}`;
-        outputDiv.appendChild(newOutput);
+//       if (inputValue !== "") {
+//         const newOutput = document.createElement('div');
+//         newOutput.textContent = `> ${inputValue}`;
+//         outputDiv.appendChild(newOutput);
 
-        // You can add any custom command logic here
-        const commandResponse = document.createElement('div');
-        commandResponse.textContent = `Executed: ${inputValue}`;
-        outputDiv.appendChild(commandResponse);
+//         // You can add any custom command logic here
+//         const commandResponse = document.createElement('div');
+//         commandResponse.textContent = `Executed: ${inputValue}`;
+//         outputDiv.appendChild(commandResponse);
 
-        // Scroll to the bottom
-        outputDiv.scrollTop = outputDiv.scrollHeight;
+//         // Scroll to the bottom
+//         outputDiv.scrollTop = outputDiv.scrollHeight;
 
-        // Clear the input field for the next command
-        inputField.value = "";
-      }
-    }
-  });
-}
+//         // Clear the input field for the next command
+//         inputField.value = "";
+//       }
+//     }
+//   });
+// }
 
 
 
-function setupConsoleNew() {
-  // Create the Toggle Button
-  const toggleButton = document.createElement('button');
-  toggleButton.id = 'toggle-button';
-  toggleButton.textContent = 'Toggle Console';
+// function setupConsoleNew() {
+//   // Create the Toggle Button
+//   const toggleButton = document.createElement('button');
+//   toggleButton.id = 'toggle-button';
+//   toggleButton.textContent = 'Toggle Console';
 
-  // Append the toggle button to the body (You can place this in any desired position)
-  document.body.appendChild(toggleButton);
+//   // Append the toggle button to the body (You can place this in any desired position)
+//   document.body.appendChild(toggleButton);
 
-  // Create the Console Container
-  const consoleContainer = document.createElement('div');
-  consoleContainer.id = 'console';
-  document.body.appendChild(consoleContainer);
+//   // Create the Console Container
+//   const consoleContainer = document.createElement('div');
+//   consoleContainer.id = 'console';
+//   document.body.appendChild(consoleContainer);
 
-  // Create the Output Area
-  const outputDiv = document.createElement('div');
-  outputDiv.id = 'output';
-  consoleContainer.appendChild(outputDiv);
+//   // Create the Output Area
+//   const outputDiv = document.createElement('div');
+//   outputDiv.id = 'output';
+//   consoleContainer.appendChild(outputDiv);
 
-  // Create the Input Area
-  const inputContainer = document.createElement('div');
-  inputContainer.id = 'input-container';
-  consoleContainer.appendChild(inputContainer);
+//   // Create the Input Area
+//   const inputContainer = document.createElement('div');
+//   inputContainer.id = 'input-container';
+//   consoleContainer.appendChild(inputContainer);
 
-  const inputSpan = document.createElement('span');
-  inputSpan.textContent = '>';
-  inputContainer.appendChild(inputSpan);
+//   const inputSpan = document.createElement('span');
+//   inputSpan.textContent = '>';
+//   inputContainer.appendChild(inputSpan);
 
-  const inputField = document.createElement('input');
-  inputField.id = 'input';
-  inputField.type = 'text';
-  inputField.autofocus = true;
-  inputContainer.appendChild(inputField);
+//   const inputField = document.createElement('input');
+//   inputField.id = 'input';
+//   inputField.type = 'text';
+//   inputField.autofocus = true;
+//   inputContainer.appendChild(inputField);
 
-  // Toggle button functionality
-  toggleButton.addEventListener('click', function () {
-    if (consoleContainer.style.display === 'none') {
-      consoleContainer.style.display = 'flex';
-    } else {
-      consoleContainer.style.display = 'none';
-    }
-  });
+//   // Toggle button functionality
+//   toggleButton.addEventListener('click', function () {
+//     if (consoleContainer.style.display === 'none') {
+//       consoleContainer.style.display = 'flex';
+//     } else {
+//       consoleContainer.style.display = 'none';
+//     }
+//   });
 
-  // Handle input
-  inputField.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      const inputValue = inputField.value.trim();
+//   // Handle input
+//   inputField.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//       const inputValue = inputField.value.trim();
       
-      if (inputValue !== "") {
-        const newOutput = document.createElement('div');
-        newOutput.textContent = `> ${inputValue}`;
-        outputDiv.appendChild(newOutput);
+//       if (inputValue !== "") {
+//         const newOutput = document.createElement('div');
+//         newOutput.textContent = `> ${inputValue}`;
+//         outputDiv.appendChild(newOutput);
 
-        // You can add any custom command logic here
-        const commandResponse = document.createElement('div');
-        commandResponse.textContent = `Executed: ${inputValue}`;
-        outputDiv.appendChild(commandResponse);
+//         // You can add any custom command logic here
+//         const commandResponse = document.createElement('div');
+//         commandResponse.textContent = `Executed: ${inputValue}`;
+//         outputDiv.appendChild(commandResponse);
 
-        // Scroll to the bottom
-        outputDiv.scrollTop = outputDiv.scrollHeight;
+//         // Scroll to the bottom
+//         outputDiv.scrollTop = outputDiv.scrollHeight;
 
-        // Clear the input field for the next command
-        inputField.value = "";
-      }
-    }
-  });
-};
+//         // Clear the input field for the next command
+//         inputField.value = "";
+//       }
+//     }
+//   });
+// };
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   setupConsoleNew(); // Initialize the console when the DOM is fully loaded
@@ -848,9 +848,10 @@ function showDetails(data, outputElement) {
 
   const pokeData = [
     { label: 'ID: ', id: 'pokemon-id' },
-    { label: 'Height: ', id: 'pokemon-height' },
-    { label: 'Weight: ', id: 'pokemon-weight' },
+    // { label: 'Height: ', id: 'pokemon-height' },
+    // { label: 'Weight: ', id: 'pokemon-weight' },
     { label: 'Types: ', id: 'pokemon-types' },
+    { label: 'Evolves From: ', id: 'pokemon-envolvesFrom' },
     { label: 'HP: ', id: 'pokemon-hp' },
     { label: 'Subtypes: ', id: 'pokemon-subtypes' },
     { label: 'Number: ', id: 'pokemon-number' },
@@ -898,7 +899,7 @@ function showDetails(data, outputElement) {
   }
 
 
-  console.log(`type of height: ${typeof data.height}`); // Log the type of height
+  //console.log(`type of height: ${typeof data.height}`); // Log the type of height
  
   try{
     typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
@@ -907,6 +908,7 @@ function showDetails(data, outputElement) {
     //typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
     //typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
     typeText(data.types.toString(), 'pokemon-types'); // Type the types character by character
+    typeText(data.envolvesFrom.toString(), 'pokemon-envolvesFrom'); // Type the evolves from character by character
     typeText(data.subtypes.toString(), 'pokemon-subtypes'); // Type the subtypes character by character
     typeText(data.hp.toString(), 'pokemon-hp')
     typeText(data.artist.toString(), 'pokemon-artist'); // Type the artist character by character
@@ -931,6 +933,7 @@ function typeText(text, elementId, i = 0) {
   }
 
   if (i < text.length) {
+    element.style.color = 'red';
     element.textContent += text.charAt(i); // Type the text character by character
     setTimeout(() => typeText(text, elementId, i + 1), 100); // Adjust the typing speed as needed
   } else {
