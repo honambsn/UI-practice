@@ -839,6 +839,7 @@ function showDetails(data, outputElement) {
         const p = document.createElement('p');
         p.id = id; // Set the ID for the new element
         p.textContent = label;
+        p.style.color = 'black'; // Set text color to black for visibility
         detailsDiv.appendChild(p);
       }
     });
@@ -862,7 +863,14 @@ function showDetails(data, outputElement) {
     { label: 'Name: ', id: 'pokemon-name' }
   ];
 
-  ensuredDetails(pokeData); // Ensure all details elements exist
+  try{
+    ensuredDetails(pokeData); // Ensure all details elements exist
+  }
+  catch (error) {
+    console.error('Error ensuring details elements:', error);
+    return; // Exit if there is an error
+  }
+  
 
 
   if (!details) {
@@ -888,39 +896,52 @@ function showDetails(data, outputElement) {
   const text = typeof data === 'object' ? JSON.stringify(data, null, 2) : data; // Convert object to string if needed
 
 
-  const pokeName =  document.getElementById('pokemon-name');
-
-  if (!pokeName) {
-    console.log("Element with ID 'pokemon-name' not found.");
-    return; // Exit if the pokeName element is not found
-  }
-  else{
-    console.log("Element with ID 'pokemon-name' found.");
-  }
-
-
   //console.log(`type of height: ${typeof data.height}`); // Log the type of height
- 
+
+  //old ver
+  // try{
+  //   typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
+  //   typeText(data.name.toString(), 'pokemon-name'); // Type the name character by character
+  //   //typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
+  //   //typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
+  //   //typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
+  //   typeText(data.types.toString(), 'pokemon-types'); // Type the types character by character
+  //   typeText(data.envolvesFrom.toString(), 'pokemon-envolvesFrom'); // Type the evolves from character by character
+  //   typeText(data.subtypes.toString(), 'pokemon-subtypes'); // Type the subtypes character by character
+  //   typeText(data.hp.toString(), 'pokemon-hp')
+  //   typeText(data.artist.toString(), 'pokemon-artist'); // Type the artist character by character
+  //   typeText(data.rarity.toString(), 'pokemon-rarity'); // Type the rarity character by character
+  //   typeText(data.flavorText.toString(), 'pokemon-flavorText'); // Type the
+  //   typeText(data.nationalPokedexNumbers.toString(), 'pokemon-nationalPokedexNumbers'); // Type the national Pokedex numbers character by character
+  //   typeText(data.number.toString(), 'pokemon-number'); // Type the number character by character
+
+  //   console.log('Details typing complete.'); // Log when all details have been typed
+  // }
+  // catch (error) {
+  //   console.error('Error typing details:', error.message || error); // Log any errors that occur during typing
+  //   console.error('Stack trace:', error.stack); // Log the stack trace for debugging
+  //   return; // Exit if there is an error
+  // }
+
   try{
     typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
     typeText(data.name.toString(), 'pokemon-name'); // Type the name character by character
-    //typeText(data.height.toString(), 'pokemon-height'); // Type the height character by character
-    //typeText(data.weight.toString(), 'pokemon-weight'); // Type the weight character by character
-    //typeText(data.types ? data.types.map(type => type.type.name).join(', ') : '', 'types', i); // Type the types character by character
-    typeText(data.types.toString(), 'pokemon-types'); // Type the types character by character
-    typeText(data.envolvesFrom.toString(), 'pokemon-envolvesFrom'); // Type the evolves from character by character
-    typeText(data.subtypes.toString(), 'pokemon-subtypes'); // Type the subtypes character by character
-    typeText(data.hp.toString(), 'pokemon-hp')
-    typeText(data.artist.toString(), 'pokemon-artist'); // Type the artist character by character
-    typeText(data.rarity.toString(), 'pokemon-rarity'); // Type the rarity character by character
-    typeText(data.flavorText.toString(), 'pokemon-flavorText'); // Type the
-    typeText(data.nationalPokedexNumbers.toString(), 'pokemon-nationalPokedexNumbers'); // Type the national Pokedex numbers character by character
-    typeText(data.number.toString(), 'pokemon-number'); // Type the number character by character
 
-    console.log('Details typing complete.'); // Log when all details have been typed
+    typeText(data.height ? data.height.toString() : 'N/A', 'pokemon-height'); // Type the height character by character
+    typeText(data.weight ? data.weight.toString() : 'N/A', 'pokemon-weight'); // Type the weight character by character
+    typeText((data.types || []).join(', '), 'pokemon-types'); // Type the types character by character
+    typeText(data.evolvesFrom ? data.evolvesFrom.toString() : 'N/A', 'pokemon-envolvesFrom'); // Type the evolves from character by character
+    typeText(data.hp ? data.hp.toString() : 'N/A', 'pokemon-hp'); // Type the HP character by character
+    typeText((data.subtypes || []).join(', '), 'pokemon-subtypes'); // Type the subtypes character by character
+    typeText(data.number ? data.number.toString() : 'N/A', 'pokemon-number'); // Type the number character by character
+    typeText(data.artist ? data.artist.toString() : 'N/A', 'pokemon-artist'); // Type the artist character by character
+    typeText(data.rarity ? data.rarity.toString() : 'N/A', 'pokemon-rarity'); // Type the rarity character by character
+    typeText(data.flavorText ? data.flavorText.toString() : 'N/A', 'pokemon-flavorText'); // Type the flavor text character by character
+    typeText((data.nationalPokedexNumbers || []).join(', '), 'pokemon-nationalPokedexNumbers'); // Type the national Pokedex numbers character by character
   }
   catch (error) {
-    console.error('Error typing details:', error);
+    console.error('Error typing details:', error.message || error); // Log any errors that occur during typing
+    console.error('Stack trace:', error.stack); // Log the stack trace for debugging
     return; // Exit if there is an error
   }
 }
@@ -933,7 +954,7 @@ function typeText(text, elementId, i = 0) {
   }
 
   if (i < text.length) {
-    element.style.color = 'red';
+    //element.style.color = 'red';
     element.textContent += text.charAt(i); // Type the text character by character
     setTimeout(() => typeText(text, elementId, i + 1), 100); // Adjust the typing speed as needed
   } else {
