@@ -1,0 +1,101 @@
+.card-container{
+    width: 350px;
+    background: linear-gradient(135deg, #ff5e62, #ff9966);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 20px auto;
+}
+
+.card-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card-header{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card-image{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.card-image img{
+    width: 80%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.card-image img:hover{
+    transform: scale(1.1);
+}
+
+.card-content{
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    margin-top: 15px;
+    color: #e0e0e0;
+}
+
+.card-details div{
+    margin: 10px 0;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.attack{
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.attack h4{
+    font-size: 16px;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.attack p{
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.weakness, .market-price, .rarity, .pokedex{
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.weakness{
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.flavor-text{
+    font-size: italic;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ecf0f1;
+}
+
+.card-footer{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid #fff;
+    color: #dcdcdc;
+}

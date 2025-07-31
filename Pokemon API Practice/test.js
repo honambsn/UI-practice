@@ -963,9 +963,16 @@ function typeText(text, elementId, i = 0) {
 }
 
 
+// const div = document.createElement('div'); // Create a div element for the blur effect
+// const strong = document.createElement('strong'); // Create a strong element for the loading text
+// strong.textContent = 'Loading...'; // Set the loading text
 
+// const textNode = document.createTextNode(''); // Create a text node to hold the loading text
 
+// div.appendChild(strong); // Append the strong element to the div
+// div.appendChild(textNode); // Append the text node to the div
 
+// document.body.appendChild(div); // Append the div to the body
 
 ////// suggertions for fetching Pokémon cards 
 // let isFetching = false; // Cờ để ngăn chặn việc fetch trùng lặp
