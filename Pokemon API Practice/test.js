@@ -431,9 +431,31 @@ document.addEventListener('keydown', (event) => {
             //fetchCard(randomId); // Call the function to fetch the card details
             fetchingCard(randomID); // Call the function to fetch the card details
             //console.log(fetchCard(randomId)); // Log the fetchCard function call
+
+            function clearPokemonDetails() {
+              const fields = [
+                  ['pokemon-name', 'Name: '],
+                  ['pokemon-id', 'ID: '],
+                  ['pokemon-envolvesFrom', 'Evolves From: '],
+                  ['pokemon-types', 'Types: '],
+                  ['pokemon-subtypes', 'Subtypes: '],
+                  ['pokemon-hp', 'HP: '],
+                  ['pokemon-number', 'Number: '],
+                  ['pokemon-artist', 'Artist: '],
+                  ['pokemon-rarity', 'Rarity: '],
+                  ['pokemon-flavorText', 'Flavor Text: '],
+                  ['pokemon-nationalPokedexNumbers', 'National Pokedex Numbers: ']
+              ];
+
+              for (const [id, label] of fields) {
+                  document.getElementById(id).textContent = label;
+              }
+            }
+
               
             document.addEventListener('click', (e) =>{
               document.getElementById('details').textContent = '';
+              clearPokemonDetails(); // Clear previous details
 
               if (isFetching) {
                 console.log("Already fetching a card, please wait.");
@@ -961,6 +983,43 @@ function typeText(text, elementId, i = 0) {
     console.log(`${elementId} typing complete.`);
   }
 }
+
+
+function clearCardDetails() {
+    const fields = [
+        'pokemon-types',
+        'pokemon-hp',
+        'pokemon-number',
+        'pokemon-collection',
+        'pokemon-attackCost',
+        'pokemon-attackDescription',
+        'pokemon-weakness',
+        'pokemon-weaknessValue',
+        'pokemon-marketPrice',
+        'pokemon-trendPrice',
+        'pokemon-rarity',
+        'pokemon-pokedex',
+        'pokemon-flavorText'
+    ];
+
+    for (const id of fields) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+
+        const strong = el.querySelector('strong');
+        
+        if (strong) {
+            // Remove all text nodes after <strong>
+            // Clear everything and re-append just the <strong>
+            el.textContent = '';
+            el.appendChild(strong);
+        } else {
+            // If no <strong>, just clear the element (e.g. for flavor text)
+            el.textContent = '';
+        }
+    }
+}
+
 
 
 // const div = document.createElement('div'); // Create a div element for the blur effect
