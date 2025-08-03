@@ -945,6 +945,110 @@ function showDetails(data, outputElement) {
   //   return; // Exit if there is an error
   // }
 
+  function addDetail(){
+    // Create parent card-content if not exists
+    let cardContent = document.querySelector('.card-content');
+    if (!cardContent) {
+        cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
+        document.body.appendChild(cardContent); // Or append to another container
+    }
+
+    // Create card-details if not exists
+    let cardDetails = cardContent.querySelector('.card-details');
+    if (!cardDetails) {
+        cardDetails = document.createElement('div');
+        cardDetails.className = 'card-details';
+        cardContent.appendChild(cardDetails);
+    }
+
+    // Helper to create and append labeled div if not exists
+    function createLabeledDivIfNotExist(id, labelText) {
+        if (!document.getElementById(id)) {
+            const div = document.createElement('div');
+            div.id = id;
+            div.innerHTML = `<strong>${labelText}: </strong>Text Node`;
+            cardDetails.appendChild(div);
+        }
+    }
+
+    // Basic info
+    createLabeledDivIfNotExist('pokemon-types', 'Type');
+    createLabeledDivIfNotExist('pokemon-hp', 'HP');
+    createLabeledDivIfNotExist('pokemon-number', 'Number');
+    createLabeledDivIfNotExist('pokemon-collection', 'Collection');
+
+    // Attack section
+    if (!cardDetails.querySelector('.attack')) {
+        const attackDiv = document.createElement('div');
+        attackDiv.className = 'attack';
+        attackDiv.innerHTML = `
+            <h4>Attack type</h4>
+            <p id="pokemon-attackCost"><strong>Cost: </strong>Text Node</p>
+            <p id="pokemon-attackDescription"><strong>Description: </strong>Text Node</p>
+        `;
+        cardDetails.appendChild(attackDiv);
+    }
+
+    // Weakness section
+    if (!cardDetails.querySelector('.weakness')) {
+        const weaknessDiv = document.createElement('div');
+        weaknessDiv.className = 'weakness';
+        weaknessDiv.innerHTML = `
+            <h4>Weakness</h4>
+            <p id="pokemon-weakness"><strong>Type: </strong>Text Node</p>
+            <p id="pokemon-weaknessValue"><strong>Value: </strong>Text Node</p>
+        `;
+        cardDetails.appendChild(weaknessDiv);
+    }
+
+    // Market price section
+    if (!cardDetails.querySelector('.market-price')) {
+        const marketDiv = document.createElement('div');
+        marketDiv.className = 'market-price';
+        marketDiv.innerHTML = `
+            <p id="pokemon-marketPrice"><strong>Market Price (tcgplayer): </strong>Text Node</p>
+            <p id="pokemon-trendPrice"><strong>Trend Price (card market)</strong>Text Node</p>
+        `;
+        cardDetails.appendChild(marketDiv);
+    }
+
+    // Rarity section
+    if (!document.getElementById('pokemon-rarity')) {
+        const rarityDiv = document.createElement('div');
+        rarityDiv.className = 'rarity';
+        rarityDiv.innerHTML = `<p id="pokemon-rarity"><strong>Rarity: </strong>Text Node</p>`;
+        cardDetails.appendChild(rarityDiv);
+    }
+
+    // Pokedex section
+    if (!document.getElementById('pokemon-pokedex')) {
+        const pokedexDiv = document.createElement('div');
+        pokedexDiv.className = 'pokedex';
+        pokedexDiv.innerHTML = `<p id="pokemon-pokedex"><strong>National Pokedex Numbers: </strong>Text Node</p>`;
+        cardDetails.appendChild(pokedexDiv);
+    }
+
+    // Flavor text section
+    if (!document.getElementById('pokemon-flavorText')) {
+        const flavorDiv = document.createElement('div');
+        flavorDiv.className = 'flavor-text';
+        flavorDiv.innerHTML = `<p id="pokemon-flavorText">Flavor text</p>`;
+        cardDetails.appendChild(flavorDiv);
+    }
+
+    // Card footer
+    if (!cardDetails.querySelector('.card-footer')) {
+        const footerDiv = document.createElement('div');
+        footerDiv.className = 'card-footer';
+      footerDiv.innerHTML = `<p id="">Release date</p><!-- dragon vault (black & white). holo effect -->`;
+      cardDetails.appendChild(footerDiv);
+    }
+
+  }
+
+  addDetail(); // Call the function to add the details
+
   try{
     typeText(data.id.toString(), 'pokemon-id'); // Type the ID character by character
     typeText(data.name.toString(), 'pokemon-name'); // Type the name character by character
@@ -963,6 +1067,21 @@ function showDetails(data, outputElement) {
   }
   catch (error) {
     console.error('Error typing details:', error.message || error); // Log any errors that occur during typing
+    console.error('Stack trace:', error.stack); // Log the stack trace for debugging
+    return; // Exit if there is an error
+  }
+
+  try {
+    typeText((data.types || []).join(', '), 'pokemon-types'); // Type the types character by character
+    typeText(data.hp ? data.hp.toString() : 'N/A', 'pokemon-hp'); // Type the HP character by character
+    typeText(data.number ? data.number.toString() : 'N/A', 'pokemon-number'); // Type the number character by character
+    typeText(data.set.name ? data.set.name.toString() : 'N/A', 'pokemon-collection'); // Type the collection name character by character
+    typeText((data.attacks || []).map(attack => attack.cost ? attack.cost.join(', ') : 'N/A').join(', '), 'pokemon-attackCost'); // Type the attack cost character by character
+    typeText((data.attacks || []).map(attack => attack.text ? attack.text.toString() : 'N/A').join(', '), 'pokemon-attackDescription'); // Type the attack description character by character
+    typeText((data.weaknesses || []).map(weakness => weakness.type ? weakness.type.toString() : 'N/A').join(', '), 'pokemon-weakness'); // Type the weakness type character by character
+    typeText((data.weaknesses || []).map(weakness => weakness.value ? weakness.value.toString() : 'N/A').join(', '), 'pokemon-weaknessValue'); // Type the weakness value character by character
+  } catch (error) {
+    console.error('Error in showDetails:', error.message || error); // Log any errors that occur during showDetails
     console.error('Stack trace:', error.stack); // Log the stack trace for debugging
     return; // Exit if there is an error
   }
