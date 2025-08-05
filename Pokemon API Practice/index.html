@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="console.css"> -->
     <link rel="stylesheet" href="console2.css">
+    <link rel="stylesheet" href="card.css">
 </head>
 <body>
     <div class="image-container">
@@ -39,7 +40,7 @@
 
     </div>
 
-    <div class="card-content"  style="display: none;">
+    <div class="card-content"  style="display: block;">
         <div class="card-header">
             Pokemon
         </div>
@@ -50,42 +51,48 @@
 
         <div class="card-content">
             <div class="card-details">
-                <div id="pokemon-types"><strong>Type: </strong>Text Node</div>
-                <div id="pokemon-hp"><strong>HP: </strong>Text Node</div>
-                <div id="pokemon-number"><strong>Number: </strong>Text Node</div>
-                <div id="pokemon-collection"><strong>Collection: </strong>Text Node</div>
+                <h3 id="poke-name">Pokemon Name: </h3>
+                <div id="poke-types"><strong>Type: </strong></div>
+                <div id="poke-hp"><strong>HP: </strong></div>
+                <div id="poke-number"><strong>Number: </strong></div>
+                <div id="poke-collection"><strong>Collection: </strong></div>
 
                 <div class="attack">
                     <h4>Attack type</h4>
-                    <p id="pokemon-attackCost"><strong>Cost: </strong>Text Node</p>
-                    <p id="pokemon-attackDescription"><strong>Description: </strong>Text Node</p>
+                    <p id="poke-attackCost"><strong>Cost: </strong></p>
+                    <p id="poke-attackDescription"><strong>Description: </strong></p>
                 </div>
 
                 <div class="weakness">
                     <h4>Weakness</h4>
-                    <p id="pokemon-weakness"><strong>Type: </strong>Text Node</p>
-                    <p id="pokemon-weaknessValue"><strong>Value: </strong>Text Node</p>
+                    <p id="poke-weakness"><strong>Type: </strong></p>
+                    <p id="poke-weaknessValue"><strong>Value: </strong></p>
                 </div>
 
                 <div class="market-price">
-                    <p id="pokemon-marketPrice"><strong>Market Price (tcgplayer): </strong>Text Node</p>
-                    <p id="pokemon-trendPrice"><strong>Trend Price (card market)</strong>Text Node</p>
+                    <p id="poke-marketPrice"><strong>Market Price (tcgplayer): </strong></p>
+                    <p id="poke-trendPrice"><strong>Trend Price (card market): </strong></p>
                 </div>
 
                 <div class="rarity">
-                    <p id="pokemon-rarity"><strong>Rarity: </strong>Text Node</p>
+                    <p id="poke-rarity"><strong>Rarity: </strong></p>
                 </div>
 
                 <div class="pokedex">
-                    <p id="pokemon-pokedex"><strong>National Pokedex Numbers: </strong>Text Node</p>
+                    <p id="poke-pokedex"><strong>National Pokedex Numbers: </strong></p>
                 </div>
 
                 <div class="flavor-text">
-                    <p id="pokemon-flavorText">Flavor text</p>
+                    <p id="poke-flavorText">Flavor text: </p>
+                </div>
+
+                <div class="set-info">
+                    <p id="poke-ID">ID: </p>
+                    <p id="poke-Name"></p>
                 </div>
 
                 <div class="card-footer">
-                    <p id="">Release date</p>
+                    <p id="release-date">Release date: </p>
                     <!-- dragon vault (black & white). holo effect -->
                 </div>
             </div>

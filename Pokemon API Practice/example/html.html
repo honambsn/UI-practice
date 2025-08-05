@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Latias Pokémon Card</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card-container">
+    <div class="card-image">
+      <img id="cardImage" src="" alt="Latias card">
+    </div>
+    <div class="card-details">
+      <h1 id="cardName">Latias</h1>
+
+      <div class="stat-block">
+        <div class="stat"><strong>HP:</strong> <span id="hp"></span></div>
+        <div class="stat"><strong>Type:</strong> <span id="type"></span></div>
+        <div class="stat"><strong>Subtype:</strong> <span id="subtype"></span></div>
+        <div class="stat"><strong>Weakness:</strong> <span id="weakness"></span></div>
+        <div class="stat"><strong>Retreat:</strong> <span id="retreatCost"></span></div>
+      </div>
+
+      <h2>Attacks</h2>
+      <div id="attacks"></div>
+
+      <em id="flavorText"></em>
+
+      <button id="togglePrices">Show Prices</button>
+      <div id="prices" class="hidden">
+        <h3>Prices</h3>
+        <p><strong>TCGPlayer Market:</strong> $<span id="marketPrice"></span></p>
+        <p><strong>CardMarket Avg:</strong> €<span id="avgPrice"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

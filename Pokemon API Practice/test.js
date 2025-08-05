@@ -455,7 +455,7 @@ document.addEventListener('keydown', (event) => {
               
             document.addEventListener('click', (e) =>{
               document.getElementById('details').textContent = '';
-              clearPokemonDetails(); // Clear previous details
+              //clearPokemonDetails(); // Clear previous details
 
               if (isFetching) {
                 console.log("Already fetching a card, please wait.");
@@ -1071,15 +1071,24 @@ function showDetails(data, outputElement) {
     return; // Exit if there is an error
   }
 
+  console.log(data.cardmarket.prices.trendPrice); // Log the market price from tcgplayer
+
   try {
-    typeText((data.types || []).join(', '), 'pokemon-types'); // Type the types character by character
-    typeText(data.hp ? data.hp.toString() : 'N/A', 'pokemon-hp'); // Type the HP character by character
-    typeText(data.number ? data.number.toString() : 'N/A', 'pokemon-number'); // Type the number character by character
-    typeText(data.set.name ? data.set.name.toString() : 'N/A', 'pokemon-collection'); // Type the collection name character by character
-    typeText((data.attacks || []).map(attack => attack.cost ? attack.cost.join(', ') : 'N/A').join(', '), 'pokemon-attackCost'); // Type the attack cost character by character
-    typeText((data.attacks || []).map(attack => attack.text ? attack.text.toString() : 'N/A').join(', '), 'pokemon-attackDescription'); // Type the attack description character by character
-    typeText((data.weaknesses || []).map(weakness => weakness.type ? weakness.type.toString() : 'N/A').join(', '), 'pokemon-weakness'); // Type the weakness type character by character
-    typeText((data.weaknesses || []).map(weakness => weakness.value ? weakness.value.toString() : 'N/A').join(', '), 'pokemon-weaknessValue'); // Type the weakness value character by character
+    typeText((data.types || []).join(', '), 'poke-types'); // Type the types character by character
+    typeText(data.hp ? data.hp.toString() : 'N/A', 'poke-hp'); // Type the HP character by character
+    typeText(data.number ? data.number.toString() : 'N/A', 'poke-number'); // Type the number character by character
+    typeText(data.set.name ? data.set.name.toString() : 'N/A', 'poke-collection'); // Type the collection name character by character
+    typeText((data.attacks || []).map(attack => attack.cost ? attack.cost.join(', ') : 'N/A').join(', '), 'poke-attackCost'); // Type the attack cost character by character
+    typeText((data.attacks || []).map(attack => attack.text ? attack.text.toString() : 'N/A').join(', '), 'poke-attackDescription'); // Type the attack description character by character
+    typeText((data.weaknesses || []).map(weakness => weakness.type ? weakness.type.toString() : 'N/A').join(', '), 'poke-weakness'); // Type the weakness type character by character
+    typeText((data.weaknesses || []).map(weakness => weakness.value ? weakness.value.toString() : 'N/A').join(', '), 'poke-weaknessValue'); // Type the weakness value character by character
+    //typeText(data.tcgplayer ? data.tcgplayer.marketPrice.toString() : 'N/A', 'poke-marketPrice'); // Type the market price character by character
+    typeText(data.cardmarket ? data.cardmarket.prices.trendPrice.toString() : 'N/A', 'poke-trendPrice'); // Type the trend price character by character
+    typeText(data.rarity ? data.rarity.toString() : 'N/A', 'poke-rarity'); // Type the rarity character by character
+    typeText(data.pokedex ? data.pokedex.toString() : 'N/A', 'poke-pokedex'); // Type the Pokedex character by character
+    typeText(data.flavorText ? data.flavorText.toString() : 'N/A', 'poke-flavorText'); // Type the flavor text character by character
+    typeText(data.set.releaseDate ? data.set.releaseDate.toString() : 'N/A', 'release-date'); // Type the release date character by character
+    console.log('Details typing complete.'); // Log when all details have been typed
   } catch (error) {
     console.error('Error in showDetails:', error.message || error); // Log any errors that occur during showDetails
     console.error('Stack trace:', error.stack); // Log the stack trace for debugging
