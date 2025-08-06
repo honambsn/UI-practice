@@ -1,0 +1,1 @@
+main ui -> show more in card-details(main ui) --(effect)--> sub ui

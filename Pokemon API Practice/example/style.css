@@ -84,6 +84,13 @@ body {
   color: #99003d;
   flex: 1 1 45%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.3s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.stat:hover{
+  cursor: pointer;
+  background: #ffe6f0;
+  transform: scale(1.1);
 }
 
 .attack-block {
@@ -99,6 +106,7 @@ body {
 .attack-block:hover {
   transform: scale(1.02);
   background: #fff8fb;
+  cursor: pointer;
 }
 
 .card-details em {
@@ -109,6 +117,13 @@ body {
   border-left: 4px solid #aaa;
   border-radius: 5px;
   color: #444;
+  transition: all 0.3s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.card-details em:hover {
+  background: #eaeaea;
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 #prices {
@@ -132,9 +147,10 @@ button {
   border-radius: 6px;
   cursor: pointer;
   align-self: start;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
   background: #c11d5e;
+  transform: scale(1.1);
 }
