@@ -1202,3 +1202,9 @@ function clearCardDetails() {
 //   // Gọi lại hàm fetch khi có click
 //   fetchCardDetails();
 // });
+
+
+
+function changeText() {
+        document.getElementById("myButton").innerHTML = "You Clicked Me!";
+    }
