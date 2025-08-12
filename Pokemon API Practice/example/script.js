@@ -72,3 +72,15 @@ document.getElementById("togglePrices").addEventListener("click", () => {
   document.getElementById("togglePrices").textContent = 
     prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
 });
+
+
+// ---
+const cardImage = document.querySelector('.card-image');
+
+cardImage.addEventListener('mouseenter', () => {
+  cardImage.classList.add('active');
+});
+
+cardImage.addEventListener('mouseleave', () => {
+  cardImage.classList.remove('active');
+});

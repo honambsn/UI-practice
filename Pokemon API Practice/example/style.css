@@ -3,6 +3,7 @@ body {
   background: #f8f9fa;
   margin: 0;
   padding: 20px;
+  display: flex;
 }
 
 .card-container {
@@ -182,4 +183,33 @@ button:hover {
 .close-btn:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(216, 44, 108, 0.5);
+}
+
+
+.card-image.active + .card-details{
+  display: none;
+}
+
+.card-image.active{
+  display: flex;
+  top: 0px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 50%;
+  height: 100%;
+    
+}
+
+.card-image.active img {
+  display: block; /* Show the image when active */
+  object-fit: cover;
+  opacity: 1000;
+  padding: 30px;
+  width: 100%;
+  max-width: 650px;
+  min-width: 650px;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
 }
