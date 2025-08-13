@@ -77,10 +77,16 @@ document.getElementById("togglePrices").addEventListener("click", () => {
 // ---
 const cardImage = document.querySelector('.card-image');
 
-cardImage.addEventListener('mouseenter', () => {
+cardImage.addEventListener('click', () => {
   cardImage.classList.add('active');
 });
 
-cardImage.addEventListener('mouseleave', () => {
-  cardImage.classList.remove('active');
-});
+// cardImage.addEventListener('mouseleave', () => {
+//   cardImage.classList.remove('active');
+// });
+
+document.addEventListener('click', function (e) {
+        if (!cardImage.contains(e.target)) {
+            cardImage.classList.remove('active');
+        }
+    });
