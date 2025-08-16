@@ -22,7 +22,7 @@ body {
   background: #eee;
   text-align: center;
 
-  transition: all 0.6s ease, box-shadow 0.2s ease, transform 0.9s ease, background 0.2s ease;
+  transition: all 0.6s ease, box-shadow 0.2s ease, transform 1s ease, background 0.2s ease;
 }
 
 .card-image img {
@@ -43,7 +43,7 @@ body {
   border-left: 5px solid #d82c6c;
   position: relative;
   box-shadow: inset 0 0 8px rgba(216, 44, 108, 0.1);
-  transition: all 0.6s ease, box-shadow 0.2s ease, transform 0.5s ease, background 0.2s ease;
+  transition: all 0.6s ease, box-shadow 0.2s ease, transform 1s ease, background 0.2s ease;
 }
 
 .card-details h1 {
@@ -89,7 +89,7 @@ body {
   color: #99003d;
   flex: 1 1 45%;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: all 0.3s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  transition: all 0.3s ease, box-shadow 0.2s ease, transform 0.6s ease, background 0.2s ease;
 }
 
 .stat:hover{
@@ -198,7 +198,7 @@ button:hover {
   /* display: none; */
   opacity: 0;
 
-  transform: translateX(50px);
+  transform: translateX(100%);
   transition: opacity 0.7s ease, transform 0.9s ease;
 }
 
@@ -209,6 +209,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   position: relative;
+  background: transparent;
   width: 50%;
   height: 100%;
   transform:  translateX(55%) translateY(25%);
@@ -216,62 +217,17 @@ button:hover {
   transition: all 1s ease, box-shadow 0.2s ease, transform 0.9s ease, background 0.2s ease;
 }
 
-.card-image.active{
-  /* display: flex;
-  top: 0px;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 50%;
-  height: 100%; */
-
-  /* position: fixed; */
-  /* transform: translateX(-20%);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  max-width: 650px;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: all 0.6s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
-     */
+.card-image.active .card-box{
+  background-color: #ffffff;
+  border: none;
 }
 
-.card-image.active img {
-  /* display: block;
-  object-fit: cover;
-  opacity: 1000;
-  padding: 30px;
-  width: 100%;
-  max-width: 650px;
-  min-width: 650px;
-  height: 100%;
-  transition: opacity 0.5s ease-in-out;
-   */
-/* 
-  width: 100%;
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); */
+.card-image.active img:hover{
+  transform: none;
+  transition: all 0.6s ease, box-shadow 0.2s ease, transform 0.5s ease, background 0.2s ease;
 }
 
-/* 
-.card-image.active::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: -1;
-} */
-
-/* // */
+.card-image img:hover {
+  transform: scale(1.1) translateY(10%);
+  transition: all 0.6s ease, box-shadow 0.2s ease, transform 0.5s ease, background 0.2s ease;
+}
