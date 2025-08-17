@@ -1,1 +1,4 @@
 main ui -> show more in card-details(main ui) --(effect)--> sub ui
+
+
+the 2nd page seems completed. add js fetch in next working session

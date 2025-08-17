@@ -1206,5 +1206,12 @@ function clearCardDetails() {
 
 
 function changeText() {
-        document.getElementById("myButton").innerHTML = "You Clicked Me!";
-    }
+  document.getElementById("myButton").innerHTML = "You Clicked Me!";
+  
+  const currentPath = window.location.pathname;  // e.g., /Pokemon%20API%20Practice/
+  const newPath = currentPath + 'example';       // e.g., /Pokemon%20API%20Practice/example
+
+  // Redirect to the new URL
+  window.location.href = newPath;
+  console.log(`Redirecting to: ${newPath}`); // Log the new path for debugging
+}
