@@ -7,7 +7,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="card-container">
+  <div class="image-container">
+      <input type="text" id="poke-name" placeholder="Enter image name here:">
+
+      <!-- Loading text will show while image is being fetched -->
+      <!-- <p id="loading-text">Loading...</p> -->
+      <p id="loading-text">
+          <span id="loading-text">Loading...</span>
+          <!-- <img id="loading-image" src="pokeball.jpeg" alt="Loading Image" style="display: none; opacity: 0;"> -->
+      </p>
+      <!-- <img id="image" class="lazy" data-src="" src="" alt="Image"> -->
+  </div>
+
+  <div class="card-container" style="display: none;">
     <div class="card-image">
       <div class="card-box" id="card-box">
         <img id="cardImage" src="" alt="Latias card">
