@@ -30,6 +30,7 @@ function suggestSearch(){
                 li.onclick = function() {
                     // when a suggestion is clicked, fill the input and hide suggestions
                     document.getElementById('poke-input').value = suggestion;
+                    console.log('Selected Pokémon:', suggestion);
                     resultBox.style.display = 'none';
                 };
                 suggestionList.appendChild(li);

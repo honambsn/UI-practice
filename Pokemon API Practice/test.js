@@ -1047,6 +1047,52 @@ function showDetails(data, outputElement) {
 
   }
 
+
+  const listtypes = {
+    "Grass": "Green", // Grass is typically green
+    "Poison": "Purple", // Poison is often purple, distinct from Psychic
+    "Fire": "Orange", // Fire is bright orange or red-orange
+    "Water": "Blue", // Water is blue
+    "Bug": "Lime Green", // Bug is a lighter, more vivid green
+    "Normal": "Beige", // Light brownish beige for Normal
+    "Flying": "Sky Blue", // Light blue, like the sky
+    "Electric": "Yellow", // Electric is typically yellow
+    "Ground": "Brown", // Ground is earthy brown
+    "Fairy": "Pink", // Fairy is light pink
+    "Fighting": "Crimson", // Fighting is a deep red (or dark red)
+    "Psychic": "Lavender", // Psychic is usually a lighter, softer purple
+    "Rock": "Slate Gray", // Rock is typically gray or brownish gray
+    "Ghost": "Lavender", // Ghost is a ghostly lavender (or pale purple)
+    "Steel": "Silver", // Steel is metallic silver or gray
+    "Ice": "Light Cyan", // Ice is a pale blue-green or cyan
+    "Dragon": "Royal Blue", // Dragon is typically a deep blue
+    "Dark": "Dark Gray" // Dark type is a deep gray or blackish-gray
+  };
+
+
+  for (let type of data.types) {  // Dùng 'of' để lấy từng phần tử trong mảng 'data.types'
+      if (listtypes[type]) {  // Kiểm tra nếu loại có trong 'listtypes'
+          console.log(`Type: ${type}, Color: ${listtypes[type]}`);
+          try{
+            //document.body.style.setProperty('background-color', listtypes[type].toLowerCase(), 'important');
+            document.body.style.backgroundColor = "";
+            document.body.style.backgroundColor = 'red'; // Reset background color
+            console.log(`Background color set to ${listtypes[type]}`);
+          }
+          catch (error) {
+            console.log('cant Change');
+          }
+          console.log("setted");
+      } else {
+          console.log(`Type: ${type} not matched`); // Log khi không có sự trùng khớp
+      }
+  }
+
+  console.log(listtypes);
+
+
+
+
   addDetail(); // Call the function to add the details
 
   try{
