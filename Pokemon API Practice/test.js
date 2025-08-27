@@ -1057,16 +1057,18 @@ const listtypes = {
     "Normal": ["Beige", "LightGray"], // Normal with a gradient from beige to light gray
     "Flying": ["SkyBlue", "LightSkyBlue"], // Flying with a gradient from sky blue to light sky blue
     "Electric": ["Yellow", "LightYellow"], // Electric with a gradient from yellow to light yellow
+    "Lightning": ["Yellow", "LightYellow"], // Electric with a gradient from yellow to light yellow
     "Ground": ["Brown", "Tan"], // Ground with a gradient from brown to tan
     "Fairy": ["Pink", "LightPink"], // Fairy with a gradient from pink to light pink
-    "Fighting": ["Crimson", "DarkRed"], // Fighting with a gradient from crimson to dark red
-    "Psychic": ["Lavender", "Mauve"], // Psychic with a gradient from lavender to mauve
+    "Fighting": ["#ff6200", "DarkRed"], // Fighting with a gradient from crimson to dark red
+    "Psychic": ["#4b2d59", "#bc80d9"], // Psychic with a gradient from lavender to mauve
     "Rock": ["SlateGray", "DarkGray"], // Rock with a gradient from slate gray to dark gray
     "Ghost": ["Lavender", "LightPurple"], // Ghost with a gradient from lavender to light purple
     "Steel": ["Silver", "Gray"], // Steel with a gradient from silver to gray
     "Ice": ["LightCyan", "Cyan"], // Ice with a gradient from light cyan to cyan
-    "Dragon": ["RoyalBlue", "DeepSkyBlue"], // Dragon with a gradient from royal blue to deep sky blue
-    "Dark": ["DarkGray", "Black"] // Dark with a gradient from dark gray to black
+    "Dragon": ["#B9B679", "#a1a19f"], // Dragon with a gradient from royal blue to deep sky blue
+    "Darkness": ["#1d484a", "Black"], // Dark with a gradient from dark gray to black
+    "Colorless": ["White", "LightGray"] // Colorless with a gradient from white to light gray
 };
 
 

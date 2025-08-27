@@ -62,9 +62,13 @@ https://pokeapi.co/
 https://www.themealdb.com/api.php
 
 
+
+
 https://pokemondb.net/tools/text-list
-
-
-
 https://bulbapedia.bulbagarden.net/wiki/Colorless_(TCG)
+
 => background by types
+
+get list of name => autocomplete search => fetch api with name
+
+missing type: Ground
