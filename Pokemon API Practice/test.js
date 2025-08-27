@@ -424,7 +424,7 @@ document.addEventListener('keydown', (event) => {
 
                 removeBlur(); // Remove the blur effect after fetching
 
-                document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
+                //document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
               });
             }
     
@@ -1048,36 +1048,43 @@ function showDetails(data, outputElement) {
   }
 
 
-  const listtypes = {
-    "Grass": "Green", // Grass is typically green
-    "Poison": "Purple", // Poison is often purple, distinct from Psychic
-    "Fire": "Orange", // Fire is bright orange or red-orange
-    "Water": "Blue", // Water is blue
-    "Bug": "Lime Green", // Bug is a lighter, more vivid green
-    "Normal": "Beige", // Light brownish beige for Normal
-    "Flying": "Sky Blue", // Light blue, like the sky
-    "Electric": "Yellow", // Electric is typically yellow
-    "Ground": "Brown", // Ground is earthy brown
-    "Fairy": "Pink", // Fairy is light pink
-    "Fighting": "Crimson", // Fighting is a deep red (or dark red)
-    "Psychic": "Lavender", // Psychic is usually a lighter, softer purple
-    "Rock": "Slate Gray", // Rock is typically gray or brownish gray
-    "Ghost": "Lavender", // Ghost is a ghostly lavender (or pale purple)
-    "Steel": "Silver", // Steel is metallic silver or gray
-    "Ice": "Light Cyan", // Ice is a pale blue-green or cyan
-    "Dragon": "Royal Blue", // Dragon is typically a deep blue
-    "Dark": "Dark Gray" // Dark type is a deep gray or blackish-gray
-  };
+const listtypes = {
+    "Grass": ["Green", "LightGreen"], // Grass with a gradient from green to light green
+    "Poison": ["Purple", "Violet"], // Poison with a gradient from purple to violet
+    "Fire": ["Orange", "Red"], // Fire with a gradient from orange to red
+    "Water": ["Blue", "LightBlue"], // Water with a gradient from blue to light blue
+    "Bug": ["LimeGreen", "YellowGreen"], // Bug with a gradient from lime green to yellow green
+    "Normal": ["Beige", "LightGray"], // Normal with a gradient from beige to light gray
+    "Flying": ["SkyBlue", "LightSkyBlue"], // Flying with a gradient from sky blue to light sky blue
+    "Electric": ["Yellow", "LightYellow"], // Electric with a gradient from yellow to light yellow
+    "Ground": ["Brown", "Tan"], // Ground with a gradient from brown to tan
+    "Fairy": ["Pink", "LightPink"], // Fairy with a gradient from pink to light pink
+    "Fighting": ["Crimson", "DarkRed"], // Fighting with a gradient from crimson to dark red
+    "Psychic": ["Lavender", "Mauve"], // Psychic with a gradient from lavender to mauve
+    "Rock": ["SlateGray", "DarkGray"], // Rock with a gradient from slate gray to dark gray
+    "Ghost": ["Lavender", "LightPurple"], // Ghost with a gradient from lavender to light purple
+    "Steel": ["Silver", "Gray"], // Steel with a gradient from silver to gray
+    "Ice": ["LightCyan", "Cyan"], // Ice with a gradient from light cyan to cyan
+    "Dragon": ["RoyalBlue", "DeepSkyBlue"], // Dragon with a gradient from royal blue to deep sky blue
+    "Dark": ["DarkGray", "Black"] // Dark with a gradient from dark gray to black
+};
 
 
   for (let type of data.types) {  // Dùng 'of' để lấy từng phần tử trong mảng 'data.types'
       if (listtypes[type]) {  // Kiểm tra nếu loại có trong 'listtypes'
           console.log(`Type: ${type}, Color: ${listtypes[type]}`);
           try{
+            const gradient = listtypes[type].map(color => color.toLowerCase()).join(' , ');
+
             //document.body.style.setProperty('background-color', listtypes[type].toLowerCase(), 'important');
-            document.body.style.backgroundColor = "";
-            document.body.style.backgroundColor = 'red'; // Reset background color
-            console.log(`Background color set to ${listtypes[type]}`);
+            
+            // Apply the gradient as the background
+            document.body.style.setProperty('background', `linear-gradient(to right, ${gradient})`, 'important');
+
+            // document.body.style.backgroundColor = "";
+            // document.body.style.backgroundColor = 'red'; // Reset background color
+            console.log(`Gradient background set to: ${listtypes[type].join(' to ')}`);
+
           }
           catch (error) {
             console.log('cant Change');
