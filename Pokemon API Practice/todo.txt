@@ -72,3 +72,5 @@ https://bulbapedia.bulbagarden.net/wiki/Colorless_(TCG)
 get list of name => autocomplete search => fetch api with name
 
 missing type: Ground
+
+trainer no handle

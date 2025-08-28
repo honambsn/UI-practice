@@ -1059,7 +1059,7 @@ const listtypes = {
     "Electric": ["Yellow", "LightYellow"], // Electric with a gradient from yellow to light yellow
     "Lightning": ["Yellow", "LightYellow"], // Electric with a gradient from yellow to light yellow
     "Ground": ["Brown", "Tan"], // Ground with a gradient from brown to tan
-    "Fairy": ["Pink", "LightPink"], // Fairy with a gradient from pink to light pink
+    "Fairy": ["#ff00d0", "#ffa8ef"], // Fairy with a gradient from pink to light pink
     "Fighting": ["#ff6200", "DarkRed"], // Fighting with a gradient from crimson to dark red
     "Psychic": ["#4b2d59", "#bc80d9"], // Psychic with a gradient from lavender to mauve
     "Rock": ["SlateGray", "DarkGray"], // Rock with a gradient from slate gray to dark gray
@@ -1068,7 +1068,8 @@ const listtypes = {
     "Ice": ["LightCyan", "Cyan"], // Ice with a gradient from light cyan to cyan
     "Dragon": ["#B9B679", "#a1a19f"], // Dragon with a gradient from royal blue to deep sky blue
     "Darkness": ["#1d484a", "Black"], // Dark with a gradient from dark gray to black
-    "Colorless": ["White", "LightGray"] // Colorless with a gradient from white to light gray
+    "Colorless": ["White", "LightGray"], // Colorless with a gradient from white to light gray
+    "Metal": ["Silver", "Gray"] // Steel with a gradient from silver to gray
 };
 
 
