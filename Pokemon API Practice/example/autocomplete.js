@@ -7,7 +7,15 @@ const pokemonNames = [
 
 // Function to suggest Pokémon names based on user input
 function suggestSearch(){
-    const input = document.getElementById('poke-input').value.toLowerCase();
+    let inputElement = document.getElementById('poke-input');
+    let input = inputElement ? inputElement.value.toLowerCase() : '';
+
+    if (!input) {
+        let nameElement = document.getElementById('poke-name');
+        input = nameElement ? nameElement.value.toLowerCase() : '';
+    }
+
+
     const suggestionList = document.getElementById('suggestionList');
     const resultBox = document.querySelector('.result-box');
 
@@ -29,7 +37,11 @@ function suggestSearch(){
                 li.textContent = suggestion;
                 li.onclick = function() {
                     // when a suggestion is clicked, fill the input and hide suggestions
-                    document.getElementById('poke-input').value = suggestion;
+                    var suggestElement = document.getElementById('poke-input') || document.getElementById('poke-name');
+                    if (suggestElement) {
+                        suggestElement.value = suggestion;
+                    }
+
                     console.log('Selected Pokémon:', suggestion);
                     resultBox.style.display = 'none';
                 };

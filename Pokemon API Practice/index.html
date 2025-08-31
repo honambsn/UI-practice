@@ -11,7 +11,16 @@
 </head>
 <body>
     <div class="image-container">
-        <input type="text" id="poke-name" placeholder="Enter image name here:">
+        <input type="text" id="poke-name" placeholder="Enter pokemon name here:" onkeyup="suggestSearch()">
+
+
+        <div class="result-box">
+          <ul id="suggestionList">
+            <li>test</li>
+            <li>test2</li>
+            <li>test3</li>
+          </ul>
+        </div>
 
         <!-- Loading text will show while image is being fetched -->
         <!-- <p id="loading-text">Loading...</p> -->
@@ -106,5 +115,6 @@
     </div>
 
     <script src="test.js"></script>
+    <script src="example/autocomplete.js"></script>
 </body>
 </html>
