@@ -1271,3 +1271,8 @@ function changeText() {
   window.location.href = newPath;
   console.log(`Redirecting to: ${newPath}`); // Log the new path for debugging
 }
+
+function clearSearch() {
+  document.getElementById('poke-name').value = '';
+  document.getElementById('suggestionList').innerHTML = '';
+}

@@ -6,13 +6,20 @@
     <title>Lazy Load Image with Loading Text</title>
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="console.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="console2.css">
     <link rel="stylesheet" href="card.css">
 </head>
 <body>
     <div class="image-container">
-        <input type="text" id="poke-name" placeholder="Enter pokemon name here:" onkeyup="suggestSearch()">
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="poke-name" placeholder="Enter pokemon name here:" onkeyup="suggestSearch()">
+            <div id="refresh" style="margin-left: 10px; z-index: 1000; cursor: pointer; padding: 10px;"  onclick="clearSearch()">
 
+                <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+        </div>
+        
 
         <div class="result-box">
           <ul id="suggestionList">
