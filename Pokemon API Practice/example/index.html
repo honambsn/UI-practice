@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="image-container">
+  <div class="image-container" id="image-container">
     <!-- <div class="image-container" style="display: none;"> -->
         <input type="text" id="poke-input" placeholder="Enter pokemon name here:" onkeyup="suggestSearch()">
 
@@ -28,7 +28,7 @@
       <!-- <img id="image" class="lazy" data-src="" src="" alt="Image"> -->
   </div>
 
-  <div class="card-container" style="display: none;">
+  <div class="card-container" id="card-container" style="display: none;">
     <!-- <div class="card-container"> -->
     <div class="card-image">
       <div class="card-box" id="card-box">
@@ -63,6 +63,8 @@
   <div class="modal hidden" id="modal">
     <button class="close-btn" aria-label="Close">&times;</button>
   </div>
+
+  <div id="closeSearch" onclick="closeSearch()">Click Me</div>
 
   <script src="script.js"></script>
   <script src="autocomplete.js"></script>

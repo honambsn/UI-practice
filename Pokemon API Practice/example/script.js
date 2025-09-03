@@ -90,3 +90,24 @@ document.addEventListener('click', function (e) {
             cardImage.classList.remove('active');
         }
     });
+
+
+function closeSearch() {
+  const closeButton = document.getElementById('closeSearch');
+  const cardContainer = document.getElementById('card-container');
+  const imageContainer = document.getElementById('image-container');
+
+  // Toggle class 'active'
+  closeButton.classList.toggle('active');
+  
+  // Nếu class 'active' có, hiển thị card container và ẩn image container
+  if (closeButton.classList.contains('active')) {
+    cardContainer.style.display = 'flex';
+    imageContainer.style.display = 'none';
+  } 
+  // Nếu class 'active' không có, ẩn card container và hiển thị image container
+  else {
+    cardContainer.style.display = 'none';
+    imageContainer.style.display = 'flex';
+  }
+}

@@ -1261,7 +1261,7 @@ function clearCardDetails() {
 
 
 
-function changeText() {
+function Test2() {
   document.getElementById("myButton").innerHTML = "You Clicked Me!";
   
   const currentPath = window.location.pathname;  // e.g., /Pokemon%20API%20Practice/
@@ -1276,3 +1276,4 @@ function clearSearch() {
   document.getElementById('poke-name').value = '';
   document.getElementById('suggestionList').innerHTML = '';
 }
+
