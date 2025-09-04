@@ -74,3 +74,6 @@ get list of name => autocomplete search => fetch api with name
 missing type: Ground
 
 trainer no handle
+
+
+suggest to fetch
