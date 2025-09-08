@@ -119,6 +119,8 @@ function suggestSearch(){
 
                     console.log('Selected Pokémon:', suggestion);
                     resultBox.style.display = 'none';
+
+                    suggestSelected(suggestion);
                 };
                 suggestionList.appendChild(li);
             });

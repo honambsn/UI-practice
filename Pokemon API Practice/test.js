@@ -1277,3 +1277,12 @@ function clearSearch() {
   document.getElementById('suggestionList').innerHTML = '';
 }
 
+
+document.getElementById('poke-name').addEventListener('keyup', function() {
+  suggestSearch();
+});
+
+//export 
+function suggestSelected(name) {
+  console.log(`Selected suggestion: ${name}`);
+}
