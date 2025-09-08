@@ -276,8 +276,14 @@ function fetchCard(cardId) {
 //     console.error('Error fetching data:', error);
 //   });
 
+let isSearch = false; // Flag to track if search button is clicked
 
+  document.getElementById('search').addEventListener('click', function() {
+    isSearch = true;
+    console.log('Search button clicked');
+  });
 
+    
 
 document.addEventListener('keydown', (event) => {
 
@@ -291,7 +297,9 @@ document.addEventListener('keydown', (event) => {
 
   let pokeName = document.getElementById('poke-name');
 
-  if (event.key === 'Enter' && isError === false) {
+  console.log('isSearch flag value: ', isSearch);
+  if (event.key === 'Enter' && isError === false || isSearch === true && isError === false) {
+    const searchField = document.getElementById('search-field');
     let loadingText = document.getElementById('loading-text');
     const image = document.getElementById('image');
     const input = document.getElementById('poke-name');
@@ -306,6 +314,7 @@ document.addEventListener('keydown', (event) => {
     
     image.style.display = 'none'; // Hide the image element
     input.style.display = 'none'; // Hide the input field
+    searchField.style.display = 'none'; // Hide the search field
 
 
     pokeName = pokeName.value.trim();

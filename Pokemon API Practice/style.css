@@ -190,6 +190,22 @@ input[type="text"]:focus {
   scale: 1.5;
 }
 
+.fa-magnifying-glass{
+  position: relative;
+  right: 15px;
+  margin-left: 20px;
+  padding: 0;
+  color: #d82c6c;
+  cursor: pointer;
+  transition: transform 0.5s ease, scale 0.5s ease, color 0.3s ease;
+  font-size: 20px;
+}
+
+.fa-magnifying-glass:hover{
+  transform: scale(1.5);
+  color: #ff4d7a;
+}
+
 
 #myButton{
   background: rgba(255, 255, 255, 0.1);

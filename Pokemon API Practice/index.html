@@ -12,11 +12,14 @@
 </head>
 <body>
     <div class="image-container">
-        <div style="display: flex; align-items: center;">
+        <div id="search-field" style="display: flex; align-items: center;">
             <input type="text" id="poke-name" placeholder="Enter pokemon name here:">
             <div id="refresh" style="margin-left: 10px; z-index: 1000; cursor: pointer; padding: 10px;"  onclick="clearSearch()">
 
                 <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+            <div id="search" style="margin-left: 10px; z-index: 1000; cursor: pointer; padding: 10px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
         
@@ -123,6 +126,6 @@
 
     <script src="example/autocomplete.js"></script>
     <script src="test.js"></script>
-    
+
 </body>
 </html>
