@@ -276,16 +276,277 @@ function fetchCard(cardId) {
 //     console.error('Error fetching data:', error);
 //   });
 
-let isSearch = false; // Flag to track if search button is clicked
+function handleSearch(query)
+{
+  const searchField = document.getElementById('search-field');
+  let loadingText = document.getElementById('loading-text');
+  const image = document.getElementById('image');
+  const input = document.getElementById('poke-name');
+  const resultBox = document.getElementById('result-box');
 
-  document.getElementById('search').addEventListener('click', function() {
-    isSearch = true;
-    console.log('Search button clicked');
-  });
 
-    
+  loadingText.style.display = 'block'; // Show loading text
+  loadingText.innerHTML = "Loading..."; // Set loading text
+  loadingText.style.color = 'red';
+  loadingText.style.cursor = 'default'; // Change cursor to default for loading text
+  loadingText.style.fontSize = '20px'; // Set font size for loading text
+  loadingText.style.zIndex = '99999'; // Ensure loading text is on top of other elements
+  
+  
+  image.style.display = 'none'; // Hide the image element
+  input.style.display = 'none'; // Hide the input field
+  searchField.style.display = 'none'; // Hide the search field
+  resultBox.style.display = 'none'; // Hide the result box
 
-document.addEventListener('keydown', (event) => {
+
+  pokeName = query; //
+
+  pokeName.toLowerCase(); // Convert to lowercase for consistency
+  pokeName.value = ''; // Clear the input field after fetching
+  if (pokeName) {
+    console.log(`Fetching card - pokemon Name: ${pokeName}`);
+    //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
+    const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+    //const new_url = `https://cors-anywhere.herokuapp.com/https://api.pokemontcg.io/v2/cards?q=name:${pokeName}` // Example URL for testing with CORS proxy
+    const getByName = () =>{
+      fetch(url)
+      //fetch(new_url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.data && data.data.length > 0) {
+          const card = data.data;
+
+          console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
+
+          
+          const ids = card
+            .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
+            .map(c => c.id);
+          
+          
+          console.log(`Card IDs: ${ids}`); // Log the card ID
+
+          console.log(`data type: ${typeof ids}`); // Log the type of ids
+
+          
+          // Check if ids is an array, not just an object
+          if (Array.isArray(ids)) {
+            console.log('ids is an array');
+          } else {
+            console.error('Error: ids is not an array');
+          }
+
+          // Loop through each id and log it separately
+          // ids.forEach(id => {
+          //   console.log(`Card ID: ${id}`);
+          // });
+
+
+          let randomID = getPokemonRandom(ids); // Get a random ID from the array
+          console.log("get random id in ids: ", randomID);
+
+          let isFetching = false; // Flag to prevent duplicate fetches
+
+          function createBlur() {
+            let blurDiv = document.createElement('div');
+            blurDiv.className = 'blur'; // Add a class for styling
+            document.body.appendChild(blurDiv); // Append the blur div to the body
+            blurDiv.style.position = 'fixed'; // Make it fixed position
+            blurDiv.style.top = '0';
+            blurDiv.style.left = '0';
+            blurDiv.style.width = '100%';
+            blurDiv.style.height = '100%';
+            blurDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
+            blurDiv.style.zIndex = '9999'; // Ensure it is on top of other elements
+            // blurDiv.style.display = 'flex'; // Use flexbox for centering
+            // blurDiv.style.justifyContent = 'center'; // Center horizontally
+            // blurDiv.style.alignItems = 'center'; // Center vertically
+            blurDiv.style.transition = 'opacity 0.3s ease'; // Smooth transition for opacity
+            blurDiv.style.opacity = '0'; // Start with opacity 0 for fade-in effect
+            setTimeout(() => {
+              blurDiv.style.opacity = '1'; // Fade in the blur effect
+            }, 10); // Small delay to allow the initial styles to apply
+          }
+
+          function removeBlur() {
+            let blurDiv = document.querySelector('.blur'); // Select the blur div
+            if (blurDiv) {
+              blurDiv.style.opacity = '0'; // Fade out the blur effect
+              setTimeout(() => {
+                blurDiv.remove(); // Remove the blur div after fade-out
+              }, 300); // Match the transition duration
+            }
+          }
+
+          function fetchingCard(randomID) {
+            document.body.style.backgroundColor = "#393E46"; // Change background color to indicate fetching
+            createBlur(); // Create a blur effect while fetching
+            console.log(`Fetching card with ID: ${randomID}`);
+            fetchCard(randomID).then(() => {
+              const card_data = data.data.find(item => item.id === randomID);
+
+              console.log(`Card with ID ${randomID} fetched successfully.`);                
+
+              console.log(`Card ---data:`, card_data); // Log the fetched card data
+              
+              
+              // const details = document.getElementById('details');
+              // if (details) {
+              //   console.log(`Details element found: ${details.id}`); // Log the details element ID
+              // } else {
+              //   console.error('Details element not found.'); // Log an error if the details element is not found
+              // }
+              // details.style.display = 'block'; // Show the details section
+              const details = 'details'; // Set the details section ID
+
+              showDetails(card_data, details);
+
+            })
+            .catch(error => {
+              console.error(`Error fetching card with ID ${randomID}:`, error);
+            })
+            .finally(() => {
+              const details = document.getElementById('details');
+              details.style.display = 'block'; // Show the details section
+
+              //showDetails(data, outputElement)
+              
+              console.log(`Finished fetching card with ID: ${randomID}`);
+              isFetching = false; // Reset the flag after fetching
+
+              removeBlur(); // Remove the blur effect after fetching
+
+              //document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
+            });
+          }
+  
+          //fetchCard(randomId); // Call the function to fetch the card details
+          fetchingCard(randomID); // Call the function to fetch the card details
+          //console.log(fetchCard(randomId)); // Log the fetchCard function call
+
+          function clearPokemonDetails() {
+            const fields = [
+                ['pokemon-name', 'Name: '],
+                ['pokemon-id', 'ID: '],
+                ['pokemon-envolvesFrom', 'Evolves From: '],
+                ['pokemon-types', 'Types: '],
+                ['pokemon-subtypes', 'Subtypes: '],
+                ['pokemon-hp', 'HP: '],
+                ['pokemon-number', 'Number: '],
+                ['pokemon-artist', 'Artist: '],
+                ['pokemon-rarity', 'Rarity: '],
+                ['pokemon-flavorText', 'Flavor Text: '],
+                ['pokemon-nationalPokedexNumbers', 'National Pokedex Numbers: ']
+            ];
+
+            for (const [id, label] of fields) {
+                document.getElementById(id).textContent = label;
+            }
+          }
+
+            
+          document.addEventListener('click', (e) =>{
+            document.getElementById('details').textContent = '';
+            //clearPokemonDetails(); // Clear previous details
+
+            if (isFetching) {
+              console.log("Already fetching a card, please wait.");
+              e.preventDefault(); // Prevent default action if needed
+              e.stopPropagation(); // Stop the event from propagating further
+              return; // Exit the function to prevent duplicate fetches
+            }
+
+            isFetching = true; // Set the flag to true to indicate fetching is in progress
+            randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
+            console.log("get random id in ids: ", randomID);
+            
+
+            fetchingCard(randomID);
+          });
+          // get random card ID from the array of IDs
+
+
+        } else {
+          loadingText.style.display = 'block'; // Show loading text
+          loadingText.innerHTML = "No cards found for this Pokémon name. Click here to try again."; // Set loading text
+          loadingText.style.cursor = 'pointer'; // Change cursor to pointer for clickable text
+          
+          
+          loadingText.addEventListener('mouseover', e =>{
+            loadingText.style.color = 'red'; // Change text color to red for visibility
+          });
+
+          loadingText.addEventListener('mouseout', e =>{
+            loadingText.style.color = ''; // Reset text color when mouse leaves
+          });
+
+
+          loadingText.addEventListener('click', function() {
+            // loadingText.style.display = 'none'; // Hide loading text
+            // input.style.display = 'block'; // Show the input field again
+            // input.focus(); // Focus on the input field
+
+
+                      //reload the page to reset the input field and loading text
+            //loadingText.remove(); // Remove the loading text element
+            //location.reload(); // Reload the page to reset the input field and loading text
+
+
+                      // not reload the page, just reset the input field and loading text
+            input.value = ''; // Clear the input field
+            input.style.display = 'block'; // Show the input field again
+            loadingText.style.display = 'none'; // Hide loading text
+            input.focus(); // Focus on the input field
+          });
+          
+          console.log('No cards found for this Pokémon name...');
+        }
+      })
+      .catch(error => console.error('Error fetching card:', error), isError = true, loadingText.innerHTML = "").finally(() => {
+        //console.error('Error fetching card:', error);
+        //loadingText.style.display = 'block'; // Hide loading text after fetching
+        //loadingText.innerHTML = "Something went wrong. Please try again.";
+        //console.error('Error fetching card:', error);
+        // image.style.display = 'block'; // Show the image element
+        // input.style.display = 'block'; // Show the input field again
+      });
+    };
+    getByName();
+
+    // const loadObserver = () => {
+    //   const observe = new IntersectionObserver((entries, observerInstance) => {
+    //     entries.forEach(entry =>{
+    //       if (entry.isIntersecting){
+    //         console.log('Element is in view:');
+    //         fetchCard(); // Call the fetchCard function when the element is in view
+    //         observerInstance.disconnect(); // Stop observing after the first intersection
+    //       }
+    //     });
+    //   }, {
+    //     threshold: 0.1 // Trigger when 10% of the element is visible
+    //   });
+
+    //   const targetElement = document.getElementById('.loading-text');
+    //   if (targetElement) {
+    //     observe.observe(targetElement); // Start observing the target element
+    //   } else {
+    //     console.error('Target element not found for intersection observer.');
+    //   }
+    // };
+
+    // loadObserver(); // Call the function to set up the observer
+  }
+  else {
+    console.log('Please enter a valid Pokémon name or ID.');
+  }
+  
+  //console.log(getPokemonRandom(arr)); // This will log a random Pokémon name from the array
+
+}
+
+document.addEventListener('keyup', (event) => {
+
+  let keyString =  '';
 
   let isError = false; // Flag to track if an error occurs
 
@@ -295,272 +556,275 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
+  console.log('Key pressed:', event.key);
+  console.log('Current key string:', document.getElementById('poke-name').value.trim());
+
   let pokeName = document.getElementById('poke-name');
-
-  console.log('isSearch flag value: ', isSearch);
-  if (event.key === 'Enter' && isError === false || isSearch === true && isError === false) {
-    const searchField = document.getElementById('search-field');
-    let loadingText = document.getElementById('loading-text');
-    const image = document.getElementById('image');
-    const input = document.getElementById('poke-name');
-
-    loadingText.style.display = 'block'; // Show loading text
-    loadingText.innerHTML = "Loading..."; // Set loading text
-    loadingText.style.color = 'red';
-    loadingText.style.cursor = 'default'; // Change cursor to default for loading text
-    loadingText.style.fontSize = '20px'; // Set font size for loading text
-    loadingText.style.zIndex = '99999'; // Ensure loading text is on top of other elements
-    
-    
-    image.style.display = 'none'; // Hide the image element
-    input.style.display = 'none'; // Hide the input field
-    searchField.style.display = 'none'; // Hide the search field
-
-
-    pokeName = pokeName.value.trim();
-    pokeName.toLowerCase(); // Convert to lowercase for consistency
-    pokeName.value = ''; // Clear the input field after fetching
-    if (pokeName) {
-      console.log(`Fetching card - pokemon Name: ${pokeName}`);
-      //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
-      const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
-      //const new_url = `https://cors-anywhere.herokuapp.com/https://api.pokemontcg.io/v2/cards?q=name:${pokeName}` // Example URL for testing with CORS proxy
-      const getByName = () =>{
-        fetch(url)
-        //fetch(new_url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.data && data.data.length > 0) {
-            const card = data.data;
-
-            console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
-
-            
-            const ids = card
-              .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
-              .map(c => c.id);
-            
-            
-            console.log(`Card IDs: ${ids}`); // Log the card ID
-
-            console.log(`data type: ${typeof ids}`); // Log the type of ids
-
-            
-            // Check if ids is an array, not just an object
-            if (Array.isArray(ids)) {
-              console.log('ids is an array');
-            } else {
-              console.error('Error: ids is not an array');
-            }
-
-            // Loop through each id and log it separately
-            // ids.forEach(id => {
-            //   console.log(`Card ID: ${id}`);
-            // });
-
-
-            let randomID = getPokemonRandom(ids); // Get a random ID from the array
-            console.log("get random id in ids: ", randomID);
-
-            let isFetching = false; // Flag to prevent duplicate fetches
-
-            function createBlur() {
-              let blurDiv = document.createElement('div');
-              blurDiv.className = 'blur'; // Add a class for styling
-              document.body.appendChild(blurDiv); // Append the blur div to the body
-              blurDiv.style.position = 'fixed'; // Make it fixed position
-              blurDiv.style.top = '0';
-              blurDiv.style.left = '0';
-              blurDiv.style.width = '100%';
-              blurDiv.style.height = '100%';
-              blurDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
-              blurDiv.style.zIndex = '9999'; // Ensure it is on top of other elements
-              // blurDiv.style.display = 'flex'; // Use flexbox for centering
-              // blurDiv.style.justifyContent = 'center'; // Center horizontally
-              // blurDiv.style.alignItems = 'center'; // Center vertically
-              blurDiv.style.transition = 'opacity 0.3s ease'; // Smooth transition for opacity
-              blurDiv.style.opacity = '0'; // Start with opacity 0 for fade-in effect
-              setTimeout(() => {
-                blurDiv.style.opacity = '1'; // Fade in the blur effect
-              }, 10); // Small delay to allow the initial styles to apply
-            }
-
-            function removeBlur() {
-              let blurDiv = document.querySelector('.blur'); // Select the blur div
-              if (blurDiv) {
-                blurDiv.style.opacity = '0'; // Fade out the blur effect
-                setTimeout(() => {
-                  blurDiv.remove(); // Remove the blur div after fade-out
-                }, 300); // Match the transition duration
-              }
-            }
-
-            function fetchingCard(randomID) {
-              document.body.style.backgroundColor = "#393E46"; // Change background color to indicate fetching
-              createBlur(); // Create a blur effect while fetching
-              console.log(`Fetching card with ID: ${randomID}`);
-              fetchCard(randomID).then(() => {
-                const card_data = data.data.find(item => item.id === randomID);
-
-                console.log(`Card with ID ${randomID} fetched successfully.`);                
-
-                console.log(`Card ---data:`, card_data); // Log the fetched card data
-                
-                
-                // const details = document.getElementById('details');
-                // if (details) {
-                //   console.log(`Details element found: ${details.id}`); // Log the details element ID
-                // } else {
-                //   console.error('Details element not found.'); // Log an error if the details element is not found
-                // }
-                // details.style.display = 'block'; // Show the details section
-                const details = 'details'; // Set the details section ID
-
-                showDetails(card_data, details);
-
-              })
-              .catch(error => {
-                console.error(`Error fetching card with ID ${randomID}:`, error);
-              })
-              .finally(() => {
-                const details = document.getElementById('details');
-                details.style.display = 'block'; // Show the details section
-
-                //showDetails(data, outputElement)
-                
-                console.log(`Finished fetching card with ID: ${randomID}`);
-                isFetching = false; // Reset the flag after fetching
-
-                removeBlur(); // Remove the blur effect after fetching
-
-                //document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
-              });
-            }
-    
-            //fetchCard(randomId); // Call the function to fetch the card details
-            fetchingCard(randomID); // Call the function to fetch the card details
-            //console.log(fetchCard(randomId)); // Log the fetchCard function call
-
-            function clearPokemonDetails() {
-              const fields = [
-                  ['pokemon-name', 'Name: '],
-                  ['pokemon-id', 'ID: '],
-                  ['pokemon-envolvesFrom', 'Evolves From: '],
-                  ['pokemon-types', 'Types: '],
-                  ['pokemon-subtypes', 'Subtypes: '],
-                  ['pokemon-hp', 'HP: '],
-                  ['pokemon-number', 'Number: '],
-                  ['pokemon-artist', 'Artist: '],
-                  ['pokemon-rarity', 'Rarity: '],
-                  ['pokemon-flavorText', 'Flavor Text: '],
-                  ['pokemon-nationalPokedexNumbers', 'National Pokedex Numbers: ']
-              ];
-
-              for (const [id, label] of fields) {
-                  document.getElementById(id).textContent = label;
-              }
-            }
-
-              
-            document.addEventListener('click', (e) =>{
-              document.getElementById('details').textContent = '';
-              //clearPokemonDetails(); // Clear previous details
-
-              if (isFetching) {
-                console.log("Already fetching a card, please wait.");
-                e.preventDefault(); // Prevent default action if needed
-                e.stopPropagation(); // Stop the event from propagating further
-                return; // Exit the function to prevent duplicate fetches
-              }
-
-              isFetching = true; // Set the flag to true to indicate fetching is in progress
-              randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
-              console.log("get random id in ids: ", randomID);
-              
-
-              fetchingCard(randomID);
-            });
-            // get random card ID from the array of IDs
-
-
-          } else {
-            loadingText.style.display = 'block'; // Show loading text
-            loadingText.innerHTML = "No cards found for this Pokémon name. Click here to try again."; // Set loading text
-            loadingText.style.cursor = 'pointer'; // Change cursor to pointer for clickable text
-            
-            
-            loadingText.addEventListener('mouseover', e =>{
-              loadingText.style.color = 'red'; // Change text color to red for visibility
-            });
-
-            loadingText.addEventListener('mouseout', e =>{
-              loadingText.style.color = ''; // Reset text color when mouse leaves
-            });
-
-
-            loadingText.addEventListener('click', function() {
-              // loadingText.style.display = 'none'; // Hide loading text
-              // input.style.display = 'block'; // Show the input field again
-              // input.focus(); // Focus on the input field
-
-
-                        //reload the page to reset the input field and loading text
-              //loadingText.remove(); // Remove the loading text element
-              //location.reload(); // Reload the page to reset the input field and loading text
-
-
-                        // not reload the page, just reset the input field and loading text
-              input.value = ''; // Clear the input field
-              input.style.display = 'block'; // Show the input field again
-              loadingText.style.display = 'none'; // Hide loading text
-              input.focus(); // Focus on the input field
-            });
-            
-            console.log('No cards found for this Pokémon name...');
-          }
-        })
-        .catch(error => console.error('Error fetching card:', error), isError = true, loadingText.innerHTML = "").finally(() => {
-          //console.error('Error fetching card:', error);
-          //loadingText.style.display = 'block'; // Hide loading text after fetching
-          //loadingText.innerHTML = "Something went wrong. Please try again.";
-          //console.error('Error fetching card:', error);
-          // image.style.display = 'block'; // Show the image element
-          // input.style.display = 'block'; // Show the input field again
-        });
-      };
-      getByName();
-
-      // const loadObserver = () => {
-      //   const observe = new IntersectionObserver((entries, observerInstance) => {
-      //     entries.forEach(entry =>{
-      //       if (entry.isIntersecting){
-      //         console.log('Element is in view:');
-      //         fetchCard(); // Call the fetchCard function when the element is in view
-      //         observerInstance.disconnect(); // Stop observing after the first intersection
-      //       }
-      //     });
-      //   }, {
-      //     threshold: 0.1 // Trigger when 10% of the element is visible
-      //   });
-
-      //   const targetElement = document.getElementById('.loading-text');
-      //   if (targetElement) {
-      //     observe.observe(targetElement); // Start observing the target element
-      //   } else {
-      //     console.error('Target element not found for intersection observer.');
-      //   }
-      // };
-
-      // loadObserver(); // Call the function to set up the observer
-    }
-    else {
-      console.log('Please enter a valid Pokémon name or ID.');
-    }
+  if (event.key === 'Enter' && isError === false) {
+    handleSearch(pokeName.value.trim());
   }
+  //   const searchField = document.getElementById('search-field');
+  //   let loadingText = document.getElementById('loading-text');
+  //   const image = document.getElementById('image');
+  //   const input = document.getElementById('poke-name');
+
+  //   loadingText.style.display = 'block'; // Show loading text
+  //   loadingText.innerHTML = "Loading..."; // Set loading text
+  //   loadingText.style.color = 'red';
+  //   loadingText.style.cursor = 'default'; // Change cursor to default for loading text
+  //   loadingText.style.fontSize = '20px'; // Set font size for loading text
+  //   loadingText.style.zIndex = '99999'; // Ensure loading text is on top of other elements
+    
+    
+  //   image.style.display = 'none'; // Hide the image element
+  //   input.style.display = 'none'; // Hide the input field
+  //   searchField.style.display = 'none'; // Hide the search field
+
+
+  //   pokeName = pokeName.value.trim();
+  //   pokeName.toLowerCase(); // Convert to lowercase for consistency
+  //   pokeName.value = ''; // Clear the input field after fetching
+  //   if (pokeName) {
+  //     console.log(`Fetching card - pokemon Name: ${pokeName}`);
+  //     //pokeName = "pikachu"; // For testing purposes, you can set a default Pokémon name
+  //     const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+  //     //const new_url = `https://cors-anywhere.herokuapp.com/https://api.pokemontcg.io/v2/cards?q=name:${pokeName}` // Example URL for testing with CORS proxy
+  //     const getByName = () =>{
+  //       fetch(url)
+  //       //fetch(new_url)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         if (data.data && data.data.length > 0) {
+  //           const card = data.data;
+
+  //           console.log(`Pokemon Name: ${pokeName}`); // Log the Pokémon name
+
+            
+  //           const ids = card
+  //             .filter(card => card.name.toLowerCase() === pokeName.toLowerCase())
+  //             .map(c => c.id);
+            
+            
+  //           console.log(`Card IDs: ${ids}`); // Log the card ID
+
+  //           console.log(`data type: ${typeof ids}`); // Log the type of ids
+
+            
+  //           // Check if ids is an array, not just an object
+  //           if (Array.isArray(ids)) {
+  //             console.log('ids is an array');
+  //           } else {
+  //             console.error('Error: ids is not an array');
+  //           }
+
+  //           // Loop through each id and log it separately
+  //           // ids.forEach(id => {
+  //           //   console.log(`Card ID: ${id}`);
+  //           // });
+
+
+  //           let randomID = getPokemonRandom(ids); // Get a random ID from the array
+  //           console.log("get random id in ids: ", randomID);
+
+  //           let isFetching = false; // Flag to prevent duplicate fetches
+
+  //           function createBlur() {
+  //             let blurDiv = document.createElement('div');
+  //             blurDiv.className = 'blur'; // Add a class for styling
+  //             document.body.appendChild(blurDiv); // Append the blur div to the body
+  //             blurDiv.style.position = 'fixed'; // Make it fixed position
+  //             blurDiv.style.top = '0';
+  //             blurDiv.style.left = '0';
+  //             blurDiv.style.width = '100%';
+  //             blurDiv.style.height = '100%';
+  //             blurDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
+  //             blurDiv.style.zIndex = '9999'; // Ensure it is on top of other elements
+  //             // blurDiv.style.display = 'flex'; // Use flexbox for centering
+  //             // blurDiv.style.justifyContent = 'center'; // Center horizontally
+  //             // blurDiv.style.alignItems = 'center'; // Center vertically
+  //             blurDiv.style.transition = 'opacity 0.3s ease'; // Smooth transition for opacity
+  //             blurDiv.style.opacity = '0'; // Start with opacity 0 for fade-in effect
+  //             setTimeout(() => {
+  //               blurDiv.style.opacity = '1'; // Fade in the blur effect
+  //             }, 10); // Small delay to allow the initial styles to apply
+  //           }
+
+  //           function removeBlur() {
+  //             let blurDiv = document.querySelector('.blur'); // Select the blur div
+  //             if (blurDiv) {
+  //               blurDiv.style.opacity = '0'; // Fade out the blur effect
+  //               setTimeout(() => {
+  //                 blurDiv.remove(); // Remove the blur div after fade-out
+  //               }, 300); // Match the transition duration
+  //             }
+  //           }
+
+  //           function fetchingCard(randomID) {
+  //             document.body.style.backgroundColor = "#393E46"; // Change background color to indicate fetching
+  //             createBlur(); // Create a blur effect while fetching
+  //             console.log(`Fetching card with ID: ${randomID}`);
+  //             fetchCard(randomID).then(() => {
+  //               const card_data = data.data.find(item => item.id === randomID);
+
+  //               console.log(`Card with ID ${randomID} fetched successfully.`);                
+
+  //               console.log(`Card ---data:`, card_data); // Log the fetched card data
+                
+                
+  //               // const details = document.getElementById('details');
+  //               // if (details) {
+  //               //   console.log(`Details element found: ${details.id}`); // Log the details element ID
+  //               // } else {
+  //               //   console.error('Details element not found.'); // Log an error if the details element is not found
+  //               // }
+  //               // details.style.display = 'block'; // Show the details section
+  //               const details = 'details'; // Set the details section ID
+
+  //               showDetails(card_data, details);
+
+  //             })
+  //             .catch(error => {
+  //               console.error(`Error fetching card with ID ${randomID}:`, error);
+  //             })
+  //             .finally(() => {
+  //               const details = document.getElementById('details');
+  //               details.style.display = 'block'; // Show the details section
+
+  //               //showDetails(data, outputElement)
+                
+  //               console.log(`Finished fetching card with ID: ${randomID}`);
+  //               isFetching = false; // Reset the flag after fetching
+
+  //               removeBlur(); // Remove the blur effect after fetching
+
+  //               //document.body.style.backgroundColor = '#F0C1E1'; // Reset background color
+  //             });
+  //           }
+    
+  //           //fetchCard(randomId); // Call the function to fetch the card details
+  //           fetchingCard(randomID); // Call the function to fetch the card details
+  //           //console.log(fetchCard(randomId)); // Log the fetchCard function call
+
+  //           function clearPokemonDetails() {
+  //             const fields = [
+  //                 ['pokemon-name', 'Name: '],
+  //                 ['pokemon-id', 'ID: '],
+  //                 ['pokemon-envolvesFrom', 'Evolves From: '],
+  //                 ['pokemon-types', 'Types: '],
+  //                 ['pokemon-subtypes', 'Subtypes: '],
+  //                 ['pokemon-hp', 'HP: '],
+  //                 ['pokemon-number', 'Number: '],
+  //                 ['pokemon-artist', 'Artist: '],
+  //                 ['pokemon-rarity', 'Rarity: '],
+  //                 ['pokemon-flavorText', 'Flavor Text: '],
+  //                 ['pokemon-nationalPokedexNumbers', 'National Pokedex Numbers: ']
+  //             ];
+
+  //             for (const [id, label] of fields) {
+  //                 document.getElementById(id).textContent = label;
+  //             }
+  //           }
+
+              
+  //           document.addEventListener('click', (e) =>{
+  //             document.getElementById('details').textContent = '';
+  //             //clearPokemonDetails(); // Clear previous details
+
+  //             if (isFetching) {
+  //               console.log("Already fetching a card, please wait.");
+  //               e.preventDefault(); // Prevent default action if needed
+  //               e.stopPropagation(); // Stop the event from propagating further
+  //               return; // Exit the function to prevent duplicate fetches
+  //             }
+
+  //             isFetching = true; // Set the flag to true to indicate fetching is in progress
+  //             randomID = getPokemonRandom(ids); // Get a new random ID from the array on click
+  //             console.log("get random id in ids: ", randomID);
+              
+
+  //             fetchingCard(randomID);
+  //           });
+  //           // get random card ID from the array of IDs
+
+
+  //         } else {
+  //           loadingText.style.display = 'block'; // Show loading text
+  //           loadingText.innerHTML = "No cards found for this Pokémon name. Click here to try again."; // Set loading text
+  //           loadingText.style.cursor = 'pointer'; // Change cursor to pointer for clickable text
+            
+            
+  //           loadingText.addEventListener('mouseover', e =>{
+  //             loadingText.style.color = 'red'; // Change text color to red for visibility
+  //           });
+
+  //           loadingText.addEventListener('mouseout', e =>{
+  //             loadingText.style.color = ''; // Reset text color when mouse leaves
+  //           });
+
+
+  //           loadingText.addEventListener('click', function() {
+  //             // loadingText.style.display = 'none'; // Hide loading text
+  //             // input.style.display = 'block'; // Show the input field again
+  //             // input.focus(); // Focus on the input field
+
+
+  //                       //reload the page to reset the input field and loading text
+  //             //loadingText.remove(); // Remove the loading text element
+  //             //location.reload(); // Reload the page to reset the input field and loading text
+
+
+  //                       // not reload the page, just reset the input field and loading text
+  //             input.value = ''; // Clear the input field
+  //             input.style.display = 'block'; // Show the input field again
+  //             loadingText.style.display = 'none'; // Hide loading text
+  //             input.focus(); // Focus on the input field
+  //           });
+            
+  //           console.log('No cards found for this Pokémon name...');
+  //         }
+  //       })
+  //       .catch(error => console.error('Error fetching card:', error), isError = true, loadingText.innerHTML = "").finally(() => {
+  //         //console.error('Error fetching card:', error);
+  //         //loadingText.style.display = 'block'; // Hide loading text after fetching
+  //         //loadingText.innerHTML = "Something went wrong. Please try again.";
+  //         //console.error('Error fetching card:', error);
+  //         // image.style.display = 'block'; // Show the image element
+  //         // input.style.display = 'block'; // Show the input field again
+  //       });
+  //     };
+  //     getByName();
+
+  //     // const loadObserver = () => {
+  //     //   const observe = new IntersectionObserver((entries, observerInstance) => {
+  //     //     entries.forEach(entry =>{
+  //     //       if (entry.isIntersecting){
+  //     //         console.log('Element is in view:');
+  //     //         fetchCard(); // Call the fetchCard function when the element is in view
+  //     //         observerInstance.disconnect(); // Stop observing after the first intersection
+  //     //       }
+  //     //     });
+  //     //   }, {
+  //     //     threshold: 0.1 // Trigger when 10% of the element is visible
+  //     //   });
+
+  //     //   const targetElement = document.getElementById('.loading-text');
+  //     //   if (targetElement) {
+  //     //     observe.observe(targetElement); // Start observing the target element
+  //     //   } else {
+  //     //     console.error('Target element not found for intersection observer.');
+  //     //   }
+  //     // };
+
+  //     // loadObserver(); // Call the function to set up the observer
+  //   }
+  //   else {
+  //     console.log('Please enter a valid Pokémon name or ID.');
+  //   }
+  // }
 
   //console.log(getPokemonRandom(arr)); // This will log a random Pokémon name from the array
 });
-2
+
 
 function getRandomSeed(){
   const now = new Date();
