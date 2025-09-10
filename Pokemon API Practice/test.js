@@ -546,8 +546,6 @@ function handleSearch(query)
 
 document.addEventListener('keyup', (event) => {
 
-  let keyString =  '';
-
   let isError = false; // Flag to track if an error occurs
 
   if (isError === true){
@@ -825,6 +823,15 @@ document.addEventListener('keyup', (event) => {
   //console.log(getPokemonRandom(arr)); // This will log a random Pokémon name from the array
 });
 
+document.getElementById('search').addEventListener('click', () =>{
+  let pokeName = document.getElementById('poke-name').value.trim();
+
+  if (pokeName) {
+    handleSearch(pokeName);
+  } else {
+    console.log('Please enter a valid Pokémon name or ID.');
+  }
+});
 
 function getRandomSeed(){
   const now = new Date();
