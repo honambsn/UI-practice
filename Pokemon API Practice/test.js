@@ -544,6 +544,29 @@ function handleSearch(query)
 
 }
 
+function hideSearch(){
+  const searchField = document.getElementById('search-field');
+  let loadingText = document.getElementById('loading-text');
+  const image = document.getElementById('image');
+  const input = document.getElementById('poke-name');
+  const resultBox = document.getElementById('result-box');
+
+
+  loadingText.style.display = 'block'; // Show loading text
+  loadingText.innerHTML = "Loading..."; // Set loading text
+  loadingText.style.color = 'red';
+  loadingText.style.cursor = 'default'; // Change cursor to default for loading text
+  loadingText.style.fontSize = '20px'; // Set font size for loading text
+  loadingText.style.zIndex = '99999'; // Ensure loading text is on top of other elements
+  
+  
+  image.style.display = 'none'; // Hide the image element
+  input.style.display = 'none'; // Hide the input field
+  searchField.style.display = 'none'; // Hide the search field
+  resultBox.style.display = 'none'; // Hide the result box
+
+}
+
 document.addEventListener('keyup', (event) => {
 
   let isError = false; // Flag to track if an error occurs
@@ -559,6 +582,7 @@ document.addEventListener('keyup', (event) => {
 
   let pokeName = document.getElementById('poke-name');
   if (event.key === 'Enter' && isError === false) {
+    hideSearch();
     handleSearch(pokeName.value.trim());
   }
   //   const searchField = document.getElementById('search-field');
@@ -824,6 +848,8 @@ document.addEventListener('keyup', (event) => {
 });
 
 document.getElementById('search').addEventListener('click', () =>{
+
+  hideSearch();
   let pokeName = document.getElementById('poke-name').value.trim();
 
   if (pokeName) {
