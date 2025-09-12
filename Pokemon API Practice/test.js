@@ -1592,3 +1592,27 @@ document.getElementById('poke-name').addEventListener('keyup', function() {
 function suggestSelected(name) {
   console.log(`Selected suggestion: ${name}`);
 }
+
+async function fetchWithNestedLoops() {
+  const baseURL = 'https://jsonplaceholder.typicode.com/posts';
+  const categories = ['category1', 'category2'];  // Loop for categories
+  const pageNumbers = [1, 2];  // Loop for pagination
+
+  for (let category of categories) {
+    for (let page of pageNumbers) {
+      const url = `${baseURL}?category=${category}&_page=${page}&_limit=3`;  // Construct URL dynamically
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(`Data for ${category} page ${page}:`, data);
+      } catch (error) {
+        console.error(`Error fetching data for ${category} page ${page}:`, error);
+      }
+    }
+  }
+}
+
+document.getElementById('listAllButton').addEventListener('click', function(e) {
+  console.log('List All button clicked');
+  fetchWithNestedLoops();
+});
