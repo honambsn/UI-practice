@@ -1612,7 +1612,32 @@ async function fetchWithNestedLoops() {
   }
 }
 
+async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
+  console.log(`Fetching all cards for Pokémon: ${pokeName}`);
+
+  const url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+
+  const baseURL = 'https://api.pokemontcg.io/v2/cards';
+
+  try{
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(`All cards for ${pokeName}:`, data);
+
+    const allIds = data.data.map(item => item.id);
+    console.log(allIds); // Output: ['basep-1', 'basep-2', 'basep-3']
+
+  }
+  catch (error) {
+    console.error(`Error fetching all cards for ${pokeName}:`, error);
+  }
+
+  
+}
+
 document.getElementById('listAllButton').addEventListener('click', function(e) {
   console.log('List All button clicked');
-  fetchWithNestedLoops();
+  //fetchWithNestedLoops();
+
+  fetchAllCardOfPokemon('Charizard');
 });
