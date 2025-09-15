@@ -1626,7 +1626,26 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
 
     const allIds = data.data.map(item => item.id);
     console.log(allIds); // Output: ['basep-1', 'basep-2', 'basep-3']
+    console.log((typeof allIds)); // Output: object
 
+    if (Array.isArray(allIds)) {
+      console.log('ids is an array');
+    } else {
+      console.error('Error: ids is not an array');
+    }
+
+    allIds.forEach(id => {
+        console.log(`Fetching details for card ID: ${id}`);
+      });
+
+    // for (let id of allIds) {
+    //   url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+    //   try {
+    //     const response = await fetch(url);
+
+    const img = data.data.map(item => item.images.small);
+    console.log(img); // Output: ['basep-1', 'basep-2', 'basep-3']
+    console.log((typeof img)); // Output: object
   }
   catch (error) {
     console.error(`Error fetching all cards for ${pokeName}:`, error);
@@ -1640,4 +1659,28 @@ document.getElementById('listAllButton').addEventListener('click', function(e) {
   //fetchWithNestedLoops();
 
   fetchAllCardOfPokemon('Charizard');
+});
+
+
+
+const galleryImages = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const closeBtn = document.getElementById('closeimgBtn');
+
+galleryImages.forEach(img => {
+  img.addEventListener('click', () => {
+    lightbox.style.display = 'flex';
+    lightboxImg.src = img.src;
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target !== lightboxImg) {
+    lightbox.style.display = 'none';
+  }
 });

@@ -15,7 +15,7 @@
         <h1>Pokemon API Practice</h1>
         <p>Search for a Pokemon by name to see its details.</p>
     </div>
-    <div class="image-container">
+    <div class="image-container" style="display: none;">
         <div id="search-field" style="display: flex; align-items: center;">
             <input type="text" id="poke-name" placeholder="Enter pokemon name here:">
             <div id="refresh" style="margin-left: 10px; z-index: 1000; cursor: pointer; padding: 10px;"  onclick="clearSearch()">
@@ -125,6 +125,25 @@
     <div class="listAll" id="listAll">
         <button class="listAllButton" id="listAllButton" onclick="listAllPokemon()">List All Pokemon</button>
         <!-- <div id="allPokemonContainer" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;"></div> -->
+    </div>
+
+    <div class="gallery" id="gallery">
+        <h2>All Pokemon</h2>
+        <div id="allPokemonContainer" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;"></div>
+        <div class="gallery">
+            <img src="https://picsum.photos/id/1015/300/200" alt="Gallery Image">
+            <img src="https://picsum.photos/id/1016/300/200" alt="Gallery Image">
+            <img src="https://picsum.photos/id/1018/300/200" alt="Gallery Image">
+            <img src="https://picsum.photos/id/1020/300/200" alt="Gallery Image">
+            <img src="https://picsum.photos/id/1021/300/200" alt="Gallery Image">
+            <img src="https://picsum.photos/id/1022/300/200" alt="Gallery Image">
+        </div>
+
+        <!-- Lightbox Modal -->
+        <div class="lightbox" id="lightbox">
+            <span class="close-img" id="closeimgBtn">&times;</span>
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        </div>
     </div>
     
     <div style="z-index: 1000;">
