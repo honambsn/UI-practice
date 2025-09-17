@@ -1646,6 +1646,22 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
     const img = data.data.map(item => item.images.small);
     console.log(img); // Output: ['basep-1', 'basep-2', 'basep-3']
     console.log((typeof img)); // Output: object
+
+    
+    const gallery = document.getElementById('gallery');
+
+    gallery.innerHTML = '';
+
+    img.forEach(url => {
+      const imageDisplay = document.createElement('img');
+      imageDisplay.src = url;
+      console.log(imageDisplay.src)
+      imageDisplay.alt = 'poke-card';
+      imageDisplay.width = 200;
+      gallery.append(imageDisplay);
+    });
+
+    
   }
   catch (error) {
     console.error(`Error fetching all cards for ${pokeName}:`, error);
