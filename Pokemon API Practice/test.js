@@ -80,7 +80,7 @@ function handleScroll() {
   }
 }
 
-loadPokemon(); // Tải dữ liệu ban đầu
+// loadPokemon(); // Tải dữ liệu ban đầu
 
 
 
@@ -1661,6 +1661,58 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
       gallery.append(imageDisplay);
     });
 
+    // LAZY LOADING DISPLAY IMGJ
+
+    // Hàm để thêm ảnh vào gallery
+    function loadImages(start, end) {
+      img.slice(start, end).forEach(url => {
+        // Tạo thẻ img mới
+        const imageDisplay = document.createElement('img');
+
+        // Đặt URL ảnh thực tế vào thuộc tính data-src
+        imageDisplay.setAttribute('data-src', url);
+
+        // Cài đặt ảnh placeholder
+        imageDisplay.src = 'path/to/placeholder-image.jpg'; // Đặt ảnh placeholder
+
+        // Thiết lập các thuộc tính khác cho ảnh
+        imageDisplay.alt = 'poke-card';
+        imageDisplay.width = 200;
+        imageDisplay.loading = 'lazy'; // Kích hoạt tính năng lazy loading
+
+        // Thêm ảnh vào gallery
+        gallery.append(imageDisplay);
+
+        // Tạo một observer để lazy load ảnh khi ảnh gần xuất hiện trên màn hình
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Khi ảnh gần xuất hiện, thay đổi src để tải ảnh thực tế
+              entry.target.src = entry.target.getAttribute('data-src');
+              observer.unobserve(entry.target); // Ngừng theo dõi ảnh này sau khi đã tải
+            }
+          });
+        }, { threshold: 0.1 }); // Ngưỡng 0.1 nghĩa là khi 10% ảnh hiển thị trên màn hình
+
+        // Bắt đầu theo dõi ảnh này
+        observer.observe(imageDisplay);
+      });
+    }
+
+    // Tải 10 ảnh đầu tiên khi trang được tải
+    loadImages(0, 10);
+
+    // Lắng nghe sự kiện cuộn để tải thêm ảnh
+    let currentEnd = 10;
+    window.addEventListener('scroll', () => {
+      // Kiểm tra nếu người dùng đã cuộn gần cuối trang
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200) {
+        if (currentEnd < img.length) {
+          loadImages(currentEnd, currentEnd + 10);
+          currentEnd += 10;
+        }
+      }
+    });
     
   }
   catch (error) {
