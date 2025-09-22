@@ -1619,106 +1619,165 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
 
   const baseURL = 'https://api.pokemontcg.io/v2/cards';
 
-  try{
+  // try{
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   console.log(`All cards for ${pokeName}:`, data);
+
+  //   const allIds = data.data.map(item => item.id);
+  //   console.log(allIds); // Output: ['basep-1', 'basep-2', 'basep-3']
+  //   console.log((typeof allIds)); // Output: object
+
+  //   if (Array.isArray(allIds)) {
+  //     console.log('ids is an array');
+  //   } else {
+  //     console.error('Error: ids is not an array');
+  //   }
+
+  //   allIds.forEach(id => {
+  //       console.log(`Fetching details for card ID: ${id}`);
+  //     });
+
+  //   // for (let id of allIds) {
+  //   //   url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
+  //   //   try {
+  //   //     const response = await fetch(url);
+
+  //   const img = data.data.map(item => item.images.small);
+  //   console.log(img); // Output: ['basep-1', 'basep-2', 'basep-3']
+  //   console.log((typeof img)); // Output: object
+
+    
+  //   const gallery = document.getElementById('gallery');
+
+  //   gallery.innerHTML = '';
+
+  //   img.forEach(url => {
+  //     const imageDisplay = document.createElement('img');
+  //     imageDisplay.src = url;
+  //     console.log(imageDisplay.src)
+  //     imageDisplay.alt = 'poke-card';
+  //     imageDisplay.width = 200;
+  //     gallery.append(imageDisplay);
+  //   });
+
+  //   // LAZY LOADING DISPLAY IMGJ
+
+  //   // Hàm để thêm ảnh vào gallery
+  //   // function loadImages(start, end) {
+  //   //   img.slice(start, end).forEach(url => {
+  //   //     // Tạo thẻ img mới
+  //   //     const imageDisplay = document.createElement('img');
+
+  //   //     // Đặt URL ảnh thực tế vào thuộc tính data-src
+  //   //     imageDisplay.setAttribute('data-src', url);
+
+  //   //     // Cài đặt ảnh placeholder
+  //   //     imageDisplay.src = 'path/to/placeholder-image.jpg'; // Đặt ảnh placeholder
+
+  //   //     // Thiết lập các thuộc tính khác cho ảnh
+  //   //     imageDisplay.alt = 'poke-card';
+  //   //     imageDisplay.width = 200;
+  //   //     imageDisplay.loading = 'lazy'; // Kích hoạt tính năng lazy loading
+
+  //   //     // Thêm ảnh vào gallery
+  //   //     gallery.append(imageDisplay);
+
+  //   //     // Tạo một observer để lazy load ảnh khi ảnh gần xuất hiện trên màn hình
+  //   //     const observer = new IntersectionObserver((entries, observer) => {
+  //   //       entries.forEach(entry => {
+  //   //         if (entry.isIntersecting) {
+  //   //           // Khi ảnh gần xuất hiện, thay đổi src để tải ảnh thực tế
+  //   //           entry.target.src = entry.target.getAttribute('data-src');
+  //   //           observer.unobserve(entry.target); // Ngừng theo dõi ảnh này sau khi đã tải
+  //   //         }
+  //   //       });
+  //   //     }, { threshold: 0.1 }); // Ngưỡng 0.1 nghĩa là khi 10% ảnh hiển thị trên màn hình
+
+  //   //     // Bắt đầu theo dõi ảnh này
+  //   //     observer.observe(imageDisplay);
+  //   //   });
+  //   // }
+
+  //   // // Tải 10 ảnh đầu tiên khi trang được tải
+  //   // loadImages(0, 10);
+
+  //   // // Lắng nghe sự kiện cuộn để tải thêm ảnh
+  //   // let currentEnd = 10;
+  //   // window.addEventListener('scroll', () => {
+  //   //   // Kiểm tra nếu người dùng đã cuộn gần cuối trang
+  //   //   if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200) {
+  //   //     if (currentEnd < img.length) {
+  //   //       loadImages(currentEnd, currentEnd + 10);
+  //   //       currentEnd += 10;
+  //   //     }
+  //   //   }
+  //   // });
+    
+  // }
+  // catch (error) {
+  //   console.error(`Error fetching all cards for ${pokeName}:`, error);
+  // }
+
+    try {
     const response = await fetch(url);
     const data = await response.json();
     console.log(`All cards for ${pokeName}:`, data);
 
-    const allIds = data.data.map(item => item.id);
-    console.log(allIds); // Output: ['basep-1', 'basep-2', 'basep-3']
-    console.log((typeof allIds)); // Output: object
+    const imgUrls = data.data.map(item => item.images.small);  // Các URL ảnh thẻ Pokémon
+    console.log(imgUrls); // In ra danh sách URL ảnh
 
-    if (Array.isArray(allIds)) {
-      console.log('ids is an array');
-    } else {
-      console.error('Error: ids is not an array');
-    }
-
-    allIds.forEach(id => {
-        console.log(`Fetching details for card ID: ${id}`);
-      });
-
-    // for (let id of allIds) {
-    //   url = `https://api.pokemontcg.io/v2/cards?q=name:${pokeName}`; // Use the query parameter for name search
-    //   try {
-    //     const response = await fetch(url);
-
-    const img = data.data.map(item => item.images.small);
-    console.log(img); // Output: ['basep-1', 'basep-2', 'basep-3']
-    console.log((typeof img)); // Output: object
-
-    
     const gallery = document.getElementById('gallery');
-
+    let currentIndex = 0;
+    const imagesToDisplay = 12;
+    
+    // Xóa tất cả hình ảnh hiện tại trong gallery
     gallery.innerHTML = '';
 
-    img.forEach(url => {
-      const imageDisplay = document.createElement('img');
-      imageDisplay.src = url;
-      console.log(imageDisplay.src)
-      imageDisplay.alt = 'poke-card';
-      imageDisplay.width = 200;
-      gallery.append(imageDisplay);
-    });
+    // Hàm hiển thị ảnh vào gallery
+    function loadImages() {
+      const currentImages = imgUrls.slice(currentIndex, currentIndex + imagesToDisplay);
+      currentIndex += currentImages.length;
 
-    // LAZY LOADING DISPLAY IMGJ
-
-    // Hàm để thêm ảnh vào gallery
-    function loadImages(start, end) {
-      img.slice(start, end).forEach(url => {
-        // Tạo thẻ img mới
-        const imageDisplay = document.createElement('img');
-
-        // Đặt URL ảnh thực tế vào thuộc tính data-src
-        imageDisplay.setAttribute('data-src', url);
-
-        // Cài đặt ảnh placeholder
-        imageDisplay.src = 'path/to/placeholder-image.jpg'; // Đặt ảnh placeholder
-
-        // Thiết lập các thuộc tính khác cho ảnh
-        imageDisplay.alt = 'poke-card';
-        imageDisplay.width = 200;
-        imageDisplay.loading = 'lazy'; // Kích hoạt tính năng lazy loading
-
-        // Thêm ảnh vào gallery
-        gallery.append(imageDisplay);
-
-        // Tạo một observer để lazy load ảnh khi ảnh gần xuất hiện trên màn hình
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              // Khi ảnh gần xuất hiện, thay đổi src để tải ảnh thực tế
-              entry.target.src = entry.target.getAttribute('data-src');
-              observer.unobserve(entry.target); // Ngừng theo dõi ảnh này sau khi đã tải
-            }
-          });
-        }, { threshold: 0.1 }); // Ngưỡng 0.1 nghĩa là khi 10% ảnh hiển thị trên màn hình
-
-        // Bắt đầu theo dõi ảnh này
-        observer.observe(imageDisplay);
+      currentImages.forEach(url => {
+        const img = document.createElement('img');
+        img.src = 'https://via.placeholder.com/200'; // Ảnh placeholder khi chưa tải
+        img.setAttribute('data-src', url); // Lưu URL thật vào thuộc tính data-src
+        img.alt = 'poke-card';
+        img.classList.add('lazyload'); // Thêm lớp lazyload để theo dõi
+        gallery.appendChild(img);
       });
+
+      // Sử dụng IntersectionObserver để lazy load ảnh khi gần xuất hiện
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.getAttribute('data-src'); // Thay đổi src thành URL thực tế
+            observer.unobserve(img); // Dừng theo dõi ảnh này sau khi đã tải
+          }
+        });
+      }, { threshold: 0.1 }); // Ngưỡng 10% ảnh xuất hiện trên màn hình
+
+      // Quan sát tất cả các ảnh mới được thêm vào
+      document.querySelectorAll('.lazyload').forEach(img => observer.observe(img));
     }
 
-    // Tải 10 ảnh đầu tiên khi trang được tải
-    loadImages(0, 10);
+    // Tải ảnh ban đầu
+    loadImages();
 
-    // Lắng nghe sự kiện cuộn để tải thêm ảnh
-    let currentEnd = 10;
+    // Lắng nghe sự kiện cuộn trang để tải thêm ảnh
     window.addEventListener('scroll', () => {
-      // Kiểm tra nếu người dùng đã cuộn gần cuối trang
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200) {
-        if (currentEnd < img.length) {
-          loadImages(currentEnd, currentEnd + 10);
-          currentEnd += 10;
+        if (currentIndex < imgUrls.length) {
+          loadImages();
         }
       }
     });
-    
-  }
-  catch (error) {
+
+  } catch (error) {
     console.error(`Error fetching all cards for ${pokeName}:`, error);
   }
-
   
 }
 
@@ -1730,7 +1789,7 @@ document.getElementById('listAllButton').addEventListener('click', function(e) {
 });
 
 
-
+// light box
 const galleryImages = document.querySelectorAll('.gallery img');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
