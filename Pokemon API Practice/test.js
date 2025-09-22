@@ -1740,12 +1740,17 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
       currentIndex += currentImages.length;
 
       currentImages.forEach(url => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('item');
+
         const img = document.createElement('img');
         img.src = 'https://via.placeholder.com/200'; // Ảnh placeholder khi chưa tải
         img.setAttribute('data-src', url); // Lưu URL thật vào thuộc tính data-src
         img.alt = 'poke-card';
         img.classList.add('lazyload'); // Thêm lớp lazyload để theo dõi
-        gallery.appendChild(img);
+
+        itemDiv.appendChild(img);
+        gallery.appendChild(itemDiv);
       });
 
       // Sử dụng IntersectionObserver để lazy load ảnh khi gần xuất hiện
