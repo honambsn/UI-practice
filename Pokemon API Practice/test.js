@@ -1719,7 +1719,7 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
   //   console.error(`Error fetching all cards for ${pokeName}:`, error);
   // }
 
-    try {
+  try {
     const response = await fetch(url);
     const data = await response.json();
     console.log(`All cards for ${pokeName}:`, data);
@@ -1728,11 +1728,20 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
     console.log(imgUrls); // In ra danh sách URL ảnh
 
     const gallery = document.getElementById('gallery');
+    const lightBox = document.getElementById('lightbox');
+    const lightBoxHTML = lightBox.outerHTML;
     let currentIndex = 0;
-    const imagesToDisplay = 12;
+    const imagesToDisplay = 15;
     
     // Xóa tất cả hình ảnh hiện tại trong gallery
-    gallery.innerHTML = '';
+    //gallery.innerHTML = '';
+    const images = gallery.querySelectorAll('.item');
+    images.forEach(img => img.remove());
+
+    console.log('clear');
+    // gallery.innerHTML = lightBoxHTML;
+
+    
 
     // Hàm hiển thị ảnh vào gallery
     function loadImages() {
@@ -1752,6 +1761,8 @@ async function fetchAllCardOfPokemon(pokeName = 'Pikachu') {
         itemDiv.appendChild(img);
         gallery.appendChild(itemDiv);
       });
+
+      registerGalleryImageClick();
 
       // Sử dụng IntersectionObserver để lazy load ảnh khi gần xuất hiện
       const observer = new IntersectionObserver((entries, observer) => {
@@ -1795,33 +1806,66 @@ document.getElementById('listAllButton').addEventListener('click', function(e) {
 
 
 // light box
-const galleryImages = document.querySelectorAll('.gallery img');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const closeBtn = document.getElementById('closeimgBtn');
-const btn = document.getElementById('myButton');
+// const galleryImages = document.querySelectorAll('.gallery img');
+// const lightbox = document.getElementById('lightbox');
+// const lightboxImg = document.getElementById('lightboxImg');
+// const closeBtn = document.getElementById('closeimgBtn');
+// const btn = document.getElementById('myButton');
 
-galleryImages.forEach(img => {
-  img.addEventListener('click', () => {
-    lightbox.style.display = 'flex';
-    lightboxImg.src = img.src;
+// galleryImages.forEach(img => {
+//   img.addEventListener('click', () => {
+//     lightbox.style.display = 'flex';
+//     lightboxImg.src = img.src;
     
     
     
-    btn.style.visibility = "hidden";
+//     btn.style.visibility = "hidden";
+//   });
+// });
+
+// closeBtn.addEventListener('click', () => {
+//   lightbox.style.display = 'none';
+
+//   btn.style.visibility = "visible";
+// });
+
+// lightbox.addEventListener('click', (e) => {
+//   if (e.target !== lightboxImg) {
+//     lightbox.style.display = 'none';
+
+//     btn.style.visibility = "visible";
+//   }
+// });
+
+
+// Đăng ký sự kiện click cho tất cả ảnh trong gallery và các sự kiện liên quan đến lightbox
+function registerGalleryImageClick() {
+  const galleryImages = document.querySelectorAll('.gallery img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const closeBtn = document.getElementById('closeimgBtn');
+  const btn = document.getElementById('myButton');
+
+  // Đăng ký sự kiện cho từng ảnh trong gallery
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;  // Hiển thị ảnh được nhấn vào lightbox
+      btn.style.visibility = "hidden"; // Ẩn nút
+    });
   });
-});
 
-closeBtn.addEventListener('click', () => {
-  lightbox.style.display = 'none';
-
-  btn.style.visibility = "visible";
-});
-
-lightbox.addEventListener('click', (e) => {
-  if (e.target !== lightboxImg) {
+  // Đăng ký sự kiện click cho nút đóng
+  closeBtn.addEventListener('click', () => {
     lightbox.style.display = 'none';
+    btn.style.visibility = "visible"; // Hiển thị lại nút
+  });
 
-    btn.style.visibility = "visible";
-  }
-});
+  // Đăng ký sự kiện click ngoài ảnh để đóng lightbox
+  lightbox.addEventListener('click', (e) => {
+    if (e.target !== lightboxImg) {  // Nếu click ra ngoài ảnh trong lightbox
+      lightbox.style.display = 'none';
+      btn.style.visibility = "visible"; // Hiển thị lại nút
+    }
+  });
+}
