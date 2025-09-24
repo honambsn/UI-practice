@@ -1852,6 +1852,7 @@ function registerGalleryImageClick() {
       lightbox.style.display = 'flex';
       lightboxImg.src = img.src;  // Hiển thị ảnh được nhấn vào lightbox
       btn.style.visibility = "hidden"; // Ẩn nút
+      console.log('LIGHT BOX !!!');
     });
   });
 
@@ -1869,3 +1870,24 @@ function registerGalleryImageClick() {
     }
   });
 }
+
+document.addEventListener('DOMContentLoaded', () =>{
+  registerGalleryImageClick();
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const infoLink = document.getElementById("infoLink");
+
+    // Get the current path (e.g., "/Practice/")
+    const currentPath = window.location.pathname;
+
+    // Define the target sub-path (e.g., "/Practice/example/")
+    const subPath = "example/"; // Change this to your desired path
+
+    // Build the new URL using the current path and the sub-path
+    const newUrl = window.location.origin + currentPath + subPath;
+
+    // Set the href attribute dynamically
+    infoLink.setAttribute("href", newUrl);
+});

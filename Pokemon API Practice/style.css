@@ -339,3 +339,27 @@ input[type="text"]:focus {
   color: white;
   cursor: pointer;
 }
+
+/* Info Link Button */
+.info-link {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+  background-color: rgba(0,0,0,0.7);
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.info-link:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.info-link i {
+  margin-right: 8px;
+}
