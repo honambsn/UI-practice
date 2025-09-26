@@ -1,42 +1,49 @@
-const data = {
-  name: "Latias",
-  hp: "100",
-  types: ["Dragon"],
-  subtypes: ["Basic"],
-  attacks: [
-    {
-      name: "Energy Assist",
-      cost: ["Colorless"],
-      text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
-    },
-    {
-      name: "Sky Heal",
-      cost: ["Fire", "Psychic"],
-      damage: "40",
-      text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
-    }
-  ],
-  weaknesses: [{ type: "Dragon", value: "×2" }],
-  retreatCost: ["Colorless"],
-  flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
-  images: {
-    large: "https://images.pokemontcg.io/dv1/9_hires.png"
-  },
-  tcgplayer: {
-    prices: {
-      holofoil: {
-        market: 6.72
-      }
-    }
-  },
-  cardmarket: {
-    prices: {
-      averageSellPrice: 5.02
-    }
-  }
-};
+import { dataCopyExported } from "../test.js";
+
+// const data = {
+//   name: "Latias",
+//   hp: "100",
+//   types: ["Dragon"],
+//   subtypes: ["Basic"],
+//   attacks: [
+//     {
+//       name: "Energy Assist",
+//       cost: ["Colorless"],
+//       text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
+//     },
+//     {
+//       name: "Sky Heal",
+//       cost: ["Fire", "Psychic"],
+//       damage: "40",
+//       text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
+//     }
+//   ],
+//   weaknesses: [{ type: "Dragon", value: "×2" }],
+//   retreatCost: ["Colorless"],
+//   flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
+//   images: {
+//     large: "https://images.pokemontcg.io/dv1/9_hires.png"
+//   },
+//   tcgplayer: {
+//     prices: {
+//       holofoil: {
+//         market: 6.72
+//       }
+//     }
+//   },
+//   cardmarket: {
+//     prices: {
+//       averageSellPrice: 5.02
+//     }
+//   }
+// };
+
+
 
 // Populate base info
+
+let data = dataCopyExported;
+
 document.getElementById("cardImage").src = data.images.large;
 document.getElementById("cardName").textContent = data.name;
 document.getElementById("hp").textContent = data.hp;

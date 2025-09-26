@@ -1891,3 +1891,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Set the href attribute dynamically
     infoLink.setAttribute("href", newUrl);
 });
+
+
+
+function getDataCopy(data)
+{
+  return JSON.parse(JSON.stringify(data))
+}
+
+export const dataCopyExported = getDataCopy(data)
