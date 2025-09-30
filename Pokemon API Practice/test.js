@@ -389,6 +389,15 @@ function handleSearch(query)
 
               console.log(`Card ---data:`, card_data); // Log the fetched card data
               
+              localStorage.setItem("cardData", JSON.stringify(card_data));
+              
+              const tempData = localStorage.getItem("cardData");
+
+              // Convert the JSON string back into a JavaScript object
+              if (tempData) {
+                const user = JSON.parse(tempData);
+                console.log(user);
+              }
               
               // const details = document.getElementById('details');
               // if (details) {

@@ -1,4 +1,38 @@
-import { dataCopyExported } from "../test.js";
+function getJSONFromLocalStorage(key) {
+  const jsonData = localStorage.getItem(key);
+
+  // Check if the data exists in localStorage
+  if (jsonData) {
+    try {
+      // Parse and return the JSON object
+      return JSON.parse(jsonData);
+    } catch (e) {
+      console.error("Error parsing JSON data:", e);
+      return null; // Return null if there's an error
+    }
+  } else {
+    console.warn(`No data found for key: ${key}`);
+    return null; // Return null if no data exists for the key
+  }
+}
+
+
+// let userRetrieving = getJSONFromLocalStorage("user");
+
+// if (userRetrieving) {
+//   console.log("User data retrieved:", userRetrieving);
+// } else {
+//   console.log("No user data found.");
+// }
+
+
+const data = getJSONFromLocalStorage("cardData");
+
+if (data) {
+  console.log("User data retrieved:", data);
+} else {
+  console.log("No user data found.");
+}
 
 // const data = {
 //   name: "Latias",
@@ -40,9 +74,6 @@ import { dataCopyExported } from "../test.js";
 
 
 
-// Populate base info
-
-let data = dataCopyExported;
 
 document.getElementById("cardImage").src = data.images.large;
 document.getElementById("cardName").textContent = data.name;
