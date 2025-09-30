@@ -584,6 +584,9 @@ document.addEventListener('keyup', (event) => {
   if (event.key === 'Enter' && isError === false) {
     hideSearch();
     handleSearch(pokeName.value.trim());
+
+    sessionStorage.setItem('pokemonNameForDisplay', pokeName.value.trim());
+    console.log('sessionStorage setted:', sessionStorage.getItem('pokemonNameForDisplay'));
   }
   //   const searchField = document.getElementById('search-field');
   //   let loadingText = document.getElementById('loading-text');
@@ -854,6 +857,12 @@ document.getElementById('search').addEventListener('click', () =>{
 
   if (pokeName) {
     handleSearch(pokeName);
+
+    sessionStorage.setItem('pokemonNameForDisplay', pokeName);
+    console.log('sessionStorage setted:', sessionStorage.getItem('pokemonNameForDisplay'));
+    // Xóa tất cả dữ liệu trong sessionStorage
+  //  sessionStorage.clear();
+
   } else {
     console.log('Please enter a valid Pokémon name or ID.');
   }
@@ -1801,7 +1810,10 @@ document.getElementById('listAllButton').addEventListener('click', function(e) {
   console.log('List All button clicked');
   //fetchWithNestedLoops();
 
-  fetchAllCardOfPokemon('Charizard');
+  const pokeName = sessionStorage.getItem('pokemonNameForDisplay');
+
+  //fetchAllCardOfPokemon('Charizard');
+  fetchAllCardOfPokemon(pokeName);
 });
 
 
@@ -1899,4 +1911,17 @@ function getDataCopy(data)
   return JSON.parse(JSON.stringify(data))
 }
 
-export const dataCopyExported = getDataCopy(data)
+
+function handleError(error) {
+  // Kiểm tra lỗi là do CORS
+  if (error.message.includes("CORS")) {
+    displayErrorMessage("Có lỗi với CORS, vui lòng thử lại sau.");
+  } else if (error.message.includes("API Error")) {
+    displayErrorMessage("Không tìm thấy dữ liệu. Kiểm tra lại tên hoặc thử lại sau.");
+  } else {
+    displayErrorMessage("Đã xảy ra lỗi không xác định.");
+  }
+}
+
+
+//localStorage and document.cookie for the another url path
