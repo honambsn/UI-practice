@@ -1,3 +1,47 @@
+const sampleData = {
+  name: "Voltairyx",
+  hp: "110",
+  types: ["Electric"],
+  subtypes: ["Basic"],
+  attacks: [
+    {
+      name: "Static Pulse",
+      cost: ["Electric"],
+      text: "Flip a coin. If heads, the opponent’s Active Pokémon is now Paralyzed."
+    },
+    {
+      name: "Storm Jolt",
+      cost: ["Electric", "Colorless"],
+      damage: "50",
+      text: "If you have another Electric-type Pokémon on your Bench, this attack does 20 more damage."
+    }
+  ],
+  weaknesses: [{ type: "Ground", value: "×2" }],
+  retreatCost: ["Colorless"],
+  flavorText: "Voltairyx builds up energy in its wings and releases it in bursts of crackling lightning as it soars through thunderstorms.",
+  images: {
+    large: "https://placehold.co/600x400"
+  },
+  tcgplayer: {
+    prices: {
+      holofoil: {
+        market: 4.85
+      }
+    }
+  },
+  cardmarket: {
+    prices: {
+      averageSellPrice: 4.10
+    }
+  }
+};
+
+
+
+let data = sampleData;
+console.log(data.images.large)
+
+
 function getJSONFromLocalStorage(key) {
   const jsonData = localStorage.getItem(key);
 
@@ -17,16 +61,10 @@ function getJSONFromLocalStorage(key) {
 }
 
 
-// let userRetrieving = getJSONFromLocalStorage("user");
+data = getJSONFromLocalStorage("cardData");
 
-// if (userRetrieving) {
-//   console.log("User data retrieved:", userRetrieving);
-// } else {
-//   console.log("No user data found.");
-// }
-
-
-const data = getJSONFromLocalStorage("cardData");
+if (data === null)
+  data = sampleData;
 
 if (data) {
   console.log("User data retrieved:", data);
@@ -34,82 +72,85 @@ if (data) {
   console.log("No user data found.");
 }
 
-// const data = {
-//   name: "Latias",
-//   hp: "100",
-//   types: ["Dragon"],
-//   subtypes: ["Basic"],
-//   attacks: [
-//     {
-//       name: "Energy Assist",
-//       cost: ["Colorless"],
-//       text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
-//     },
-//     {
-//       name: "Sky Heal",
-//       cost: ["Fire", "Psychic"],
-//       damage: "40",
-//       text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
-//     }
-//   ],
-//   weaknesses: [{ type: "Dragon", value: "×2" }],
-//   retreatCost: ["Colorless"],
-//   flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
-//   images: {
-//     large: "https://images.pokemontcg.io/dv1/9_hires.png"
-//   },
-//   tcgplayer: {
-//     prices: {
-//       holofoil: {
-//         market: 6.72
-//       }
-//     }
-//   },
-//   cardmarket: {
-//     prices: {
-//       averageSellPrice: 5.02
-//     }
-//   }
-// };
+// const 
+pdata = {
+  name: "Latias",
+  hp: "100",
+  types: ["Dragon"],
+  subtypes: ["Basic"],
+  attacks: [
+    {
+      name: "Energy Assist",
+      cost: ["Colorless"],
+      text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
+    },
+    {
+      name: "Sky Heal",
+      cost: ["Fire", "Psychic"],
+      damage: "40",
+      text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
+    }
+  ],
+  weaknesses: [{ type: "Dragon", value: "×2" }],
+  retreatCost: ["Colorless"],
+  flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
+  images: {
+    large: "https://images.pokemontcg.io/dv1/9_hires.png"
+  },
+  tcgplayer: {
+    prices: {
+      holofoil: {
+        market: 6.72
+      }
+    }
+  },
+  cardmarket: {
+    prices: {
+      averageSellPrice: 5.02
+    }
+  }
+};
 
+function cardDetails(){
+  document.getElementById("cardImage").src = data.images.large;
+  document.getElementById("cardName").textContent = data.name;
+  document.getElementById("hp").textContent = data.hp;
+  document.getElementById("type").textContent = data.types.join(", ");
+  document.getElementById("subtype").textContent = data.subtypes.join(", ");
+  document.getElementById("weakness").textContent = `${data.weaknesses[0].type} ${data.weaknesses[0].value}`;
+  document.getElementById("retreatCost").textContent = data.retreatCost.join(", ");
+  document.getElementById("flavorText").textContent = data.flavorText;
 
+  // Render attacks
+  const attacksContainer = document.getElementById("attacks");
+  data.attacks.forEach(atk => {
+    const div = document.createElement("div");
+    div.classList.add("attack-block");
+    div.innerHTML = `
+      <strong>${atk.name}</strong> (${atk.cost.join(", ")})<br>
+      <em>${atk.text}</em>
+      ${atk.damage ? `<div><strong>Damage:</strong> ${atk.damage}</div>` : ""}
+    `;
+    attacksContainer.appendChild(div);
+  });
 
+  // Prices
+  document.getElementById("marketPrice").textContent =
+    data.tcgplayer.prices.holofoil.market.toFixed(2);
+  document.getElementById("avgPrice").textContent =
+    data.cardmarket.prices.averageSellPrice.toFixed(2);
 
-document.getElementById("cardImage").src = data.images.large;
-document.getElementById("cardName").textContent = data.name;
-document.getElementById("hp").textContent = data.hp;
-document.getElementById("type").textContent = data.types.join(", ");
-document.getElementById("subtype").textContent = data.subtypes.join(", ");
-document.getElementById("weakness").textContent = `${data.weaknesses[0].type} ${data.weaknesses[0].value}`;
-document.getElementById("retreatCost").textContent = data.retreatCost.join(", ");
-document.getElementById("flavorText").textContent = data.flavorText;
+  // Toggle price section
+  document.getElementById("togglePrices").addEventListener("click", () => {
+    const prices = document.getElementById("prices");
+    prices.classList.toggle("hidden");
+    document.getElementById("togglePrices").textContent = 
+      prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
+  });
 
-// Render attacks
-const attacksContainer = document.getElementById("attacks");
-data.attacks.forEach(atk => {
-  const div = document.createElement("div");
-  div.classList.add("attack-block");
-  div.innerHTML = `
-    <strong>${atk.name}</strong> (${atk.cost.join(", ")})<br>
-    <em>${atk.text}</em>
-    ${atk.damage ? `<div><strong>Damage:</strong> ${atk.damage}</div>` : ""}
-  `;
-  attacksContainer.appendChild(div);
-});
+}
 
-// Prices
-document.getElementById("marketPrice").textContent =
-  data.tcgplayer.prices.holofoil.market.toFixed(2);
-document.getElementById("avgPrice").textContent =
-  data.cardmarket.prices.averageSellPrice.toFixed(2);
-
-// Toggle price section
-document.getElementById("togglePrices").addEventListener("click", () => {
-  const prices = document.getElementById("prices");
-  prices.classList.toggle("hidden");
-  document.getElementById("togglePrices").textContent = 
-    prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
-});
+cardDetails();
 
 
 // ---
@@ -149,3 +190,21 @@ function closeSearch() {
     imageContainer.style.display = 'flex';
   }
 }
+
+function backAnother() {
+  const currentPath = window.location.pathname;  // e.g., /test%20API%20Practice/example/
+
+  // Remove the last segment of the path using regex
+  const previousPath = currentPath.replace(/\/[^\/]+\/?$/, '/');
+
+  // If the path is empty, we go back to the root ("/")
+  const finalPath = previousPath || '/';
+
+  // Redirect to the previous path
+  window.location.pathname = finalPath;
+
+  console.log(`Redirecting to: ${finalPath}`);  // Log the new path for debugging
+}
+
+
+document.getElementById('closeSearch').addEventListener('click', backAnother)
