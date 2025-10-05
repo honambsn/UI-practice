@@ -1,42 +1,183 @@
 const sampleData = {
-  name: "Voltairyx",
-  hp: "110",
-  types: ["Electric"],
-  subtypes: ["Basic"],
-  attacks: [
-    {
-      name: "Static Pulse",
-      cost: ["Electric"],
-      text: "Flip a coin. If heads, the opponent’s Active Pokémon is now Paralyzed."
+  // name: "Voltairyx",
+  // hp: "110",
+  // types: ["Electric"],
+  // subtypes: ["Basic"],
+  // attacks: [
+  //   {
+  //     name: "Static Pulse",
+  //     cost: ["Electric"],
+  //     text: "Flip a coin. If heads, the opponent’s Active Pokémon is now Paralyzed."
+  //   },
+  //   {
+  //     name: "Storm Jolt",
+  //     cost: ["Electric", "Colorless"],
+  //     damage: "50",
+  //     text: "If you have another Electric-type Pokémon on your Bench, this attack does 20 more damage."
+  //   }
+  // ],
+  // weaknesses: [{ type: "Ground", value: "×2" }],
+  // retreatCost: ["Colorless"],
+  // flavorText: "Voltairyx builds up energy in its wings and releases it in bursts of crackling lightning as it soars through thunderstorms.",
+  // images: {
+  //   large: "./default.png"
+  // },
+  // tcgplayer: {
+  //   prices: {
+  //     holofoil: {
+  //       market: 4.85
+  //     }
+  //   }
+  // },
+  // cardmarket: {
+  //   prices: {
+  //     averageSellPrice: 4.10
+  //   }
+  // }
+  
+
+
+    "id": "ecard1-44",
+    "name": "Dugtrio",
+    "supertype": "Pokémon",
+    "subtypes": [
+        "Stage 1"
+    ],
+    "hp": "70",
+    "types": [
+        "Fighting"
+    ],
+    "evolvesFrom": "Diglett",
+    "attacks": [
+        {
+            "name": "Mud Slap",
+            "cost": [
+                "Fighting"
+            ],
+            "convertedEnergyCost": 1,
+            "damage": "20",
+            "text": ""
+        },
+        {
+            "name": "Magnitude",
+            "cost": [
+                "Fighting",
+                "Colorless",
+                "Colorless"
+            ],
+            "convertedEnergyCost": 3,
+            "damage": "40",
+            "text": "Does 10 damage to each Benched Pokémon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        }
+    ],
+    "weaknesses": [
+        {
+            "type": "Grass",
+            "value": "×2"
+        }
+    ],
+    "resistances": [
+        {
+            "type": "Lightning",
+            "value": "-30"
+        }
+    ],
+    "retreatCost": [
+        "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+        "id": "ecard1",
+        "name": "Expedition Base Set",
+        "series": "E-Card",
+        "printedTotal": 165,
+        "total": 165,
+        "legalities": {
+            "unlimited": "Legal"
+        },
+        "ptcgoCode": "EX",
+        "releaseDate": "2002/09/15",
+        "updatedAt": "2022/10/10 15:12:00",
+        "images": {
+            "symbol": "https://images.pokemontcg.io/ecard1/symbol.png",
+            "logo": "https://images.pokemontcg.io/ecard1/logo.png"
+        }
     },
-    {
-      name: "Storm Jolt",
-      cost: ["Electric", "Colorless"],
-      damage: "50",
-      text: "If you have another Electric-type Pokémon on your Bench, this attack does 20 more damage."
+    "number": "44",
+    "artist": "Masako Yamashita",
+    "rarity": "Rare",
+    "nationalPokedexNumbers": [
+        51
+    ],
+    "legalities": {
+        "unlimited": "Legal"
+    },
+    "images": {
+        "small": "https://images.pokemontcg.io/ecard1/44.png",
+        "large": "https://images.pokemontcg.io/ecard1/44_hires.png"
+    },
+    "tcgplayer": {
+        "url": "https://prices.pokemontcg.io/tcgplayer/ecard1-44",
+        "updatedAt": "2025/10/02",
+        "prices": {
+            "normal": {
+                "low": 3.99,
+                "mid": 6.47,
+                "high": 12.55,
+                "market": 4.56,
+                "directLow": null
+            },
+            "reverseHolofoil": {
+                "low": 19.98,
+                "mid": 19.98,
+                "high": 30,
+                "market": 25,
+                "directLow": null
+            }
+        }
+    },
+    "cardmarket": {
+        "url": "https://prices.pokemontcg.io/cardmarket/ecard1-44",
+        "updatedAt": "2025/10/02",
+        "prices": {
+            "averageSellPrice": 1.91,
+            "lowPrice": 0.4,
+            "trendPrice": 2.67,
+            "germanProLow": 0,
+            "suggestedPrice": 0,
+            "reverseHoloSell": 3.14,
+            "reverseHoloLow": 0.4,
+            "reverseHoloTrend": 3.19,
+            "lowPriceExPlus": 1.5,
+            "avg1": 2,
+            "avg7": 1.95,
+            "avg30": 2.91,
+            "reverseHoloAvg1": 1,
+            "reverseHoloAvg7": 3.44,
+            "reverseHoloAvg30": 4.83
+        }
     }
-  ],
-  weaknesses: [{ type: "Ground", value: "×2" }],
-  retreatCost: ["Colorless"],
-  flavorText: "Voltairyx builds up energy in its wings and releases it in bursts of crackling lightning as it soars through thunderstorms.",
-  images: {
-    large: "./default.png"
-  },
-  tcgplayer: {
-    prices: {
-      holofoil: {
-        market: 4.85
-      }
-    }
-  },
-  cardmarket: {
-    prices: {
-      averageSellPrice: 4.10
-    }
-  }
 };
 
+function handlePrice(obj)
+{
+  for (let key in obj)
+  {
+    if (obj.hasOwnProperty(key))
+    {
+      if (typeof obj[key] === 'object' && obj[key] !== null){
+        console.log(`${key}`);
+        handlePrice(obj[key]);
+      }
+      else
+      {
+        console.log(`Key: ${key}: ${obj[key]}`);
+      }
+    }
+  }
+}
 
+handlePrice(sampleData);
 
 let data = sampleData;
 console.log(data.images.large)
