@@ -480,3 +480,43 @@ document.getElementById('closeSearch').addEventListener('click', backAnother)
 //         }
 //     }
 // }
+
+function renderPrices(data) {
+  const container = document.getElementById("pricesContainer");
+  container.innerHTML = ""; // Xóa nội dung cũ
+
+  // Lặp qua các nguồn giá (tcgplayer, cardmarket, ebay,...)
+  for (const source in data) {
+    const sourceData = data[source];
+    
+    if (!sourceData?.prices) continue; // Nếu không có trường 'prices', bỏ qua
+
+    const sourcePrices = sourceData.prices;
+
+    // Lặp qua các loại giá trong mỗi nguồn
+    for (const priceType in sourcePrices) {
+      const priceEntry = sourcePrices[priceType];
+
+      // Nếu là giá trực tiếp (ví dụ: averageSellPrice: 2.5)
+      if (typeof priceEntry === "number") {
+        const div = document.createElement("div");
+        div.textContent = `${capitalize(source)} (${priceType}): $${priceEntry.toFixed(2)}`;
+        container.appendChild(div);
+      }
+
+      // Nếu là đối tượng chứa các giá lồng nhau (ví dụ: { market: 2.5 })
+      else if (typeof priceEntry === "object" && priceEntry !== null) {
+        for (const priceLabel in priceEntry) {
+          const value = priceEntry[priceLabel];
+          const div = document.createElement("div");
+          div.textContent = `${capitalize(source)} (${priceType} - ${priceLabel}): ${value != null ? `$${value.toFixed(2)}` : "N/A"}`;
+          container.appendChild(div);
+        }
+      }
+    }
+  }
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
