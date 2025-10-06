@@ -54,8 +54,8 @@
       <button id="togglePrices">Show Prices</button>
       <div id="prices" class="hidden">
         <h3>Prices</h3>
-        <p><strong>TCGPlayer Market:</strong> $<span id="marketPrice"></span></p>
-        <p><strong>CardMarket Avg:</strong> €<span id="avgPrice"></span></p>
+        <p id="tcg-market"><strong>TCGPlayer Market:</strong> $<span id="marketPrice"></span></p>
+        <p id="card-market"><strong>CardMarket Avg:</strong> €<span id="avgPrice"></span></p>
       </div>
     </div>
   </div>
@@ -66,6 +66,7 @@
 
   <div id="closeSearch" onclick="closeSearch()">Click Me</div>
 
+  <div id="pricesContainer" style="display: block; position: relative; top: 100px;"></div>
   <script src="script.js"></script>
   <script src="autocomplete.js"></script>
 </body>

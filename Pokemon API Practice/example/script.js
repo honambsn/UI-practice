@@ -482,6 +482,10 @@ document.getElementById('closeSearch').addEventListener('click', backAnother)
 // }
 
 function renderPrices(data) {
+  const tcgPrice = document.getElementById('tcg-market');
+  const marketPrice = document.getElementById('card-market');
+  
+  const priceDisplay = document.getElementById('prices')
   const container = document.getElementById("pricesContainer");
   container.innerHTML = ""; // Xóa nội dung cũ
 
@@ -502,6 +506,8 @@ function renderPrices(data) {
         const div = document.createElement("div");
         div.textContent = `${capitalize(source)} (${priceType}): $${priceEntry.toFixed(2)}`;
         container.appendChild(div);
+        priceDisplay.appendChild(div);
+        addToHTML(data, data);
       }
 
       // Nếu là đối tượng chứa các giá lồng nhau (ví dụ: { market: 2.5 })
@@ -511,12 +517,30 @@ function renderPrices(data) {
           const div = document.createElement("div");
           div.textContent = `${capitalize(source)} (${priceType} - ${priceLabel}): ${value != null ? `$${value.toFixed(2)}` : "N/A"}`;
           container.appendChild(div);
+          //priceDisplay.appendChild(div);
         }
       }
     }
   }
 }
 
+function addToHTML(obj, data){
+  const tcgPrice = document.getElementById('tcg-market');
+  const marketPrice = document.getElementById('card-market');
+
+  if (data.tcgplayer)
+  {
+    tcgPrice.append(data);
+    console.log('add to html');
+  }
+  else{
+    console.log('error')
+  }
+    
+}
+
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+renderPrices(data)
