@@ -273,11 +273,14 @@ p{
   transition: all 0.3s ease, opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
 
-p:hover {
-  color: #d82c6c;
+#card-market span:hover,
+#tcg-market span:hover,
+#tcg-market .currency-symbol:hover,
+#card-market .currency-symbol:hover {
+  color: red; /* Đổi màu chữ khi hover */
+  background-color: yellow; /* Thêm nền màu vàng khi hover */
   text-decoration: underline;
-  cursor: pointer;
-  scale: 1.05;
+  cursor: pointer; /* Thay đổi con trỏ thành hình bàn tay */
 }
 
 

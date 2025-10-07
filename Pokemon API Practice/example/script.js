@@ -505,9 +505,13 @@ function renderPrices(data) {
       if (typeof priceEntry === "number") {
         const div = document.createElement("div");
         div.textContent = `${capitalize(source)} (${priceType}): $${priceEntry.toFixed(2)}`;
-        container.appendChild(div);
-        priceDisplay.appendChild(div);
-        addToHTML(data, data);
+        container.appendChild(div.cloneNode(true));
+        //priceDisplay.appendChild(div);
+        
+        //console.log("data", data);
+        
+        //addToHTML(div.textContent, data);
+        addToHTML(div.textContent, source)
       }
 
       // Nếu là đối tượng chứa các giá lồng nhau (ví dụ: { market: 2.5 })
@@ -516,31 +520,40 @@ function renderPrices(data) {
           const value = priceEntry[priceLabel];
           const div = document.createElement("div");
           div.textContent = `${capitalize(source)} (${priceType} - ${priceLabel}): ${value != null ? `$${value.toFixed(2)}` : "N/A"}`;
-          container.appendChild(div);
+          container.appendChild(div.cloneNode(true));
           //priceDisplay.appendChild(div);
+          addToHTML(div.textContent, source)
         }
       }
     }
   }
 }
 
-function addToHTML(obj, data){
-  const tcgPrice = document.getElementById('tcg-market');
-  const marketPrice = document.getElementById('card-market');
+function addToHTML(text, source) {
+  const sourceMap = {
+    tcgplayer: document.getElementById('tcg-market'),
+    cardmarket: document.getElementById('card-market'),
+    // Thêm các nguồn khác nếu cần sau này
+  };
 
-  if (data.tcgplayer)
-  {
-    tcgPrice.append(data);
-    console.log('add to html');
+  const target = sourceMap[source.toLowerCase()];
+  if (!target) {
+    console.warn(`Không tìm thấy phần tử DOM cho source: ${source}`);
+    return;
   }
-  else{
-    console.log('error')
-  }
-    
+
+  const li = document.createElement('li');
+
+  const [boldText, value] = text.split(':');
+  li.innerHTML = li.innerHTML = `<span style="font-weight: bold;">${boldText}</span>: <span>${value}</span>`;
+  // const div = document.createElement('div');
+  // div.textContent = text;
+  target.appendChild(li);
 }
+
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-renderPrices(data)
+//renderPrices(data)

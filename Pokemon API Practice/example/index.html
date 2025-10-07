@@ -54,8 +54,19 @@
       <button id="togglePrices">Show Prices</button>
       <div id="prices" class="hidden">
         <h3>Prices</h3>
-        <p id="tcg-market"><strong>TCGPlayer Market:</strong> $<span id="marketPrice"></span></p>
-        <p id="card-market"><strong>CardMarket Avg:</strong> €<span id="avgPrice"></span></p>
+        <p id="tcg-market"><strong>TCGPlayer Market:</strong> 
+            <div>
+              <span class="currency-symbol">$</span>
+              <span id="marketPrice"></span>
+            </div>
+          </p>
+
+        <p id="card-market"><strong>CardMarket Avg:</strong> 
+          <div style="position: relative;">
+            <span class="currency-symbol">$</span>
+            <span id="avgPrice"></span>
+          </div>      
+        </p>
       </div>
     </div>
   </div>
