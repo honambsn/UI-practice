@@ -52,21 +52,26 @@
       <em id="flavorText"></em>
 
       <button id="togglePrices">Show Prices</button>
-      <div id="prices" class="hidden">
+      <!-- <div id="prices" class="hidden"> -->
+      <div id="prices">
         <h3>Prices</h3>
-        <p id="tcg-market"><strong>TCGPlayer Market:</strong> 
-            <div>
+        <div>
+          <p id="tcg-market"><strong>TCGPlayer Market:</strong> 
+            <div id="priceIn">
               <span class="currency-symbol">$</span>
               <span id="marketPrice"></span>
             </div>
           </p>
+        </div>
 
-        <p id="card-market"><strong>CardMarket Avg:</strong> 
-          <div style="position: relative;">
-            <span class="currency-symbol">$</span>
-            <span id="avgPrice"></span>
-          </div>      
-        </p>
+        <div>
+          <p id="card-market"><strong>CardMarket Avg:</strong> 
+            <div id="priceIn">
+              <span class="currency-symbol">$</span>
+              <span id="avgPrice"></span>
+            </div>      
+          </p>
+        </div>
       </div>
     </div>
   </div>
