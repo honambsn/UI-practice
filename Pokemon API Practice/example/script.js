@@ -543,6 +543,7 @@ function addToHTML(text, source) {
   }
 
   const li = document.createElement('li');
+  li.id = "priceItems";
 
   const [boldText, value] = text.split(':');
   li.innerHTML = li.innerHTML = `<span style="font-weight: bold;">${boldText}</span>: <span>${value}</span>`;
@@ -556,4 +557,4 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-//renderPrices(data)
+renderPrices(data)

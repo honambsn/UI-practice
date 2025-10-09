@@ -308,7 +308,10 @@ p{
   color: red;
 }
 
-
+#priceItems{
+  list-style-type: none;
+  margin-left: 20px;
+}
 
 /* --- close btn ---- */
 
