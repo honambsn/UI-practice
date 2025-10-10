@@ -292,9 +292,17 @@ p{
   margin-right: 5px;
 }
 
-#prices div {
+/* price div aka tcgMarket and cardMarket */
+#prices #tcgMarket, #prices #cardMarket {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  flex-direction: column;
+}
+
+#tcg-marketInfo,
+#card-marketInfo{
+  display: flex;
+  flex-direction: row;
 }
 
 #priceIn{

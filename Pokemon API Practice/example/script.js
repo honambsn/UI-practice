@@ -531,8 +531,8 @@ function renderPrices(data) {
 
 function addToHTML(text, source) {
   const sourceMap = {
-    tcgplayer: document.getElementById('tcg-market'),
-    cardmarket: document.getElementById('card-market'),
+    tcgplayer: document.getElementById('tcgMarket'),
+    cardmarket: document.getElementById('cardMarket'),
     // Thêm các nguồn khác nếu cần sau này
   };
 
