@@ -531,8 +531,8 @@ function renderPrices(data) {
 
 function addToHTML(text, source) {
   const sourceMap = {
-    tcgplayer: document.getElementById('tcgMarket'),
-    cardmarket: document.getElementById('cardMarket'),
+    tcgplayer: document.getElementById('tcg-priceList'),
+    cardmarket: document.getElementById('market-priceList'),
     // Thêm các nguồn khác nếu cần sau này
   };
 
@@ -546,7 +546,7 @@ function addToHTML(text, source) {
   li.id = "priceItems";
 
   const [boldText, value] = text.split(':');
-  li.innerHTML = li.innerHTML = `<span style="font-weight: bold;">${boldText}</span>: <span>${value}</span>`;
+  li.innerHTML = li.innerHTML = `<span style="font-weight: bold;">${boldText}</span>: <span id="price">${value}</span>`;
   // const div = document.createElement('div');
   // div.textContent = text;
   target.appendChild(li);
