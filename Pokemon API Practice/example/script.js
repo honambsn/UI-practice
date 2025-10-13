@@ -288,12 +288,67 @@ function cardDetails(){
 
 
   // Toggle price section
+  // document.getElementById("togglePrices").addEventListener("click", () => {
+  //   const prices = document.getElementById("prices");
+  //   prices.classList.toggle("hidden");
+
+  //   document.getElementById("togglePrices").textContent = 
+  //     prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
+
+  // // Only trigger the animation if prices are visible
+  // if (!prices.classList.contains("hidden")) {
+  //   const priceItems = document.querySelectorAll('#priceItems');
+    
+  //    // Reset the visibility for all items before triggering the animation again
+  //   priceItems.forEach(item => {
+  //     item.classList.remove('visible'); // Remove the visible class
+  //     item.style.transition = 'none'; // Disable transition temporarily for reset
+  //   });
+
+  //   // Force a reflow to ensure the items are reset properly
+  //   // This line makes sure that the animation restarts
+  //   void priceItems[0].offsetHeight;
+
+  //   priceItems.forEach((item, index) => {
+  //     setTimeout(() => {
+  //       item.classList.add('visible');  // Trigger the animation with a delay
+  //       item.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Re-enable transition
+  //     }, index * 200);  // Delay each item’s animation by 200ms
+  //   });
+  // }
+  // });
+
   document.getElementById("togglePrices").addEventListener("click", () => {
-    const prices = document.getElementById("prices");
-    prices.classList.toggle("hidden");
-    document.getElementById("togglePrices").textContent = 
-      prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
-  });
+  const prices = document.getElementById("prices");
+  prices.classList.toggle("hidden");
+
+  // Change button text based on the visibility of prices
+  document.getElementById("togglePrices").textContent = 
+    prices.classList.contains("hidden") ? "Show Prices" : "Hide Prices";
+
+  // Only trigger the animation if prices are visible
+  if (!prices.classList.contains("hidden")) {
+    const priceItems = document.querySelectorAll('#priceItems');
+
+    // Reset the visibility for all items before triggering the animation again
+    priceItems.forEach(item => {
+      item.classList.remove('visible'); // Remove the visible class
+      item.style.transition = 'none'; // Disable transition temporarily for reset
+    });
+
+    // Force a reflow to ensure the items are reset properly
+    // This line makes sure that the animation restarts
+    void priceItems[0].offsetHeight;
+
+    priceItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('visible');  // Trigger the animation with a delay
+        item.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Re-enable transition
+      }, index * 200);  // Delay each item’s animation by 200ms
+    });
+  }
+});
+
 
 }
 

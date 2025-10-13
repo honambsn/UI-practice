@@ -287,6 +287,10 @@ p{
   display: block;
 }
 
+.hidden {
+  display: none !important;
+}
+
 #tcg-market, 
 #card-market{
   margin-right: 5px;
@@ -322,7 +326,15 @@ p{
   margin: 0 10px 10px 0;  /* Khoảng cách giữa các phần tử */
   list-style-type: none;
   width: auto;
-  transition: all 0.2s ease-in-out;
+  /* transition: transform all 0.3s ease-in-out, opacity 0.3s ease; */
+  transition: all 0.2s ease-in-out !important;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+#priceItems.visible{
+  opacity: 1;
+  transform: translateY(0);
 }
 
 #price{
@@ -330,6 +342,7 @@ p{
   transition: all 0.3s ease;
   margin-left: 5px;
 }
+
 
 #price:hover{
   font-weight: 600;
@@ -344,11 +357,17 @@ p{
   scale: 1.1;
 }
 
+#priceItems:hover #price{
+  opacity: 1;
+  transform: none;
+}
+
 #market-priceList,
 #tcg-priceList{
   display: flex;
   flex-wrap: wrap;
   margin-right: 10px;
+  
 }
 
 /* --- close btn ---- */
