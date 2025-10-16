@@ -613,3 +613,29 @@ function capitalize(str) {
 }
 
 renderPrices(data)
+
+
+
+
+
+
+// ====================================================================================================
+window.onload = function() {
+  var progressBar = document.getElementById('progressBar');
+  var progressValue = 100; // Set to your desired progress value (0-100)
+
+  // Function to animate the progress bar
+  function loadProgressBar() {
+    let width = 0;
+    let interval = setInterval(function() {
+      if (width >= progressValue) {
+        clearInterval(interval);
+      } else {
+        width++;
+        progressBar.style.width = width + '%';
+      }
+    }, 20); // Adjust the speed by changing the interval time (in ms)
+  }
+
+  loadProgressBar();
+};

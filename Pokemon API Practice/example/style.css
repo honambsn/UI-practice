@@ -446,3 +446,35 @@ p{
   cursor: pointer;
   transition: transform 0.5s ease;
 }
+
+
+
+
+
+
+
+
+/* =================================================================================================================== */
+
+#bodi{
+  opacity: 1000000000;
+  z-index: 1;
+  position: fixed;
+  top: 90%;
+}
+
+.progress-container {
+  width: 90%;
+  height: 30px;
+  background-color: #3a2e2e;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #4caf50;
+  border-radius: 20px;
+  transition: width 2s ease;
+}
