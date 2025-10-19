@@ -464,17 +464,37 @@ p{
 }
 
 .progress-container {
-  width: 90%;
-  height: 30px;
-  background-color: #3a2e2e;
-  border-radius: 20px;
-  overflow: hidden;
+    width: 80%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
 .progress-bar {
-  height: 100%;
-  width: 0;
-  background-color: #4caf50;
-  border-radius: 20px;
-  transition: width 2s ease;
+    width: 0%;
+    height: 30px;
+    background-color: #4caf50;
+    position: relative;
+    transition: all 2s linear;
 }
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button #reloadBtn{
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+

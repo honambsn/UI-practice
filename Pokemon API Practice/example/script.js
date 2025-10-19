@@ -7,6 +7,7 @@ const sampleData = {
     {
       name: "Static Pulse",
       cost: ["Electric"],
+      damage: "50",
       text: "Flip a coin. If heads, the opponent’s Active Pokémon is now Paralyzed."
     },
     {
@@ -37,126 +38,126 @@ const sampleData = {
   
 
 
-    // "id": "ecard1-44",
-    // "name": "Dugtrio",
-    // "supertype": "Pokémon",
-    // "subtypes": [
-    //     "Stage 1"
-    // ],
-    // "hp": "70",
-    // "types": [
-    //     "Fighting"
-    // ],
-    // "evolvesFrom": "Diglett",
-    // "attacks": [
-    //     {
-    //         "name": "Mud Slap",
-    //         "cost": [
-    //             "Fighting"
-    //         ],
-    //         "convertedEnergyCost": 1,
-    //         "damage": "20",
-    //         "text": ""
-    //     },
-    //     {
-    //         "name": "Magnitude",
-    //         "cost": [
-    //             "Fighting",
-    //             "Colorless",
-    //             "Colorless"
-    //         ],
-    //         "convertedEnergyCost": 3,
-    //         "damage": "40",
-    //         "text": "Does 10 damage to each Benched Pokémon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pokémon.)"
-    //     }
-    // ],
-    // "weaknesses": [
-    //     {
-    //         "type": "Grass",
-    //         "value": "×2"
-    //     }
-    // ],
-    // "resistances": [
-    //     {
-    //         "type": "Lightning",
-    //         "value": "-30"
-    //     }
-    // ],
-    // "retreatCost": [
-    //     "Colorless"
-    // ],
-    // "convertedRetreatCost": 1,
-    // "set": {
-    //     "id": "ecard1",
-    //     "name": "Expedition Base Set",
-    //     "series": "E-Card",
-    //     "printedTotal": 165,
-    //     "total": 165,
-    //     "legalities": {
-    //         "unlimited": "Legal"
-    //     },
-    //     "ptcgoCode": "EX",
-    //     "releaseDate": "2002/09/15",
-    //     "updatedAt": "2022/10/10 15:12:00",
-    //     "images": {
-    //         "symbol": "https://images.pokemontcg.io/ecard1/symbol.png",
-    //         "logo": "https://images.pokemontcg.io/ecard1/logo.png"
-    //     }
-    // },
-    // "number": "44",
-    // "artist": "Masako Yamashita",
-    // "rarity": "Rare",
-    // "nationalPokedexNumbers": [
-    //     51
-    // ],
-    // "legalities": {
-    //     "unlimited": "Legal"
-    // },
-    // "images": {
-    //     "small": "https://images.pokemontcg.io/ecard1/44.png",
-    //     "large": "https://images.pokemontcg.io/ecard1/44_hires.png"
-    // },
-    // "tcgplayer": {
-    //     "url": "https://prices.pokemontcg.io/tcgplayer/ecard1-44",
-    //     "updatedAt": "2025/10/02",
-    //     "prices": {
-    //         "normal": {
-    //             "low": 3.99,
-    //             "mid": 6.47,
-    //             "high": 12.55,
-    //             "market": 4.56,
-    //             "directLow": null
-    //         },
-    //         "reverseHolofoil": {
-    //             "low": 19.98,
-    //             "mid": 19.98,
-    //             "high": 30,
-    //             "market": 25,
-    //             "directLow": null
-    //         }
-    //     }
-    // },
-    // "cardmarket": {
-    //     "url": "https://prices.pokemontcg.io/cardmarket/ecard1-44",
-    //     "updatedAt": "2025/10/02",
-    //     "prices": {
-    //         "averageSellPrice": 1.91,
-    //         "lowPrice": 0.4,
-    //         "trendPrice": 2.67,
-    //         "germanProLow": 0,
-    //         "suggestedPrice": 0,
-    //         "reverseHoloSell": 3.14,
-    //         "reverseHoloLow": 0.4,
-    //         "reverseHoloTrend": 3.19,
-    //         "lowPriceExPlus": 1.5,
-    //         "avg1": 2,
-    //         "avg7": 1.95,
-    //         "avg30": 2.91,
-    //         "reverseHoloAvg1": 1,
-    //         "reverseHoloAvg7": 3.44,
-    //         "reverseHoloAvg30": 4.83
-    //     }
-    // }
+  // "id": "ecard1-44",
+  // "name": "Dugtrio",
+  // "supertype": "Pokémon",
+  // "subtypes": [
+  //     "Stage 1"
+  // ],
+  // "hp": "70",
+  // "types": [
+  //     "Fighting"
+  // ],
+  // "evolvesFrom": "Diglett",
+  // "attacks": [
+  //     {
+  //         "name": "Mud Slap",
+  //         "cost": [
+  //             "Fighting"
+  //         ],
+  //         "convertedEnergyCost": 1,
+  //         "damage": "20",
+  //         "text": ""
+  //     },
+  //     {
+  //         "name": "Magnitude",
+  //         "cost": [
+  //             "Fighting",
+  //             "Colorless",
+  //             "Colorless"
+  //         ],
+  //         "convertedEnergyCost": 3,
+  //         "damage": "40",
+  //         "text": "Does 10 damage to each Benched Pokémon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pokémon.)"
+  //     }
+  // ],
+  // "weaknesses": [
+  //     {
+  //         "type": "Grass",
+  //         "value": "×2"
+  //     }
+  // ],
+  // "resistances": [
+  //     {
+  //         "type": "Lightning",
+  //         "value": "-30"
+  //     }
+  // ],
+  // "retreatCost": [
+  //     "Colorless"
+  // ],
+  // "convertedRetreatCost": 1,
+  // "set": {
+  //     "id": "ecard1",
+  //     "name": "Expedition Base Set",
+  //     "series": "E-Card",
+  //     "printedTotal": 165,
+  //     "total": 165,
+  //     "legalities": {
+  //         "unlimited": "Legal"
+  //     },
+  //     "ptcgoCode": "EX",
+  //     "releaseDate": "2002/09/15",
+  //     "updatedAt": "2022/10/10 15:12:00",
+  //     "images": {
+  //         "symbol": "https://images.pokemontcg.io/ecard1/symbol.png",
+  //         "logo": "https://images.pokemontcg.io/ecard1/logo.png"
+  //     }
+  // },
+  // "number": "44",
+  // "artist": "Masako Yamashita",
+  // "rarity": "Rare",
+  // "nationalPokedexNumbers": [
+  //     51
+  // ],
+  // "legalities": {
+  //     "unlimited": "Legal"
+  // },
+  // "images": {
+  //     "small": "https://images.pokemontcg.io/ecard1/44.png",
+  //     "large": "https://images.pokemontcg.io/ecard1/44_hires.png"
+  // },
+  // "tcgplayer": {
+  //     "url": "https://prices.pokemontcg.io/tcgplayer/ecard1-44",
+  //     "updatedAt": "2025/10/02",
+  //     "prices": {
+  //         "normal": {
+  //             "low": 3.99,
+  //             "mid": 6.47,
+  //             "high": 12.55,
+  //             "market": 4.56,
+  //             "directLow": null
+  //         },
+  //         "reverseHolofoil": {
+  //             "low": 19.98,
+  //             "mid": 19.98,
+  //             "high": 30,
+  //             "market": 25,
+  //             "directLow": null
+  //         }
+  //     }
+  // },
+  // "cardmarket": {
+  //     "url": "https://prices.pokemontcg.io/cardmarket/ecard1-44",
+  //     "updatedAt": "2025/10/02",
+  //     "prices": {
+  //         "averageSellPrice": 1.91,
+  //         "lowPrice": 0.4,
+  //         "trendPrice": 2.67,
+  //         "germanProLow": 0,
+  //         "suggestedPrice": 0,
+  //         "reverseHoloSell": 3.14,
+  //         "reverseHoloLow": 0.4,
+  //         "reverseHoloTrend": 3.19,
+  //         "lowPriceExPlus": 1.5,
+  //         "avg1": 2,
+  //         "avg7": 1.95,
+  //         "avg30": 2.91,
+  //         "reverseHoloAvg1": 1,
+  //         "reverseHoloAvg7": 3.44,
+  //         "reverseHoloAvg30": 4.83
+  //     }
+  // }
 };
 
 function handlePrice(obj)
@@ -214,43 +215,43 @@ if (data) {
 }
 
 // const 
-pdata = {
-  name: "Latias",
-  hp: "100",
-  types: ["Dragon"],
-  subtypes: ["Basic"],
-  attacks: [
-    {
-      name: "Energy Assist",
-      cost: ["Colorless"],
-      text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
-    },
-    {
-      name: "Sky Heal",
-      cost: ["Fire", "Psychic"],
-      damage: "40",
-      text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
-    }
-  ],
-  weaknesses: [{ type: "Dragon", value: "×2" }],
-  retreatCost: ["Colorless"],
-  flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
-  images: {
-    large: "https://images.pokemontcg.io/dv1/9_hires.png"
-  },
-  tcgplayer: {
-    prices: {
-      holofoil: {
-        market: 6.72
-      }
-    }
-  },
-  cardmarket: {
-    prices: {
-      averageSellPrice: 5.02
-    }
-  }
-};
+// pdata = {
+//   name: "Latias",
+//   hp: "100",
+//   types: ["Dragon"],
+//   subtypes: ["Basic"],
+//   attacks: [
+//     {
+//       name: "Energy Assist",
+//       cost: ["Colorless"],
+//       text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
+//     },
+//     {
+//       name: "Sky Heal",
+//       cost: ["Fire", "Psychic"],
+//       damage: "40",
+//       text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
+//     }
+//   ],
+//   weaknesses: [{ type: "Dragon", value: "×2" }],
+//   retreatCost: ["Colorless"],
+//   flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
+//   images: {
+//     large: "https://images.pokemontcg.io/dv1/9_hires.png"
+//   },
+//   tcgplayer: {
+//     prices: {
+//       holofoil: {
+//         market: 6.72
+//       }
+//     }
+//   },
+//   cardmarket: {
+//     prices: {
+//       averageSellPrice: 5.02
+//     }
+//   }
+// };
 
 function cardDetails(){
   document.getElementById("cardImage").src = data.images.large;
@@ -271,6 +272,12 @@ function cardDetails(){
       <strong>${atk.name}</strong> (${atk.cost.join(", ")})<br>
       <em>${atk.text}</em>
       ${atk.damage ? `<div><strong>Damage:</strong> ${atk.damage}</div>` : ""}
+    `;
+
+    const damageBarHTML = `
+      <div class="damage-bar-container">
+        <div class="damage-bar" id="damageBar"></div>
+      </div>
     `;
     attacksContainer.appendChild(div);
   });
@@ -620,22 +627,47 @@ renderPrices(data)
 
 
 // ====================================================================================================
+// window.onload = function() {
+//   var progressBar = document.getElementById('progressBar');
+//   var progressValue = 100; // Set to your desired progress value (0-100)
+
+//   // Function to animate the progress bar
+//   function loadProgressBar() {
+//     let width = 0;
+//     let interval = setInterval(function() {
+//       if (width >= progressValue) {
+//         clearInterval(interval);
+//       } else {
+//         width++;
+//         progressBar.style.width = width + '%';
+//       }
+//     }, 20); // Adjust the speed by changing the interval time (in ms)
+//   }
+
+//   loadProgressBar();
+// };
+
 window.onload = function() {
   var progressBar = document.getElementById('progressBar');
-  var progressValue = 100; // Set to your desired progress value (0-100)
+  var progressText = document.getElementById('progress-text');
+  var progressValue = 50; // Set to the desired progress value (0-100)
 
-  // Function to animate the progress bar
   function loadProgressBar() {
     let width = 0;
-    let interval = setInterval(function() {
+
+    function updateWidth() {
       if (width >= progressValue) {
-        clearInterval(interval);
+        return; // Stop when the target value is reached
       } else {
-        width++;
-        progressBar.style.width = width + '%';
+        width++; // Increment the width by 1% each frame
+        progressBar.style.width = width + '%'; // Set the width of the progress bar
+        progressText.textContent = width + '%'; // Update the text in the center of the bar
+        requestAnimationFrame(updateWidth); // Call the update function again for the next frame
       }
-    }, 20); // Adjust the speed by changing the interval time (in ms)
+    }
+
+    requestAnimationFrame(updateWidth); // Start the animation when the page loads
   }
 
-  loadProgressBar();
+  loadProgressBar(); // Initialize the progress bar animation
 };
