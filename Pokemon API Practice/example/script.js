@@ -267,18 +267,17 @@ function cardDetails(){
   const attacksContainer = document.getElementById("attacks");
   data.attacks.forEach(atk => {
     const div = document.createElement("div");
+
+    const formattedName = atk.name.toLowerCase().replace(/\s+/g, '');
+
     div.classList.add("attack-block");
     div.innerHTML = `
       <strong>${atk.name}</strong> (${atk.cost.join(", ")})<br>
       <em>${atk.text}</em>
-      ${atk.damage ? `<div><strong>Damage:</strong> ${atk.damage}</div>` : ""}
+      ${atk.damage ? `<div class="damage-container"><div class="damage-bar-${formattedName}"></div><div class="damage-text"><strong>Damage:</strong> ${atk.damage}</div></div>` : ""}
     `;
 
-    const damageBarHTML = `
-      <div class="damage-bar-container">
-        <div class="damage-bar" id="damageBar"></div>
-      </div>
-    `;
+    getValue(atk.damage, formattedName)
     attacksContainer.appendChild(div);
   });
 
@@ -650,7 +649,7 @@ renderPrices(data)
 window.onload = function() {
   var progressBar = document.getElementById('progressBar');
   var progressText = document.getElementById('progress-text');
-  var progressValue = 50; // Set to the desired progress value (0-100)
+  var progressValue = 90; // Set to the desired progress value (0-100)
 
   function loadProgressBar() {
     let width = 0;
@@ -670,4 +669,62 @@ window.onload = function() {
   }
 
   loadProgressBar(); // Initialize the progress bar animation
+};
+
+
+// window.onload = function() {
+//     let progress = [0, 0];
+//     let limit = 75;
+
+//     function updateProgress(barIndex) {
+//         const damageBar = document.querySelector('.damage-bar');
+//         const damageText = document.querySelector('.damage-text');
+
+//         const interval = setInterval(() => {
+//             if (progress[barIndex] >= limit) {
+//                 clearInterval(interval);
+//             } else {
+//                 progress[barIndex] += 1;
+//                 damageBar.style.width = progress[barIndex] + '%';
+//                 damageText.textContent = progress[barIndex] + '%';
+//             }
+//         }, 10);
+//     }
+
+//     updateProgress(0); // Call the function to start the progress
+//     updateProgress(1);
+// };
+
+function getValue(value = 70, name)
+{
+
+  // get class name for each value
+  let returnValue = value;
+  return returnValue;
+}
+
+
+let progress = [0, 0];  // Lưu trữ tiến trình của cả hai thanh
+
+// Hàm cập nhật thanh tiến trình
+function updateProgress(barIndex, limit) {
+    const damageBar = document.querySelectorAll('.damage-bar')[barIndex];
+    const damageText = document.querySelectorAll('.damage-text')[barIndex];
+    
+    const interval = setInterval(() => {
+        if (progress[barIndex] >= limit) {
+            clearInterval(interval);
+        } else {
+            progress[barIndex] += 1;
+            damageBar.style.width = progress[barIndex] + '%';
+            damageText.textContent = progress[barIndex] + '%';
+        }
+    }, 20);  // Cập nhật mỗi 100ms
+}
+
+// Bắt đầu cập nhật thanh tiến trình khi cửa sổ tải xong
+window.onload = function() {
+    // Bắt đầu tiến trình cho cả hai thanh
+    updateProgress(0, getValue());  // Thanh tiến trình đầu tiên
+    updateProgress(1, getValue(15));  // Thanh tiến trình thứ hai
 };
