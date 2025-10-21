@@ -274,10 +274,11 @@ function cardDetails(){
     div.innerHTML = `
       <strong>${atk.name}</strong> (${atk.cost.join(", ")})<br>
       <em>${atk.text}</em>
-      ${atk.damage ? `<div class="damage-container"><div class="damage-bar-${formattedName}"></div><div class="damage-text"><strong>Damage:</strong> ${atk.damage}</div></div>` : ""}
+      ${atk.damage ? `<div class="damage-container"><div class="damage-bar ${formattedName}"></div><div class="damage-text"><strong>Damage:</strong> ${atk.damage}</div></div>` : ""}
     `;
 
     getValue(atk.damage, formattedName)
+    console.log(atk.damage, formattedName)
     attacksContainer.appendChild(div);
   });
 
@@ -695,31 +696,35 @@ window.onload = function() {
 //     updateProgress(1);
 // };
 
-function getValue(value = 70, name)
+function getValue(value = 70, class_name)
 {
+
+  let className = class_name
 
   // get class name for each value
   let returnValue = value;
-  return returnValue;
+  return {returnValue, className};
 }
 
 
 let progress = [0, 0];  // Lưu trữ tiến trình của cả hai thanh
 
 // Hàm cập nhật thanh tiến trình
-function updateProgress(barIndex, limit) {
-    const damageBar = document.querySelectorAll('.damage-bar')[barIndex];
-    const damageText = document.querySelectorAll('.damage-text')[barIndex];
+function updateProgress(barIndex, limit_class, className) {
+  const {limit_class, customClass} = getValue(value, class_name)
+
+  const damageBar = document.querySelectorAll('.damage-bar' + customClass)[barIndex];
+  const damageText = document.querySelectorAll('.damage-text')[barIndex];
     
-    const interval = setInterval(() => {
-        if (progress[barIndex] >= limit) {
-            clearInterval(interval);
-        } else {
-            progress[barIndex] += 1;
-            damageBar.style.width = progress[barIndex] + '%';
-            damageText.textContent = progress[barIndex] + '%';
-        }
-    }, 20);  // Cập nhật mỗi 100ms
+  const interval = setInterval(() => {
+      if (progress[barIndex] >= limit_class) {
+          clearInterval(interval);
+      } else {
+          progress[barIndex] += 1;
+          damageBar.style.width = progress[barIndex] + '%';
+          damageText.textContent = progress[barIndex] + '%';
+      }
+  }, 20);  // Cập nhật mỗi 100ms
 }
 
 // Bắt đầu cập nhật thanh tiến trình khi cửa sổ tải xong
