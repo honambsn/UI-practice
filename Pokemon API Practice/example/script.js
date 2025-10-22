@@ -7,13 +7,13 @@ const sampleData = {
     {
       name: "Static Pulse",
       cost: ["Electric"],
-      damage: "50",
+      damage: "85",
       text: "Flip a coin. If heads, the opponent’s Active Pokémon is now Paralyzed."
     },
     {
       name: "Storm Jolt",
       cost: ["Electric", "Colorless"],
-      damage: "50",
+      damage: "13",
       text: "If you have another Electric-type Pokémon on your Bench, this attack does 20 more damage."
     }
   ],
@@ -277,7 +277,7 @@ function cardDetails(){
       ${atk.damage ? `<div class="damage-container"><div class="damage-bar ${formattedName}"></div><div class="damage-text"><strong>Damage:</strong> ${atk.damage}</div></div>` : ""}
     `;
 
-    getValue(atk.damage, formattedName)
+    // getValue(atk.damage, formattedName)
     console.log(atk.damage, formattedName)
     attacksContainer.appendChild(div);
   });
@@ -696,40 +696,51 @@ window.onload = function() {
 //     updateProgress(1);
 // };
 
-function getValue(value = 70, class_name)
+
+function getValueFromData(sampleData)
 {
+  return sampleData.attacks.map(attack => ({
+    className: attack.name.toLowerCase().replace(/\s+/g, ''),
+    limit_value: attack.damage
+  }));
+}
 
-  let className = class_name
-
-  // get class name for each value
-  let returnValue = value;
-  return {returnValue, className};
+function getValue(limit_value, className) {
+  return { limit: limit_value, className: className };
 }
 
 
 let progress = [0, 0];  // Lưu trữ tiến trình của cả hai thanh
 
 // Hàm cập nhật thanh tiến trình
-function updateProgress(barIndex, limit_class, className) {
-  const {limit_class, customClass} = getValue(value, class_name)
+function updateProgress(barIndex, {limit, className}) {
+    const damageBar = document.querySelectorAll('.damage-bar')[barIndex];
+    const damageText = document.querySelectorAll('.damage-text')[barIndex];
 
-  const damageBar = document.querySelectorAll('.damage-bar' + customClass)[barIndex];
-  const damageText = document.querySelectorAll('.damage-text')[barIndex];
+    damageBar.classList.add(className);
     
-  const interval = setInterval(() => {
-      if (progress[barIndex] >= limit_class) {
-          clearInterval(interval);
-      } else {
-          progress[barIndex] += 1;
-          damageBar.style.width = progress[barIndex] + '%';
-          damageText.textContent = progress[barIndex] + '%';
-      }
-  }, 20);  // Cập nhật mỗi 100ms
+    const interval = setInterval(() => {
+        if (progress[barIndex] >= limit) {
+            clearInterval(interval);
+        } else {
+            progress[barIndex] += 1;
+            damageBar.style.width = progress[barIndex] + '%';
+            damageText.textContent = progress[barIndex] + ' ⚔';
+            damageText.style.color = 'black';
+        }
+    }, 20);  // Cập nhật mỗi 100ms
 }
 
 // Bắt đầu cập nhật thanh tiến trình khi cửa sổ tải xong
 window.onload = function() {
     // Bắt đầu tiến trình cho cả hai thanh
-    updateProgress(0, getValue());  // Thanh tiến trình đầu tiên
-    updateProgress(1, getValue(15));  // Thanh tiến trình thứ hai
+    const progressData = getValueFromData(sampleData);
+
+    // updateProgress(0, getValue());  // Thanh tiến trình đầu tiên
+    // updateProgress(1, getValue(15));  // Thanh tiến trình thứ hai
+
+    progressData.forEach((data, index) => {
+      updateProgress(index, getValue(data.limit_value, data.className));
+      console.log(data.limit_value, data.className);
+    });
 };
