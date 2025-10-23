@@ -15,6 +15,38 @@ const sampleData = {
       cost: ["Electric", "Colorless"],
       damage: "13",
       text: "If you have another Electric-type Pokémon on your Bench, this attack does 20 more damage."
+    },
+    {
+      name: "Thunderstrike",
+      cost: [
+          "Electric",
+          "Colorless",
+          "Colorless"
+      ],
+      convertedEnergyCost: 3,
+      damage: "50",
+      text: "This attack also paralyzes the opponent's Active Pokémon. (Apply Weakness and Resistance to this attack.)"
+    },
+    {
+      name: "Flame Burst",
+      cost: [
+          "Fire",
+          "Fire",
+          "Colorless"
+      ],
+      "convertedEnergyCost": 3,
+      damage: "60",
+      text: "This attack also burns the opponent's Active Pokémon. (Apply Weakness and Resistance to this attack.)"
+    },
+    {
+      name: "Aqua Jet",
+      cost: [
+          "Water",
+          "Colorless"
+      ],
+      convertedEnergyCost: 2,
+      damage: "30",
+      text: "This attack does 20 damage to one of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
     }
   ],
   weaknesses: [{ type: "Ground", value: "×2" }],
@@ -23,19 +55,47 @@ const sampleData = {
   images: {
     large: "./default.png"
   },
-  tcgplayer: {
-    prices: {
-      holofoil: {
-        market: 4.85
+  "tcgplayer": {
+      "url": "https://prices.pokemontcg.io/tcgplayer/ecard1-44",
+      "updatedAt": "2025/10/02",
+      "prices": {
+          "normal": {
+              "low": 3.99,
+              "mid": 6.47,
+              "high": 12.55,
+              "market": 4.56,
+              "directLow": null
+          },
+          "reverseHolofoil": {
+              "low": 19.98,
+              "mid": 19.98,
+              "high": 30,
+              "market": 25,
+              "directLow": null
+          }
       }
-    }
   },
-  cardmarket: {
-    prices: {
-      averageSellPrice: 4.10
-    }
+  "cardmarket": {
+      "url": "https://prices.pokemontcg.io/cardmarket/ecard1-44",
+      "updatedAt": "2025/10/02",
+      "prices": {
+          "averageSellPrice": 1.91,
+          "lowPrice": 0.4,
+          "trendPrice": 2.67,
+          "germanProLow": 0,
+          "suggestedPrice": 0,
+          "reverseHoloSell": 3.14,
+          "reverseHoloLow": 0.4,
+          "reverseHoloTrend": 3.19,
+          "lowPriceExPlus": 1.5,
+          "avg1": 2,
+          "avg7": 1.95,
+          "avg30": 2.91,
+          "reverseHoloAvg1": 1,
+          "reverseHoloAvg7": 3.44,
+          "reverseHoloAvg30": 4.83
+      }
   }
-  
 
 
   // "id": "ecard1-44",
@@ -59,6 +119,18 @@ const sampleData = {
   //         "damage": "20",
   //         "text": ""
   //     },
+  //     {
+  //         "name": "Magnitude",
+  //         "cost": [
+  //             "Fighting",
+  //             "Colorless",
+  //             "Colorless"
+  //         ],
+  //         "convertedEnergyCost": 3,
+  //         "damage": "40",
+  //         "text": "Does 10 damage to each Benched Pokémon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pokémon.)"
+  //     },
+  //     ,
   //     {
   //         "name": "Magnitude",
   //         "cost": [
@@ -213,45 +285,6 @@ if (data) {
 } else {
   console.log("No user data found.");
 }
-
-// const 
-// pdata = {
-//   name: "Latias",
-//   hp: "100",
-//   types: ["Dragon"],
-//   subtypes: ["Basic"],
-//   attacks: [
-//     {
-//       name: "Energy Assist",
-//       cost: ["Colorless"],
-//       text: "Attach a basic Energy card from your discard pile to 1 of your Benched Pokémon."
-//     },
-//     {
-//       name: "Sky Heal",
-//       cost: ["Fire", "Psychic"],
-//       damage: "40",
-//       text: "If Latios is on your Bench, heal 20 damage from this Pokémon."
-//     }
-//   ],
-//   weaknesses: [{ type: "Dragon", value: "×2" }],
-//   retreatCost: ["Colorless"],
-//   flavorText: "Its body is covered in a down that can refract light in such a way that it becomes invisible.",
-//   images: {
-//     large: "https://images.pokemontcg.io/dv1/9_hires.png"
-//   },
-//   tcgplayer: {
-//     prices: {
-//       holofoil: {
-//         market: 6.72
-//       }
-//     }
-//   },
-//   cardmarket: {
-//     prices: {
-//       averageSellPrice: 5.02
-//     }
-//   }
-// };
 
 function cardDetails(){
   document.getElementById("cardImage").src = data.images.large;
@@ -646,57 +679,6 @@ renderPrices(data)
 
 //   loadProgressBar();
 // };
-
-window.onload = function() {
-  var progressBar = document.getElementById('progressBar');
-  var progressText = document.getElementById('progress-text');
-  var progressValue = 90; // Set to the desired progress value (0-100)
-
-  function loadProgressBar() {
-    let width = 0;
-
-    function updateWidth() {
-      if (width >= progressValue) {
-        return; // Stop when the target value is reached
-      } else {
-        width++; // Increment the width by 1% each frame
-        progressBar.style.width = width + '%'; // Set the width of the progress bar
-        progressText.textContent = width + '%'; // Update the text in the center of the bar
-        requestAnimationFrame(updateWidth); // Call the update function again for the next frame
-      }
-    }
-
-    requestAnimationFrame(updateWidth); // Start the animation when the page loads
-  }
-
-  loadProgressBar(); // Initialize the progress bar animation
-};
-
-
-// window.onload = function() {
-//     let progress = [0, 0];
-//     let limit = 75;
-
-//     function updateProgress(barIndex) {
-//         const damageBar = document.querySelector('.damage-bar');
-//         const damageText = document.querySelector('.damage-text');
-
-//         const interval = setInterval(() => {
-//             if (progress[barIndex] >= limit) {
-//                 clearInterval(interval);
-//             } else {
-//                 progress[barIndex] += 1;
-//                 damageBar.style.width = progress[barIndex] + '%';
-//                 damageText.textContent = progress[barIndex] + '%';
-//             }
-//         }, 10);
-//     }
-
-//     updateProgress(0); // Call the function to start the progress
-//     updateProgress(1);
-// };
-
-
 function getValueFromData(sampleData)
 {
   return sampleData.attacks.map(attack => ({
@@ -709,11 +691,8 @@ function getValue(limit_value, className) {
   return { limit: limit_value, className: className };
 }
 
-
-let progress = [0, 0];  // Lưu trữ tiến trình của cả hai thanh
-
 // Hàm cập nhật thanh tiến trình
-function updateProgress(barIndex, {limit, className}) {
+function updateProgress(barIndex, {limit, className}, progress) {
     const damageBar = document.querySelectorAll('.damage-bar')[barIndex];
     const damageText = document.querySelectorAll('.damage-text')[barIndex];
 
@@ -736,11 +715,13 @@ window.onload = function() {
     // Bắt đầu tiến trình cho cả hai thanh
     const progressData = getValueFromData(sampleData);
 
+    let progress = new Array(progressData.length).fill(0)
+
     // updateProgress(0, getValue());  // Thanh tiến trình đầu tiên
     // updateProgress(1, getValue(15));  // Thanh tiến trình thứ hai
 
     progressData.forEach((data, index) => {
-      updateProgress(index, getValue(data.limit_value, data.className));
+      updateProgress(index, getValue(data.limit_value, data.className), progress);
       console.log(data.limit_value, data.className);
     });
 };
