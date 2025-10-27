@@ -725,3 +725,12 @@ window.onload = function() {
       console.log(data.limit_value, data.className);
     });
 };
+
+
+function game() {
+  // Redirect to a different URL
+  // Redirect to the new URL
+  window.location.href = '/Pokemon%20API%20Practice/game/';
+}
+
+document.getElementById('game').addEventListener('click', game)

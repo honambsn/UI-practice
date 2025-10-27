@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Pack Opener</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">✨ Pokémon Pack Opener ✨</h1>
+        
+        <div class="game-area">
+            <div class="pack-wrapper" id="packWrapper">
+                <canvas id="packCanvas" width="400" height="600"></canvas>
+                <canvas id="sliceCanvas" width="400" height="600"></canvas>
+            </div>
+            
+            <div class="cards-revealed" id="cardsRevealed">
+                <div class="card">⚡</div>
+                <div class="card">🔥</div>
+                <div class="card">💧</div>
+                <div class="card">🌿</div>
+                <div class="card">✨</div>
+            </div>
+        </div>
+
+        <p class="instruction" id="instruction">Slice through the pack to open it!</p>
+        <button class="reset-btn" id="resetBtn" style="display: none;">Open Another Pack</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

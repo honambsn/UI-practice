@@ -447,7 +447,14 @@ p{
   transition: transform 0.5s ease;
 }
 
-
+#game{
+  position: absolute;
+  right: 15px;
+  top: 45px;
+  color: #d82c6c;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
 
 
 
