@@ -165,6 +165,10 @@ function openPack() {
         cardsRevealed.classList.add('show');
         instruction.style.display = 'none';
         resetBtn.style.display = 'inline-block';
+        
+        
+        packWrapper.classList.add('hidden');
+        packWrapper.style.display = 'none';
     }, 500);
 }
 
@@ -180,6 +184,7 @@ function reset() {
     instruction.style.display = 'block';
     resetBtn.style.display = 'none';
     packWrapper.style.cursor = 'crosshair';
+    packWrapper.classList.remove('hidden');
 }
 
 sliceCanvas.addEventListener('mousedown', (e) => {
@@ -226,3 +231,63 @@ resetBtn.addEventListener('click', reset);
 
 // Initialize
 drawPack();
+
+
+
+
+function drawPack() {
+    // Đảm bảo không vẽ nền màu solid hoặc màu nào khác
+    packCtx.clearRect(0, 0, packCanvas.width, packCanvas.height); // Xóa canvas
+
+    // Tiếp tục vẽ các hình ảnh khác mà bạn muốn (không vẽ nền nếu không muốn nó có màu)
+
+    // Ví dụ vẽ các chi tiết khác mà không cần màu nền
+    const gradient1 = packCtx.createLinearGradient(0, 0, 400, 600);
+    gradient1.addColorStop(0, '#6b46c1');
+    gradient1.addColorStop(0.3, '#ec4899');
+    gradient1.addColorStop(0.7, '#ec4899');
+    gradient1.addColorStop(1, '#3b82f6');
+    packCtx.fillStyle = gradient1;
+    packCtx.fillRect(0, 0, 400, 600); // Vẽ một màu nền nhưng vẫn có thể thấy nền trong suốt của canvas
+}
+
+
+
+
+// Assuming the assets folder is in the same directory as your HTML file
+const assetFolder = 'assets/cards/';
+const cardAssets = [
+    'SV08_EN_42-2x.png',  // ⚡
+    'SV08_EN_76-2x.png',      // 🔥
+    'SV08_EN_220-2x.png',     // 💧
+    'SV08_EN_238-2x.png',     // 🌿
+    'SV08_EN_239-2x.png',    // ✨
+    'SV08_EN_247-2x.png',
+];
+
+// Function to add images dynamically
+function addCards() {
+    const cardsContainer = document.getElementById('cardsRevealed');
+    
+    // Loop through the array of asset images and create img elements
+    cardAssets.forEach(asset => {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('card');
+
+
+        const cardImg = document.createElement('div');
+        cardImg.classList.add('card-img');
+        
+        
+        const img = document.createElement('img');
+        img.src = assetFolder + asset; // Construct the image path
+        img.alt = asset.split('.')[0]; // Set alt text based on the image file name
+        
+        cardImg.appendChild(img);
+        cardDiv.appendChild(cardImg); // Append image to the card div
+        cardsContainer.appendChild(cardDiv); // Append card to the container
+    });
+}
+
+// Run the function to add cards when the page loads
+window.onload = addCards;

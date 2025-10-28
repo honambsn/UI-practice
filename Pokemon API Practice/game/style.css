@@ -85,8 +85,12 @@ canvas {
 }
 
 .card {
-    width: 100px;
-    height: 140px;
+    /* width: 100px;
+    height: 140px; */
+    width: 30%; 
+    object-fit: contain; /* Giữ tỷ lệ ảnh */
+
+
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     border-radius: 10px;
     border: 3px solid gold;
@@ -155,4 +159,31 @@ canvas {
         opacity: 0;
         transform: scale(1) translate(var(--tx), var(--ty));
     }
+}
+
+
+._img{
+    z-index: 1;
+    /* position: relative; */
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scale: 1.03;
+    object-fit: cover;
+}
+
+canvas{
+    z-index: 2;
+}
+
+#packWrapper{
+    display: none;
+}
+
+.card-img img{
+    width: 100%;
+    object-fit: cover;
 }
