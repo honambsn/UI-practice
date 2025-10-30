@@ -277,6 +277,7 @@ function addCards() {
 
         const cardImg = document.createElement('div');
         cardImg.classList.add('card-img');
+        cardImg.id = 'front';
         
         
         const img = document.createElement('img');
