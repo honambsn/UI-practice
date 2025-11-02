@@ -255,39 +255,81 @@ function drawPack() {
 
 
 // Assuming the assets folder is in the same directory as your HTML file
-const assetFolder = 'assets/cards/';
-const cardAssets = [
-    'SV08_EN_42-2x.png',  // ⚡
-    'SV08_EN_76-2x.png',      // 🔥
-    'SV08_EN_220-2x.png',     // 💧
-    'SV08_EN_238-2x.png',     // 🌿
-    'SV08_EN_239-2x.png',    // ✨
-    'SV08_EN_247-2x.png',
-];
+
 
 // Function to add images dynamically
 function addCards() {
-    const cardsContainer = document.getElementById('cardsRevealed');
+    const assetFolder = 'assets/cards/';
+    const cardAssets = [
+        { front: "assets/cards/SV08_EN_42-2x.png", back: "assets/cards/backside.png" },
+        { front: "assets/cards/SV08_EN_76-2x.png", back: "assets/cards/backside.png" },
+        { front: "assets/cards/SV08_EN_220-2x.png", back: "assets/cards/backside.png" },    
+    ];
+
+    // const cardsContainer = document.getElementById('cardsRevealed');
     
-    // Loop through the array of asset images and create img elements
-    cardAssets.forEach(asset => {
-        const cardDiv = document.createElement('div');
-        cardDiv.classList.add('card');
+    // // Loop through the array of asset images and create img elements
+    // cardAssets.forEach(asset => {
+    //     const cardDiv = document.createElement('div');
+    //     cardDiv.classList.add('card');
 
 
-        const cardImg = document.createElement('div');
-        cardImg.classList.add('card-img');
-        cardImg.id = 'front';
+    //     const cardImg = document.createElement('div');
+    //     cardImg.classList.add('card-img');
+    //     cardImg.id = 'front';
         
         
-        const img = document.createElement('img');
-        img.src = assetFolder + asset; // Construct the image path
-        img.alt = asset.split('.')[0]; // Set alt text based on the image file name
+    //     const img = document.createElement('img');
+    //     img.src = assetFolder + asset; // Construct the image path
+    //     img.alt = asset.split('.')[0]; // Set alt text based on the image file name
         
-        cardImg.appendChild(img);
-        cardDiv.appendChild(cardImg); // Append image to the card div
-        cardsContainer.appendChild(cardDiv); // Append card to the container
+    //     cardImg.appendChild(img);
+    //     cardDiv.appendChild(cardImg); // Append image to the card div
+    //     cardsContainer.appendChild(cardDiv); // Append card to the container
+    // });
+
+    const container = document.getElementById('cardsRevealed');
+
+    cardAssets.forEach(card =>{
+        const cardElement = document.createElement("div");
+        cardElement.classList.add("card");
+
+        const cardInner = document.createElement("div");
+        cardInner.classList.add("card-inner");
+
+        const cardBack = document.createElement("div");
+        cardBack.classList.add("card-back");
+        
+        const cardBackImg = document.createElement("div");
+        cardBackImg.classList.add("card-img");
+
+        const backImg = document.createElement("img");
+
+        backImg.src = card.back;
+        // backImg.alt = "backside";
+        cardBackImg.appendChild(backImg);
+        cardBack.appendChild(cardBackImg);
+
+        const cardFront = document.createElement("div");
+        cardFront.classList.add("card-front");
+
+        const cardFrontImg = document.createElement("div");
+        cardFrontImg.classList.add("card-img");
+        
+        const frontImg = document.createElement("img");
+        
+        frontImg.src = card.front;
+        // frontImg.alt = "frontside";
+        cardFrontImg.appendChild(frontImg);
+        cardFront.appendChild(cardFrontImg);
+
+        cardInner.appendChild(cardBack);
+        cardInner.appendChild(cardFront);
+
+        cardElement.appendChild(cardInner);
+        container.appendChild(cardElement);
     });
+
 }
 
 // Run the function to add cards when the page loads
