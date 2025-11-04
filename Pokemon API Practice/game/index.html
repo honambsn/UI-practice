@@ -7,35 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+        <div class="container">
         <h1 class="title">✨ Pokémon Pack Opener ✨</h1>
         
-        <div class="game-area">
+        <div class="game-area" id="game-area">
             <div class="pack-wrapper" id="packWrapper">
                 <div class="_img">
-                    <img src="assets/layer.png" width="400" height="600" alt="">
+                    <img src="assets/layer.png" width="400" height="600">
                 </div>
-
-                <canvas id="packCanvas" width="400" height="600" hidden></canvas>
+                <canvas id="packCanvas"hidden></canvas>
                 <canvas id="sliceCanvas" width="400" height="600"></canvas>
             </div>
             
-            <div class="cards-revealed show" id="cardsRevealed">
-                <!-- <div class="card">⚡</div>
-                <div class="card">🔥</div>
-                <div class="card">💧</div>
-                <div class="card">🌿</div>
-                <div class="card">✨</div> -->
-                <!-- <div class="card back">
-                    <div class="card-img">
-                        <img src="assets/cards/backside.png"/>
-                    </div>
-                </div> -->
+            <div class="cards-revealed" id="cardsRevealed">
+                <!-- Cards will be generated here -->
             </div>
         </div>
 
-        <p class="instruction" id="instruction">Slice through the pack to open it!</p>
-        <button class="reset-btn" id="resetBtn" style="display: none;">Open Another Pack</button>
+        <p class="instruction" id="instruction">Cắt gói thẻ để mở!</p>
+        <p class="flip-instruction" id="flipInstruction" style="display: none;">Nhấn vào thẻ để lật!</p>
+        <button class="reset-btn" id="resetBtn" style="display: none;">Mở Gói Khác</button>
     </div>
 
     <script src="script.js"></script>

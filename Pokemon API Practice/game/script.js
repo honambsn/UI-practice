@@ -4,15 +4,27 @@ const packCtx = packCanvas.getContext('2d');
 const sliceCtx = sliceCanvas.getContext('2d');
 const cardsRevealed = document.getElementById('cardsRevealed');
 const instruction = document.getElementById('instruction');
+const flipInstruction = document.getElementById('flipInstruction');
 const resetBtn = document.getElementById('resetBtn');
 const packWrapper = document.getElementById('packWrapper');
+const gameArea = document.getElementById('game-area');
 
 let isSlicing = false;
 let sliceProgress = 0;
 let slicePath = [];
 
+// Danh sách thẻ Pokemon (có thể thay đổi)
+const cardImages = [
+    'SV08_EN_42-2x.png',
+    'SV08_EN_76-2x.png',
+    'SV08_EN_220-2x.png',
+    'SV08_EN_238-2x.png',
+    'SV08_EN_239-2x.png',
+    'SV08_EN_247-2x.png'
+];
+
 function drawPack() {
-    // Draw pack background
+    // Vẽ nền gói thẻ
     const gradient1 = packCtx.createLinearGradient(0, 0, 400, 600);
     gradient1.addColorStop(0, '#6b46c1');
     gradient1.addColorStop(0.3, '#ec4899');
@@ -21,7 +33,7 @@ function drawPack() {
     packCtx.fillStyle = gradient1;
     packCtx.fillRect(0, 0, 400, 600);
 
-    // Draw swirls
+    // Vẽ vòng xoáy
     packCtx.strokeStyle = 'rgba(139, 92, 246, 0.3)';
     packCtx.lineWidth = 20;
     packCtx.beginPath();
@@ -34,11 +46,11 @@ function drawPack() {
     packCtx.arc(200, 350, 180, 0, Math.PI * 2);
     packCtx.stroke();
 
-    // Draw Pokeball
+    // Vẽ Pokeball
     packCtx.save();
     packCtx.translate(200, 350);
 
-    // Top half (red)
+    // Nửa trên (đỏ)
     const gradient2 = packCtx.createLinearGradient(0, -80, 0, 0);
     gradient2.addColorStop(0, '#ff6b6b');
     gradient2.addColorStop(1, '#ee5a5a');
@@ -47,7 +59,7 @@ function drawPack() {
     packCtx.arc(0, 0, 80, Math.PI, Math.PI * 2);
     packCtx.fill();
 
-    // Bottom half (white)
+    // Nửa dưới (trắng)
     const gradient3 = packCtx.createLinearGradient(0, 0, 0, 80);
     gradient3.addColorStop(0, '#ffffff');
     gradient3.addColorStop(1, '#e0e0e0');
@@ -56,23 +68,23 @@ function drawPack() {
     packCtx.arc(0, 0, 80, 0, Math.PI);
     packCtx.fill();
 
-    // Black band
+    // Dải đen
     packCtx.fillStyle = '#2d3748';
     packCtx.fillRect(-80, -8, 160, 16);
 
-    // Center circle outer
+    // Vòng tròn giữa ngoài
     packCtx.fillStyle = '#2d3748';
     packCtx.beginPath();
     packCtx.arc(0, 0, 25, 0, Math.PI * 2);
     packCtx.fill();
 
-    // Center circle inner
+    // Vòng tròn giữa trong
     packCtx.fillStyle = '#e2e8f0';
     packCtx.beginPath();
     packCtx.arc(0, 0, 18, 0, Math.PI * 2);
     packCtx.fill();
 
-    // Shine
+    // Ánh sáng
     packCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
     packCtx.beginPath();
     packCtx.arc(-8, -8, 10, 0, Math.PI * 2);
@@ -80,7 +92,7 @@ function drawPack() {
 
     packCtx.restore();
 
-    // Draw Pokemon logo
+    // Vẽ logo Pokemon
     packCtx.fillStyle = '#fbbf24';
     packCtx.strokeStyle = '#1e40af';
     packCtx.lineWidth = 3;
@@ -88,7 +100,7 @@ function drawPack() {
     packCtx.strokeText('POKéMON', 50, 80);
     packCtx.fillText('POKéMON', 50, 80);
 
-    // Add stars
+    // Thêm sao
     packCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
     for (let i = 0; i < 30; i++) {
         const x = Math.random() * 400;
@@ -111,6 +123,102 @@ function createSparkle(x, y) {
     setTimeout(() => sparkle.remove(), 1000);
 }
 
+function drawPokeballBack(canvas) {
+    const ctx = canvas.getContext('2d');
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(canvas.width, canvas.height) * 0.35;
+
+    // Nửa trên (đỏ)
+    const gradient1 = ctx.createLinearGradient(0, centerY - radius, 0, centerY);
+    gradient1.addColorStop(0, '#ff4444');
+    gradient1.addColorStop(1, '#cc0000');
+    ctx.fillStyle = gradient1;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, Math.PI, Math.PI * 2);
+    ctx.fill();
+
+    // Nửa dưới (trắng)
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI);
+    ctx.fill();
+
+    // Dải đen
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(centerX - radius, centerY - radius * 0.1, radius * 2, radius * 0.2);
+
+    // Vòng tròn giữa ngoài
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius * 0.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Vòng tròn giữa trong
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius * 0.22, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function createCards() {
+    cardsRevealed.innerHTML = '';
+    
+    cardImages.forEach((imageName, index) => {
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'card-container';
+        
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // Mặt trước (back of card - mặt úp)
+        const cardFront = document.createElement('div');
+        cardFront.className = 'card-front';
+        
+        const backPattern = document.createElement('div');
+        backPattern.className = 'card-back-pattern';
+        
+        const pokeballCanvas = document.createElement('canvas');
+        pokeballCanvas.width = 200;
+        pokeballCanvas.height = 280;
+        pokeballCanvas.className = 'pokeball-back';
+        drawPokeballBack(pokeballCanvas);
+        
+        backPattern.appendChild(pokeballCanvas);
+        cardFront.appendChild(backPattern);
+        
+        // Mặt sau (front of card - mặt hình Pokemon)
+        const cardBack = document.createElement('div');
+        cardBack.className = 'card-back';
+        
+        const cardImg = document.createElement('div');
+        cardImg.className = 'card-img';
+        
+        const img = document.createElement('img');
+        img.src = `assets/cards/${imageName}`;
+        img.alt = imageName;
+        img.onerror = function() {
+            // Nếu ảnh không load được, hiển thị placeholder
+            cardBack.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+            cardImg.innerHTML = '<div style="font-size: 3em;">🎴</div>';
+        };
+        
+        cardImg.appendChild(img);
+        cardBack.appendChild(cardImg);
+        
+        card.appendChild(cardFront);
+        card.appendChild(cardBack);
+        cardContainer.appendChild(card);
+        
+        // Thêm sự kiện click để lật thẻ
+        cardContainer.addEventListener('click', () => {
+            cardContainer.classList.toggle('flipped');
+        });
+        
+        cardsRevealed.appendChild(cardContainer);
+    });
+}
+
 function handleSlice(e) {
     if (!isSlicing) return;
 
@@ -131,7 +239,7 @@ function handleSlice(e) {
         sliceCtx.lineTo(x, y);
         sliceCtx.stroke();
 
-        // Add glow effect
+        // Hiệu ứng phát sáng
         sliceCtx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
         sliceCtx.lineWidth = 15;
         sliceCtx.beginPath();
@@ -155,20 +263,22 @@ function openPack() {
     isSlicing = false;
     packWrapper.style.cursor = 'default';
     
-    // Fade out pack
+    // Làm mờ gói thẻ
     packCanvas.style.transition = 'opacity 0.5s';
     packCanvas.style.opacity = '0';
     sliceCanvas.style.transition = 'opacity 0.5s';
     sliceCanvas.style.opacity = '0';
 
     setTimeout(() => {
+        createCards();
         cardsRevealed.classList.add('show');
         instruction.style.display = 'none';
-        resetBtn.style.display = 'inline-block';
-        
-        
-        packWrapper.classList.add('hidden');
+        flipInstruction.style.display = 'block';
         packWrapper.style.display = 'none';
+        gameArea.style.width = '800px';
+        gameArea.style.height = '800px';
+        cardsRevealed.style.gap = '8%';
+        resetBtn.style.display = 'inline-block';
     }, 500);
 }
 
@@ -181,10 +291,13 @@ function reset() {
     packCanvas.style.transition = 'none';
     sliceCanvas.style.transition = 'none';
     cardsRevealed.classList.remove('show');
+    cardsRevealed.innerHTML = '';
     instruction.style.display = 'block';
+    flipInstruction.style.display = 'none';
     resetBtn.style.display = 'none';
     packWrapper.style.cursor = 'crosshair';
-    packWrapper.classList.remove('hidden');
+
+    packWrapper.style.display ='block';
 }
 
 sliceCanvas.addEventListener('mousedown', (e) => {
@@ -205,7 +318,7 @@ sliceCanvas.addEventListener('mouseleave', () => {
     isSlicing = false;
 });
 
-// Touch support
+// Hỗ trợ cảm ứng
 sliceCanvas.addEventListener('touchstart', (e) => {
     if (cardsRevealed.classList.contains('show')) return;
     e.preventDefault();
@@ -229,108 +342,5 @@ sliceCanvas.addEventListener('touchend', () => {
 
 resetBtn.addEventListener('click', reset);
 
-// Initialize
+// Khởi tạo
 drawPack();
-
-
-
-
-function drawPack() {
-    // Đảm bảo không vẽ nền màu solid hoặc màu nào khác
-    packCtx.clearRect(0, 0, packCanvas.width, packCanvas.height); // Xóa canvas
-
-    // Tiếp tục vẽ các hình ảnh khác mà bạn muốn (không vẽ nền nếu không muốn nó có màu)
-
-    // Ví dụ vẽ các chi tiết khác mà không cần màu nền
-    const gradient1 = packCtx.createLinearGradient(0, 0, 400, 600);
-    gradient1.addColorStop(0, '#6b46c1');
-    gradient1.addColorStop(0.3, '#ec4899');
-    gradient1.addColorStop(0.7, '#ec4899');
-    gradient1.addColorStop(1, '#3b82f6');
-    packCtx.fillStyle = gradient1;
-    packCtx.fillRect(0, 0, 400, 600); // Vẽ một màu nền nhưng vẫn có thể thấy nền trong suốt của canvas
-}
-
-
-
-
-// Assuming the assets folder is in the same directory as your HTML file
-
-
-// Function to add images dynamically
-function addCards() {
-    const assetFolder = 'assets/cards/';
-    const cardAssets = [
-        { front: "assets/cards/SV08_EN_42-2x.png", back: "assets/cards/backside.png" },
-        { front: "assets/cards/SV08_EN_76-2x.png", back: "assets/cards/backside.png" },
-        { front: "assets/cards/SV08_EN_220-2x.png", back: "assets/cards/backside.png" },    
-    ];
-
-    // const cardsContainer = document.getElementById('cardsRevealed');
-    
-    // // Loop through the array of asset images and create img elements
-    // cardAssets.forEach(asset => {
-    //     const cardDiv = document.createElement('div');
-    //     cardDiv.classList.add('card');
-
-
-    //     const cardImg = document.createElement('div');
-    //     cardImg.classList.add('card-img');
-    //     cardImg.id = 'front';
-        
-        
-    //     const img = document.createElement('img');
-    //     img.src = assetFolder + asset; // Construct the image path
-    //     img.alt = asset.split('.')[0]; // Set alt text based on the image file name
-        
-    //     cardImg.appendChild(img);
-    //     cardDiv.appendChild(cardImg); // Append image to the card div
-    //     cardsContainer.appendChild(cardDiv); // Append card to the container
-    // });
-
-    const container = document.getElementById('cardsRevealed');
-
-    cardAssets.forEach(card =>{
-        const cardElement = document.createElement("div");
-        cardElement.classList.add("card");
-
-        const cardInner = document.createElement("div");
-        cardInner.classList.add("card-inner");
-
-        const cardBack = document.createElement("div");
-        cardBack.classList.add("card-back");
-        
-        const cardBackImg = document.createElement("div");
-        cardBackImg.classList.add("card-img");
-
-        const backImg = document.createElement("img");
-
-        backImg.src = card.back;
-        // backImg.alt = "backside";
-        cardBackImg.appendChild(backImg);
-        cardBack.appendChild(cardBackImg);
-
-        const cardFront = document.createElement("div");
-        cardFront.classList.add("card-front");
-
-        const cardFrontImg = document.createElement("div");
-        cardFrontImg.classList.add("card-img");
-        
-        const frontImg = document.createElement("img");
-        
-        frontImg.src = card.front;
-        // frontImg.alt = "frontside";
-        cardFrontImg.appendChild(frontImg);
-        cardFront.appendChild(cardFrontImg);
-
-        cardInner.appendChild(cardBack);
-        cardInner.appendChild(cardFront);
-
-        cardElement.appendChild(cardInner);
-        container.appendChild(cardElement);
-    });
-
-}
-
-// Run the function to add cards when the page loads
-window.onload = addCards;
