@@ -219,45 +219,116 @@ function createCards() {
     });
 }
 
+// function handleSlice(e) {
+//     if (!isSlicing) return;
+
+//     const rect = sliceCanvas.getBoundingClientRect();
+//     const x = e.clientX - rect.left;
+//     const y = e.clientY - rect.top;
+
+//     slicePath.push({ x, y });
+
+//     if (slicePath.length > 1) {
+//         const prev = slicePath[slicePath.length - 2];
+        
+//         sliceCtx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+//         sliceCtx.lineWidth = 8;
+//         sliceCtx.lineCap = 'round';
+//         sliceCtx.beginPath();
+//         sliceCtx.moveTo(prev.x, prev.y);
+//         sliceCtx.lineTo(x, y);
+//         sliceCtx.stroke();
+
+//         // Hiệu ứng phát sáng
+//         sliceCtx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+//         sliceCtx.lineWidth = 15;
+//         sliceCtx.beginPath();
+//         sliceCtx.moveTo(prev.x, prev.y);
+//         sliceCtx.lineTo(x, y);
+//         sliceCtx.stroke();
+
+//         sliceProgress += Math.hypot(x - prev.x, y - prev.y);
+
+//         if (Math.random() > 0.7) {
+//             createSparkle(e.clientX - rect.left, e.clientY - rect.top);
+//         }
+
+//         if (sliceProgress > 800) {
+//             openPack();
+//         }
+//     }
+// }
+
 function handleSlice(e) {
     if (!isSlicing) return;
 
+    // Lấy tọa độ của canvas
     const rect = sliceCanvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    slicePath.push({ x, y });
+    // Định nghĩa khu vực cắt (slice area)
+    const sliceAreaX = 0; // Tọa độ X của góc trên bên trái khu vực cắt
+    const sliceAreaY = 0; // Tọa độ Y của góc trên bên trái khu vực cắt
+    const sliceAreaWidth = 600; // Chiều rộng của khu vực cắt
+    const sliceAreaHeight = 80; // Chiều cao của khu vực cắt
+
+    // Giới hạn tọa độ x và y trong khu vực cắt
+    const constrainedX = Math.max(sliceAreaX, Math.min(x, sliceAreaX + sliceAreaWidth));
+    const constrainedY = Math.max(sliceAreaY, Math.min(y, sliceAreaY + sliceAreaHeight));
+
+    // Kiểm tra xem tọa độ có nằm ngoài khu vực cắt hay không
+    const isOutsideArea = x < sliceAreaX || x > sliceAreaX + sliceAreaWidth || y < sliceAreaY || y > sliceAreaY + sliceAreaHeight;
+
+    // Thêm tọa độ đã được giới hạn vào mảng slicePath
+    slicePath.push({ x: constrainedX, y: constrainedY });
 
     if (slicePath.length > 1) {
         const prev = slicePath[slicePath.length - 2];
-        
+
+        // Vẽ đường cắt chính (màu trắng)
         sliceCtx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
         sliceCtx.lineWidth = 8;
         sliceCtx.lineCap = 'round';
         sliceCtx.beginPath();
         sliceCtx.moveTo(prev.x, prev.y);
-        sliceCtx.lineTo(x, y);
+        sliceCtx.lineTo(constrainedX, constrainedY);
         sliceCtx.stroke();
 
-        // Hiệu ứng phát sáng
-        sliceCtx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
-        sliceCtx.lineWidth = 15;
-        sliceCtx.beginPath();
-        sliceCtx.moveTo(prev.x, prev.y);
-        sliceCtx.lineTo(x, y);
-        sliceCtx.stroke();
+        // Nếu vẽ ngoài khu vực cắt, thay đổi màu sắc đường vẽ
+        if (isOutsideArea) {
+            sliceCtx.strokeStyle = 'rgba(255, 0, 0, 0.5)'; // Màu đỏ khi ra ngoài vùng
+            sliceCtx.lineWidth = 2;
+            sliceCtx.beginPath();
+            sliceCtx.moveTo(prev.x, prev.y);
+            sliceCtx.lineTo(constrainedX, constrainedY);
+            sliceCtx.stroke();
+        } else {
+            // Hiệu ứng phát sáng (màu xanh dương) nếu trong khu vực cắt
+            sliceCtx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+            sliceCtx.lineWidth = 15;
+            sliceCtx.beginPath();
+            sliceCtx.moveTo(prev.x, prev.y);
+            sliceCtx.lineTo(constrainedX, constrainedY);
+            sliceCtx.stroke();
+        }
 
-        sliceProgress += Math.hypot(x - prev.x, y - prev.y);
+        // Cập nhật tiến trình cắt
+        sliceProgress += Math.hypot(constrainedX - prev.x, constrainedY - prev.y);
 
+        // Hiệu ứng ánh sao ngẫu nhiên
         if (Math.random() > 0.7) {
             createSparkle(e.clientX - rect.left, e.clientY - rect.top);
         }
-
-        if (sliceProgress > 800) {
+        console.log(sliceProgress)
+        // Kiểm tra nếu tiến trình cắt vượt qua ngưỡng, mở phần quà
+        if (sliceProgress > 350) {
             openPack();
         }
     }
 }
+
+
 
 function openPack() {
     isSlicing = false;
@@ -274,7 +345,10 @@ function openPack() {
         cardsRevealed.classList.add('show');
         instruction.style.display = 'none';
         flipInstruction.style.display = 'block';
-        packWrapper.style.display = 'none';
+        
+        packWrapper.style.visibility = 'hidden';  
+        packWrapper.style.pointerEvents = 'none';
+
         gameArea.style.width = '800px';
         gameArea.style.height = '800px';
         cardsRevealed.style.gap = '8%';
@@ -297,7 +371,16 @@ function reset() {
     resetBtn.style.display = 'none';
     packWrapper.style.cursor = 'crosshair';
 
-    packWrapper.style.display ='block';
+    setTimeout(() => {
+        packWrapper.style.visibility = 'visible';
+        packWrapper.style.pointerEvents = 'all';
+
+
+
+        gameArea.style.width = '400px';
+        gameArea.style.height = '600px';
+    }, 10);
+    
 }
 
 sliceCanvas.addEventListener('mousedown', (e) => {
