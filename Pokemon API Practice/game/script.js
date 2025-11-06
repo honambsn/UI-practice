@@ -1,5 +1,6 @@
 const packCanvas = document.getElementById('packCanvas');
-const sliceCanvas = document.getElementById('sliceCanvas');
+//const sliceCanvas = document.getElementById('sliceCanvas');
+const sliceCanvas = document.getElementById('cutAreaCanvas');
 const packCtx = packCanvas.getContext('2d');
 const sliceCtx = sliceCanvas.getContext('2d');
 const cardsRevealed = document.getElementById('cardsRevealed');
@@ -185,7 +186,7 @@ function createCards() {
         drawPokeballBack(pokeballCanvas);
         
         backPattern.appendChild(pokeballCanvas);
-        cardFront.appendChild(backPattern);
+        // cardFront.appendChild(backPattern);
         
         // Mặt sau (front of card - mặt hình Pokemon)
         const cardBack = document.createElement('div');
@@ -209,6 +210,18 @@ function createCards() {
         card.appendChild(cardFront);
         card.appendChild(cardBack);
         cardContainer.appendChild(card);
+
+        const backSide = document.createElement('div');
+        backSide.id = "backImg";
+        const backSideImg = document.createElement('img');
+        backSideImg.src = `assets/cards/backside.png`;
+        backSideImg.onerror = function() {
+            // Nếu ảnh không load được, hiển thị placeholder
+            console.log('load fail')
+        };
+        backSide.appendChild(backSideImg);
+        cardFront.appendChild(backSide);
+        
         
         // Thêm sự kiện click để lật thẻ
         cardContainer.addEventListener('click', () => {
@@ -324,6 +337,9 @@ function handleSlice(e) {
         // Kiểm tra nếu tiến trình cắt vượt qua ngưỡng, mở phần quà
         if (sliceProgress > 350) {
             openPack();
+        }
+        else{
+            console.log("not enough")
         }
     }
 }

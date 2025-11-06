@@ -134,10 +134,11 @@ canvas {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    border: 3px solid rgba(255, 215, 0, 0.8);
+    border: 2px solid rgba(255, 215, 0, 0.8);
 }
 
 .card-front {
+    height: auto;
     background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
     display: flex;
     justify-content: center;
@@ -266,8 +267,31 @@ canvas{
     transform: translate(-50%, -50%);
 }
 
+#cutAreaCanvas{
+    top: 5%;
+    opacity: 1000;
+    transition: box-shadow 0.3s ease-in-out;
+    animation: pulseShadow 2s infinite;
+}
 
-.card-img {
+#cuAreaCanvas:hover{
+    background: red;
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 1);
+  }
+  100% {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+.card-img, #backImg {
     width: 100%;
     height: 100%;
     display: flex;
@@ -276,7 +300,8 @@ canvas{
 
 }
 
-.card-img img{
+.card-img img,
+#backImg img{
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
