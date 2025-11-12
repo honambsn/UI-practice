@@ -310,3 +310,52 @@ canvas{
 .hidden {
     display: none;
 }
+
+
+
+/* Thêm vào cuối file style.css */
+
+@keyframes cardDrawOut {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-50%) translateY(-100px) scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(150%) scale(0.8) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+@keyframes miniCardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes finalCardReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+#cardCounter{
+    visibility: hidden;
+}
+
+#miniCardsContainer{
+    bottom: 0px !important;
+}
