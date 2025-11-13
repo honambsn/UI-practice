@@ -314,14 +314,21 @@ canvas{
 
 
 /* Thêm vào cuối file style.css */
-
 @keyframes cardDrawOut {
     0% {
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: translateX(-25%) translateY(0) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateX(-50%) translateY(-25px) scale(1.05);
         opacity: 1;
     }
     50% {
-        transform: translateX(-50%) translateY(-100px) scale(1.1) rotate(5deg);
+        transform: translateX(-50%) translateY(-50px) scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+    75% {
+        transform: translateX(-50%) translateY(-60px) scale(1.05);
         opacity: 1;
     }
     100% {

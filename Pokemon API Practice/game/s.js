@@ -226,7 +226,8 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
     
     setTimeout(() => {
         // Animation rút thẻ ra
-        cardContainer.style.animation = 'cardDrawOut 0.8s ease-out forwards';
+        //cardContainer.style.animation = 'cardDrawOut 0.8s ease-out forwards';
+        cardContainer.style.animation = 'cardDrawOut 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards';
         
         // Lưu data thẻ đã rút
         revealedCardData.push({ imgSrc, imageName });

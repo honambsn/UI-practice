@@ -386,11 +386,12 @@ function createCards() {
 
 function drawCard(cardContainer, card, imgSrc, imageName, index) {
     // Lật thẻ
+    //card.style.transition = 'transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1)';
     card.style.transform = 'rotateY(180deg)';
     
     setTimeout(() => {
         // Animation rút thẻ ra
-        cardContainer.style.animation = 'cardDrawOut 0.8s ease-out forwards';
+        cardContainer.style.animation = 'cardDrawOut 0.8s ease-in-out forwards';
         
         // Lưu data thẻ đã rút
         revealedCardData.push({ imgSrc, imageName });
@@ -427,7 +428,7 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
                 showFinalReveal();
             }, 1000);
         }
-    }, 800);
+    }, 700);
 }
 
 function updateCounter() {
@@ -537,6 +538,14 @@ function showFinalReveal() {
         card.appendChild(cardBack);
         cardContainer.appendChild(card);
         
+        // setTimeout(() => {
+        //     cardContainer.classList.add = 'flipped';
+
+        //     setTimeout(() => {
+        //         cardContainer.classList.remove('flipped');
+        //     }, 2000);
+        // }, 200);
+
         // Click để lật
         cardContainer.addEventListener('click', () => {
             cardContainer.classList.toggle('flipped');
