@@ -303,7 +303,11 @@ function createCardStack() {
         });
         
         // Click để rút thẻ
-        cardContainer.addEventListener('click', () => {
+        cardContainer.addEventListener('click', (e) => {
+            if (isCardAnimating){
+                console.log('drawing');
+                return;
+            }
             if (index === currentCardIndex) {
                 drawCard(cardContainer, card, img.src, imageName, index);
             }
@@ -383,8 +387,11 @@ function createCards() {
     });
 }
 
-
+let isCardAnimating = false;
 function drawCard(cardContainer, card, imgSrc, imageName, index) {
+    if (isCardAnimating) return;
+
+    isCardAnimating = true;
     // Lật thẻ
     //card.style.transition = 'transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1)';
     card.style.transform = 'rotateY(180deg)';
@@ -429,6 +436,21 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
             }, 1000);
         }
     }, 700);
+
+    card.addEventListener('animationend', () => {
+        // Kiểm tra nếu đã hoàn thành toàn bộ animation
+        if (!card.classList.contains('animating')) {
+            isCardAnimating = false; // Đặt lại trạng thái để cho phép click lại
+            card.classList.remove('animating'); // Loại bỏ lớp animation (nếu có)
+        }
+    })
+    cardContainer.addEventListener('animationend', (e) => {
+        // Nếu animation của `cardDrawOut` kết thúc, kiểm tra các animation liên quan
+        if (e.animationName === 'cardDrawOut') {
+            isCardAnimating = false;
+            // Bạn có thể làm thêm các hành động nếu cần
+        }
+    });
 }
 
 function updateCounter() {

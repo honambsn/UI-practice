@@ -366,3 +366,7 @@ canvas{
 #miniCardsContainer{
     bottom: 0px !important;
 }
+
+.card-container, #miniCardsContainer{
+    user-select:none;
+}
