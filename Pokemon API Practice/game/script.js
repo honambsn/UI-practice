@@ -290,17 +290,17 @@ function createCardStack() {
         cardContainer.appendChild(card);
         
         // Hover effect chỉ cho thẻ trên cùng
-        cardContainer.addEventListener('mouseenter', () => {
-            if (index === currentCardIndex) {
-                card.style.transform = 'translateY(-20px) scale(1.05)';
-            }
-        });
+        // cardContainer.addEventListener('mouseenter', () => {
+        //     if (index === currentCardIndex) {
+        //         card.style.transform = 'translateY(-20px) scale(1.05)';
+        //     }
+        // });
         
-        cardContainer.addEventListener('mouseleave', () => {
-            if (index === currentCardIndex) {
-                card.style.transform = 'translateY(0) scale(1)';
-            }
-        });
+        // cardContainer.addEventListener('mouseleave', () => {
+        //     if (index === currentCardIndex) {
+        //         card.style.transform = 'translateY(0) scale(1)';
+        //     }
+        // });
         
         // Click để rút thẻ
         cardContainer.addEventListener('click', (e) => {
@@ -394,7 +394,9 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
     isCardAnimating = true;
     // Lật thẻ
     //card.style.transition = 'transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1)';
+    card.style.transform = 'translateY(-20px) scale(1.05)';
     card.style.transform = 'rotateY(180deg)';
+    
     
     setTimeout(() => {
         // Animation rút thẻ ra
@@ -406,6 +408,9 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
         // Thêm thẻ nhỏ vào danh sách đã rút
         const miniCardsContainer = document.getElementById('miniCardsContainer');
         const miniCard = document.createElement('div');
+        miniCard.id = 'miniCard';
+        miniCard.classList.add('miniCard');
+        miniCard.classList.add = 'miniCard';
         miniCard.style.cssText = `
             width: 80px;
             height: 115px;
@@ -428,6 +433,7 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
         
         currentCardIndex++;
         updateCounter();
+
         
         // Kiểm tra nếu rút hết thẻ
         if (currentCardIndex >= totalCards) {

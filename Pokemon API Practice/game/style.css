@@ -370,3 +370,27 @@ canvas{
 .card-container, #miniCardsContainer{
     user-select:none;
 }
+
+#miniCard {
+    transition: transform 0.3s ease-in-out, scale 0.3s ease-in-out;
+    opacity: 1;
+    filter: none;
+}
+
+#miniCard:hover {
+    cursor: pointer;
+    transform: scale(1.5) translateY(-20px);
+    z-index: 10;
+    opacity: 1;
+    filter: none;
+}
+
+.muted {
+    opacity: 0.5;
+    filter: blur(2px);
+}
+
+.miniCard.muted {
+    opacity: 0.5;
+    filter: blur(2px);
+}
