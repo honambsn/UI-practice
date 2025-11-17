@@ -410,7 +410,6 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
         const miniCard = document.createElement('div');
         miniCard.id = 'miniCard';
         miniCard.classList.add('miniCard');
-        miniCard.classList.add = 'miniCard';
         miniCard.style.cssText = `
             width: 80px;
             height: 115px;
@@ -442,6 +441,17 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
             }, 1000);
         }
     }, 700);
+
+    const container = document.getElementById('miniCardsContainer');
+    container.addEventListener('mouseenter', () => {
+        container.classList.add('hovered');
+    });
+
+    container.addEventListener('mouseleave', () => {
+        container.classList.remove('hovered');
+    });
+
+
 
     card.addEventListener('animationend', () => {
         // Kiểm tra nếu đã hoàn thành toàn bộ animation

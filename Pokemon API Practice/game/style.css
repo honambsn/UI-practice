@@ -371,21 +371,21 @@ canvas{
     user-select:none;
 }
 
-#miniCard {
+#miniCard, .miniCard {
     transition: transform 0.3s ease-in-out, scale 0.3s ease-in-out;
     opacity: 1;
     filter: none;
 }
-
+/* 
 #miniCard:hover {
     cursor: pointer;
     transform: scale(1.5) translateY(-20px);
     z-index: 10;
     opacity: 1;
     filter: none;
-}
+} */
 
-.muted {
+/* .muted {
     opacity: 0.5;
     filter: blur(2px);
 }
@@ -393,4 +393,25 @@ canvas{
 .miniCard.muted {
     opacity: 0.5;
     filter: blur(2px);
+} */
+
+/* Khi không hover vào miniCard nào, tất cả bình thường */
+#miniCardsContainer.normalState .miniCard {
+  filter: none; /* Không mờ */
+  opacity: 1;   /* Không mờ */
+}
+
+/* Khi hover vào một miniCard */
+#miniCardsContainer.hovered .miniCard:hover {
+  transform: scale(1.3) translateY(-20px);  /* Phóng to miniCard được hover */
+  cursor: pointer;
+  z-index: 10;
+  filter: none;           /* Không mờ */
+  opacity: 1;             /* Không mờ */
+}
+
+/* Khi hover vào một miniCard, các miniCard còn lại sẽ bị blur */
+#miniCardsContainer.hovered .miniCard:not(:hover) {
+  filter: blur(4px); /* Mờ các miniCard không được hover */
+  opacity: 0.5;      /* Giảm độ trong suốt của các miniCard không được hover */
 }

@@ -298,6 +298,12 @@ function handleSearch(query)
   searchField.style.display = 'none'; // Hide the search field
   resultBox.style.display = 'none'; // Hide the result box
 
+  const title2 = document.querySelector('.title2');
+  title2.style.visibility = 'hidden';
+
+  const gallery = document.getElementById('gallery');
+  gallery.style.visibility = 'hidden';
+
 
   pokeName = query; //
 
