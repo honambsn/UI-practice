@@ -104,69 +104,146 @@ function getRandomName(){
     return randomPokemon;
 }
 
-function getIDRandom(arr, count = 6) {
-    const uniqueIDs = new Set();  // Sử dụng Set để đảm bảo các ID là duy nhất
+function getRandomSeed(){
+  const now = new Date();
+  const timeFactor = now.getTime();
+  const randomFactor = Math.random();
 
-    while (uniqueIDs.size < count) {  // Lặp cho đến khi có đủ 'count' ID ngẫu nhiên
-        const num = getRandomSeed();
-        const index = num % arr.length; // Đảm bảo chỉ số trong phạm vi mảng
-        uniqueIDs.add(arr[index]);  // Thêm vào Set (Set tự động bỏ qua các giá trị trùng lặp)
+  const combinedSeed = timeFactor * randomFactor;
+
+  const randomNum = Math.floor(Math.random() * (9999 - 10 + 1)) + 10; // Random number between 10 and 9999
+
+  const result = Math.floor(combinedSeed % randomNum);
+  
+  return result;
+}
+
+function getIDRandom(arr, count = 1) {
+if (!arr || arr.length === 0) {
+        console.warn('getIDRandom: Empty array provided');
+        return [];
     }
 
-    // Convert Set thành mảng và trả về
+    const uniqueIDs = new Set();
+    const maxAttempts = Math.min(count * 10, arr.length * 2);
+    let attempts = 0;
+
+    while (uniqueIDs.size < count && attempts < maxAttempts) {
+        const num = getRandomSeed();
+        const index = num % arr.length;
+        uniqueIDs.add(arr[index]);
+        attempts++;
+    }
+
     return Array.from(uniqueIDs);
 }
 
 
-function getIDFromName()
+//function getIDFromName()
+function getIDFromName(pokemonName)
 {
-    const pokemonName = getRandomName();
+    //const pokemonName = getRandomName();
 
-    pokemonName.toLowerCase();
+    pokemonName = pokemonName.toLowerCase();
 
     if (pokemonName)
     {
         const dataUrl = `https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`; // Use the query parameter for name search
 
-        const getbyID = () =>{
-            fetch(dataUrl)
+        return fetch(dataUrl)
             .then(response => response.json())
-            .then(data =>{
+            .then(data => {
                 if (data.data && data.data.length > 0)
                 {
-                    const cards = data.data;
-                    const ids = cards.filter(cards => cards.name.toLowerCase() === pokemonName.toLowerCase()).map(c => c.id);
-
-                    //let randomIDs = getIDRandom(ids, 6);
-                    let randomIDs = getIDRandom(ids, 1);
-
-                    
-                    randomIDs.forEach(randomID =>{
-                        getCardData(randomID)
-                    });
+                    const ids = data.data
+                        .filter(card => card.name.toLowerCase().includes(pokemonName))
+                        .map(card => card.id)
+                    return ids;
                 }
-                else{
-                    console('something err');
+                else {
+                    console.warn(`No cards found for ${pokemonName}`);
+                    return [];
                 }
             })
             .catch(error => {
-                console.error(("something went wrong: ", error));
-            })
-        }
-
-        getbyID();
+                console.error(`Error fetching IDs for ${pokemonName}:`, error);
+                return [];
+            }); 
     }
 
+    return Promise.resolve([]);
 }
 
-function getCardData(randomID)
+async function getRandomCards(pokemonNames, count = 6)
 {
-    getImageFromData(randomID).then(cardImage => {
+    const randomNameList = [];
+    const randomCardList = [];
 
-    })
-    .catch(error =>{
-        console.error('failed to fetch: ', error);
+    console.log(`\n========== FETCHING ${count} RANDOM CARDS ==========\n`);
+
+
+    for (let i = 0; i < count; i++)
+    {
+        try {    
+            const randomName = getRandomName();
+            console.log(`\n[${i + 1}/${count}] Selected Pokemon: ${randomName}`);
+
+            const ids = await getIDFromName(randomName);
+
+            if (ids && ids.length > 0){
+                try{
+                    const randomIDs = getIDRandom(ids, 1);
+                    const randomID = randomIDs[0];
+
+                    console.log(`  → Selected ID: ${randomID}`);
+
+                    try{
+                        const cardImage = await getImageFromData(randomID);
+                        randomCardList.push({
+                            name: randomName,
+                            id : randomID,
+                            image: cardImage,
+                        });
+                        console.log(`  ✓ Successfully fetched image`);
+                    }
+                    catch (error)
+                    {
+                        console.error("Error in getImageFromData:", error.message || error, error.stack);
+
+                    }
+                }
+                catch (error)
+                {
+                    console.error("Error in getIDRandom:", error.message || error, error.stack);
+                }
+            }
+            else{
+                console.log(`  ✗ No card IDs found for ${randomName}`);
+            }
+        }
+        catch (error)
+        {
+            console.error(`[${i + 1}/${count}] Error:`, error);
+        }
+    }
+
+    console.log('\n========== FINAL RESULTS ==========');
+    console.log(`Total cards fetched: ${randomCardList.length}/${count}\n`);
+    
+    randomCardList.forEach((card, index) => {
+        console.log(`Card ${index + 1}:`);
+        console.log(`  Pokemon: ${card.name}`);
+        console.log(`  ID: ${card.id}`);
+        console.log(`  Image: ${card.image}\n`);
     });
+
+    return randomCardList;
+    // getImageFromData(randomID).then(cardImage => {
+
+    // })
+    // .catch(error =>{
+    //     console.error('failed to fetch: ', error);
+    // });
 }
 
 
@@ -176,101 +253,3 @@ function getCardData(randomID)
 // 6 lan random name khong phai 6 lan id
 
 
-
-// Hàm lấy ảnh của thẻ bài từ ID
-// function getImageFromData(cardID) {
-//     return new Promise((resolve, reject) => {
-//         const url = `https://api.pokemontcg.io/v2/cards/${cardID}`;
-//         fetch(url)
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data && data.data) {
-//                     const card = data.data;
-//                     const cardImage = card.images.large;
-//                     resolve(cardImage);
-//                 } else {
-//                     reject("Card data is missing or incorrect, can't get image");
-//                 }
-//             })
-//             .catch(error => reject(error));
-//     });
-// }
-
-// // Hàm random một tên Pokémon
-// function getRandomName(pokemonNames) {
-//     const randomPokemon = pokemonNames[Math.floor(Math.random() * pokemonNames.length)];
-//     return randomPokemon;
-// }
-
-// // Hàm random ID từ một mảng IDs
-// function getRandomIDFromList(ids) {
-//     const randomIndex = Math.floor(Math.random() * ids.length);
-//     return ids[randomIndex];
-// }
-
-// // Hàm lấy danh sách các ID của thẻ bài dựa trên tên Pokémon
-// function getIDFromName(pokemonName) {
-//     const dataUrl = `https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`;
-//     return fetch(dataUrl)
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.data && data.data.length > 0) {
-//                 // Lấy danh sách các ID của thẻ bài trùng tên Pokémon
-//                 const ids = data.data.map(card => card.id);
-//                 return ids;
-//             } else {
-//                 throw new Error(`No cards found for ${pokemonName}`);
-//             }
-//         })
-//         .catch(error => {
-//             console.error(`Error fetching IDs for ${pokemonName}:`, error);
-//         });
-// }
-
-// // Hàm chính để thực hiện random tên, lấy ID ngẫu nhiên và lấy ảnh
-// async function getRandomCards(pokemonNames, count = 6) {
-//     const randomNames = [];
-//     const randomCards = [];
-
-//     // Random 6 tên khác nhau
-//     for (let i = 0; i < count; i++) {
-//         const randomName = getRandomName(pokemonNames);
-//         randomNames.push(randomName);
-
-//         // Lấy danh sách IDs của thẻ bài theo tên Pokémon
-//         const ids = await getIDFromName(randomName);
-//         if (ids && ids.length > 0) {
-//             // Chọn một ID ngẫu nhiên từ danh sách IDs
-//             const randomID = getRandomIDFromList(ids);
-
-//             // Lấy ảnh của thẻ bài theo ID
-//             try {
-//                 const cardImage = await getImageFromData(randomID);
-//                 randomCards.push({
-//                     name: randomName,
-//                     image: cardImage,
-//                 });
-//             } catch (error) {
-//                 console.error(`Error fetching image for ${randomName}:`, error);
-//             }
-//         }
-//     }
-
-//     // Hiển thị thông tin các thẻ bài
-//     randomCards.forEach(card => {
-//         console.log(`Pokémon: ${card.name}`);
-//         console.log(`Image: ${card.image}`);
-//         // Bạn có thể hiển thị ảnh lên trang web nếu cần
-//         const imgElement = document.createElement('img');
-//         imgElement.src = card.image;
-//         imgElement.alt = card.name;
-//         imgElement.style.width = '300px'; // Điều chỉnh kích thước ảnh nếu cần
-//         document.body.appendChild(imgElement);
-//     });
-// }
-
-// // Danh sách tên Pokémon (mảng này cần được cung cấp hoặc lấy từ đâu đó)
-// const pokemonNames = ['pikachu', 'bulbasaur', 'charmander', 'squirtle', 'eevee', 'jigglypuff', 'snorlax', 'mewtwo'];
-
-// // Gọi hàm để lấy 6 thẻ bài ngẫu nhiên và hiển thị ảnh
-// getRandomCards(pokemonNames, 6);
