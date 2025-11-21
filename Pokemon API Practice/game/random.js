@@ -174,7 +174,7 @@ function getIDFromName(pokemonName)
     return Promise.resolve([]);
 }
 
-async function getRandomCards(pokemonNames, count = 6)
+async function getRandomCards(count = 6)
 {
     const randomNameList = [];
     const randomCardList = [];

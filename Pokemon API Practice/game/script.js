@@ -780,7 +780,7 @@ resetBtn.addEventListener('click', reset);
 
 
 // Test trong console
-getRandomCards(6)
+getRandomCards(2)
     .then(cards => {
         console.log('All cards ready:', cards);
         // Sử dụng cards trong game của bạn
@@ -788,3 +788,10 @@ getRandomCards(6)
     .catch(error => {
         console.error('Failed to fetch cards:', error);
     });
+
+
+// getIDFromName('marill').then(ids => {
+//     console.log('Marill card IDs:', ids);
+// }).catch(error => {
+//     console.error('Error:', error);
+// });
