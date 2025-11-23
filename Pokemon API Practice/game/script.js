@@ -780,7 +780,7 @@ resetBtn.addEventListener('click', reset);
 
 
 // Test trong console
-getRandomCards(2)
+getRandomCards(6)
     .then(cards => {
         console.log('All cards ready:', cards);
         // Sử dụng cards trong game của bạn
@@ -795,3 +795,5 @@ getRandomCards(2)
 // }).catch(error => {
 //     console.error('Error:', error);
 // });
+
+//20s per a Response
