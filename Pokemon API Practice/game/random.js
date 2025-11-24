@@ -144,7 +144,7 @@ function getIDFromName(pokemonName)
 {
     //const pokemonName = getRandomName();
 
-    pokemonName = pokemonName.toLowerCase();
+    const lowerName = pokemonName.toLowerCase();
 
     if (pokemonName)
     {
@@ -156,7 +156,7 @@ function getIDFromName(pokemonName)
                 if (data.data && data.data.length > 0)
                 {
                     const ids = data.data
-                        .filter(card => card.name.toLowerCase().includes(pokemonName))
+                        .filter(card => card.name.toLowerCase().includes(lowerName))
                         .map(card => card.id)
                     return ids;
                 }
@@ -174,7 +174,9 @@ function getIDFromName(pokemonName)
     return Promise.resolve([]);
 }
 
-async function getRandomCards(count = 6)
+
+// sequential version (use "for loop")
+async function getRandomCardsVer1(count = 6)
 {
     const randomNameList = [];
     const randomCardList = [];
@@ -246,6 +248,65 @@ async function getRandomCards(count = 6)
     // });
 }
 
+// parallel version (use "promise")
+async function getRandomCardsVer2(count = 6) {
+    console.log(`\n FETCHING ${count} CARDS (PARALLEL MODE) \n`);
+    
+    const startTime = performance.now();
+
+    const cardPromises = Array.from({length: count}, async (_, i) =>{
+        try {
+            const randomName = getRandomName();
+            console.log(`[${i + 1}] Selected: ${randomName}`);
+
+            const ids = await getIDFromName(randomName);
+
+            if (ids && ids.length > 0){
+                const randomIDs = getIDRandom(ids, 1);
+                const randomID = randomIDs[0];
+
+                const cardImage = await getImageFromData(randomID);
+
+                console.log(`[${i + 1}] : ${randomName} - Done!`);
+
+                return {
+                    name:randomName,
+                    id: randomID,
+                    image: cardImage,
+                };
+            }
+            else{
+                console.log(`[${i + 1}]: No cards for ${randomName}`);
+                return null;
+            }
+        }
+        catch (error)
+        {
+            console.error(`[${i + 1}] Error: `, error);
+            return null;
+        }
+    });
+
+    const results = await Promise.all(cardPromises);
+
+    const randomCardList = results.filter(card => card !== null);
+
+    const endTime = performance.now();
+    const duration = ((endTime - startTime) / 1000).toFixed(2);
+
+
+    console.log('\n========== FINAL RESULTS ==========');
+    console.log(`Total: ${randomCardList.length}/${count}`);
+    console.log(`Time: ${duration}s \n`);
+
+    randomCardList.forEach((card, index) => {
+        console.log(`${index + 1}.${card.name} (${card.id})`);
+    });
+
+    return randomCardList;
+}
+
+const getRandomCards = getRandomCardsVer2;
 
 // sai logic
 // random name => random id = > images

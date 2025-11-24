@@ -777,17 +777,8 @@ resetBtn.addEventListener('click', reset);
 // Khởi tạo
 //drawPack();
 
+getRandomCards(6).then(cards => console.log('Done:', cards));
 
-
-// Test trong console
-getRandomCards(6)
-    .then(cards => {
-        console.log('All cards ready:', cards);
-        // Sử dụng cards trong game của bạn
-    })
-    .catch(error => {
-        console.error('Failed to fetch cards:', error);
-    });
 
 
 // getIDFromName('marill').then(ids => {
