@@ -249,8 +249,9 @@ async function getRandomCardsVer1(count = 6)
 }
 
 // parallel version (use "promise")
-async function getRandomCardsVer2(count = 6) {
-    console.log(`\n FETCHING ${count} CARDS (PARALLEL MODE) \n`);
+//async function getRandomCardsVer2(count = 6) {
+async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
+    console.log(`\n FETCHING ${count} CARDS (Max ${concurrentLimit} concurrent) \n`);
     
     const startTime = performance.now();
 
@@ -287,8 +288,31 @@ async function getRandomCardsVer2(count = 6) {
         }
     });
 
-    const results = await Promise.all(cardPromises);
+    //const results = await Promise.all(cardPromises);
 
+    const results = [];
+    for (let i = 0; i < count; i += concurrentLimit)
+    {
+        const batch = [];
+        const batchSize = Math.min(concurrentLimit, count - i);
+
+        console.log(`\n Batch ${Math.floor(i / concurrentLimit) + 1}: Processing ${batchSize} cards...`);
+
+        for (let j = 0; j < batchSize; j++)
+        {
+            batch.push(fetchSingleCard(i + j));
+        }
+
+        const batchResults = await Promise.all(batch);
+        results.push(...batchResults);
+
+        if (i + concurrentLimit < count)
+        {
+            console.log('waiting 500ms before next batch');
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+    }
+    
     const randomCardList = results.filter(card => card !== null);
 
     const endTime = performance.now();
