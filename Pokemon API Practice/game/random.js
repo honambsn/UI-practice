@@ -255,41 +255,70 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     
     const startTime = performance.now();
 
-    const cardPromises = Array.from({length: count}, async (_, i) =>{
-        try {
+    // const cardPromises = Array.from({length: count}, async (_, i) =>{
+    //     try {
+    //         const randomName = getRandomName();
+    //         console.log(`[${i + 1}] Selected: ${randomName}`);
+
+    //         const ids = await getIDFromName(randomName);
+
+    //         if (ids && ids.length > 0){
+    //             const randomIDs = getIDRandom(ids, 1);
+    //             const randomID = randomIDs[0];
+
+    //             const cardImage = await getImageFromData(randomID);
+
+    //             console.log(`[${i + 1}] : ${randomName} - Done!`);
+
+    //             return {
+    //                 name:randomName,
+    //                 id: randomID,
+    //                 image: cardImage,
+    //             };
+    //         }
+    //         else{
+    //             console.log(`[${i + 1}]: No cards for ${randomName}`);
+    //             return null;
+    //         }
+    //     }
+    //     catch (error)
+    //     {
+    //         console.error(`[${i + 1}] Error: `, error);
+    //         return null;
+    //     }
+    // });
+
+    const fetchSingleCard = async (index) =>{
+        try{
             const randomName = getRandomName();
-            console.log(`[${i + 1}] Selected: ${randomName}`);
+            console.log(`[${index + 1}] Selected: ${randomName}`);
 
             const ids = await getIDFromName(randomName);
 
-            if (ids && ids.length > 0){
+            if (ids && ids.length > 0)
+            {
                 const randomIDs = getIDRandom(ids, 1);
                 const randomID = randomIDs[0];
 
                 const cardImage = await getImageFromData(randomID);
 
-                console.log(`[${i + 1}] : ${randomName} - Done!`);
-
+                console.log(`[${index + 1}] ✓ ${randomName} - Done!`);
+                
                 return {
-                    name:randomName,
+                    name: randomName,
                     id: randomID,
                     image: cardImage,
                 };
-            }
-            else{
-                console.log(`[${i + 1}]: No cards for ${randomName}`);
-                return null;
-            }
+            };
         }
         catch (error)
         {
-            console.error(`[${i + 1}] Error: `, error);
+            console.error(`[${index + 1}] ✗ Failed:`, error.message);
             return null;
         }
-    });
+    };
 
-    //const results = await Promise.all(cardPromises);
-
+    //const results = await Promise.all(card)
     const results = [];
     for (let i = 0; i < count; i += concurrentLimit)
     {
