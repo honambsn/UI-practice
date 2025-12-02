@@ -74,27 +74,85 @@ const pokemonNames = [
   'Regidrago', 'Glastrier', 'Spectrier', 'Calyrex', 'Wyrdeer', 'Kleavor', 'Basculegion', 'Sneasler', 'Overqwil', 'Enamorus'
 ];
 
-function getImageFromData(cardID)
+function getImageFromData(cardID, retries = 3)
 {
+
     return new Promise((resolve, reject) =>{
         const url = `https://api.pokemontcg.io/v2/cards/${cardID}`;
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.data)
-                {
-                    const card = data.data;
-                    const cardImage = card.images.large;
-                    resolve(cardImage);
-                }
-                else{
-                    reject("Card data is missing or incorrect, cant get image");
-                }
-            })
-            .catch(error => {
-                reject(error);
-            });
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const fullUrl = proxyUrl + url;
+        
+        const timeout = 10000;  //10s
+
+        const timeoutPromise = new Promise((_, rejectTimeout) => {
+            setTimeout(() => rejectTimeout('Request timed out'), timeout);
+        });
+
+        // fetch(url)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data && data.data)
+        //         {
+        //             const card = data.data;
+        //             const cardImage = card.images.large;
+        //             resolve(cardImage);
+        //         }
+        //         else{
+        //             reject("Card data is missing or incorrect, cant get image");
+        //         }
+        //     })
+        //     .catch(error => {
+        //         reject(error);
+        //     });
+
+        // const fetchData = () => {
+        //     return fetch(fullUrl)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data && data.data) {
+        //                 const card = data.data;
+        //                 const cardImage = card.images.large;
+        //                 resolve(cardImage);
+        //             } else {
+        //                 reject("data invalid or missed");
+        //             }
+        //         })
+        //         .catch(error => reject(error));
+        // };
+
+        
+        const fetchData = () => {
+            return fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.data) {
+                        const card = data.data;
+                        const cardImage = card.images.large;
+                        resolve(cardImage);
+                    } else {
+                        reject("data invalid or missed");
+                    }
+                })
+                .catch(error => reject(error));
+        };
+
+        const attemptFetch = () => {
+            Promise.race([fetchData(), timeoutPromise])
+                .catch(error => {
+                    if (retries > 0) {
+                        console.log(`Lỗi: ${error}. Thử lại... Số lần thử còn lại: ${retries}`);
+                        getImageFromData(cardID, retries - 1) // Gọi lại hàm nếu còn lần thử
+                            .then(resolve)
+                            .catch(reject);
+                    } else {
+                        reject('Đã hết số lần thử, không thể lấy dữ liệu.');
+                    }
+                });
+        };
+        
+        attemptFetch();
+
     });
 }
 
@@ -299,6 +357,8 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
             {
                 const randomIDs = getIDRandom(ids, 1);
                 const randomID = randomIDs[0];
+                
+                console.log(`random id: ${randomID}`);
 
                 const cardImage = await getImageFromData(randomID);
 
@@ -353,7 +413,7 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     console.log(`Time: ${duration}s \n`);
 
     randomCardList.forEach((card, index) => {
-        console.log(`${index + 1}.${card.name} (${card.id})`);
+        console.log(`${index + 1}. ${card.name} (${card.id})`);
     });
 
     return randomCardList;
