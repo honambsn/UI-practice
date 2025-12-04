@@ -156,6 +156,15 @@ function getImageFromData(cardID, retries = 3)
     });
 }
 
+function getImageFromID(cardID)
+{
+    const result = cardID.split("-")
+    
+    console.log(`get image from id: ${cardID} ${result}`);
+
+    const url = `https://images.pokemontcg.io/${result[0]}/${result[1]}_hires.png`;
+}
+
 function getRandomName(){
     const randomPokemon = pokemonNames[Math.floor(Math.random() * Date.now() % pokemonNames.length)];
     console.log(randomPokemon)
@@ -360,15 +369,21 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
                 
                 console.log(`random id: ${randomID}`);
 
-                const cardImage = await getImageFromData(randomID);
+                const result = await getImageFromID(randomID);
 
-                console.log(`[${index + 1}] ✓ ${randomName} - Done!`);
+                console.log(result);
+
+                return result;
+
+                //const cardImage = await getImageFromData(randomID);
+
+                //console.log(`[${index + 1}] ✓ ${randomName} - Done!`);
                 
-                return {
-                    name: randomName,
-                    id: randomID,
-                    image: cardImage,
-                };
+                // return {
+                //     name: randomName,
+                //     id: randomID,
+                //     image: cardImage,
+                // };
             };
         }
         catch (error)
