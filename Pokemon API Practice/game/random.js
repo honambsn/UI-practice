@@ -163,6 +163,8 @@ function getImageFromID(cardID)
     console.log(`get image from id: ${cardID} ${result}`);
 
     const url = `https://images.pokemontcg.io/${result[0]}/${result[1]}_hires.png`;
+
+    return url;
 }
 
 function getRandomName(){
@@ -369,11 +371,19 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
                 
                 console.log(`random id: ${randomID}`);
 
-                const result = await getImageFromID(randomID);
+                //const result = await getImageFromID(randomID);
+                const result = getImageFromID(randomID);
 
                 console.log(result);
 
-                return result;
+                //return result;
+
+                if (result)
+                {
+                    return {
+                        image: result
+                    }
+                }
 
                 //const cardImage = await getImageFromData(randomID);
 
@@ -385,6 +395,7 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
                 //     image: cardImage,
                 // };
             };
+            return null
         }
         catch (error)
         {

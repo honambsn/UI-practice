@@ -777,7 +777,8 @@ resetBtn.addEventListener('click', reset);
 // Khởi tạo
 //drawPack();
 
-getRandomCards(3).then(cards => console.log('Done:', cards));
+//getRandomCards(1).then(cards => console.log('Done:', cards));
+getRandomCardsOptimized(3, 1, false).then(cards => console.log(cards));
 
 
 
