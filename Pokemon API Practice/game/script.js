@@ -29,6 +29,9 @@ const cardImages = [
     'SV08_EN_247-2x.png'
 ];
 
+const cardImage2 = [];
+getRandomCards(6).then(cardImage2 => console.log('Done:', cardImage2, typeof(cardImage2)));
+
 function drawPack() {
     // Vẽ nền gói thẻ
     const gradient1 = packCtx.createLinearGradient(0, 0, 400, 600);
@@ -777,8 +780,8 @@ resetBtn.addEventListener('click', reset);
 // Khởi tạo
 //drawPack();
 
-//getRandomCards(1).then(cards => console.log('Done:', cards));
-getRandomCardsOptimized(3, 1, false).then(cards => console.log(cards));
+getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
+//getRandomCardsOptimized(3, 1, false).then(cards => console.log(cards));
 
 
 

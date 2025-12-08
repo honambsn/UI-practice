@@ -357,8 +357,11 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     //     }
     // });
 
-    const fetchSingleCard = async (index) =>{
+    const fetchSingleCard = async (index, maxRetries = 3) =>{
+        let attempts = 0;
+        while (attempts < maxRetries)
         try{
+            attempts++;
             const randomName = getRandomName();
             console.log(`[${index + 1}] Selected: ${randomName}`);
 
@@ -400,7 +403,12 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
         catch (error)
         {
             console.error(`[${index + 1}] ✗ Failed:`, error.message);
-            return null;
+            //return null;
+            if (attempts >= maxRetries)
+            {
+                console.error(`[${index + 1}] ✗ Max retries reached. Giving up.`);
+                return null;
+            }
         }
     };
 
@@ -428,7 +436,9 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
         }
     }
     
-    const randomCardList = results.filter(card => card !== null);
+    //const randomCardList = results.filter(card => card !== null);
+    const randomCardList = results.filter(card => card && card.image);
+
 
     const endTime = performance.now();
     const duration = ((endTime - startTime) / 1000).toFixed(2);
@@ -439,7 +449,8 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     console.log(`Time: ${duration}s \n`);
 
     randomCardList.forEach((card, index) => {
-        console.log(`${index + 1}. ${card.name} (${card.id})`);
+        //console.log(`${index + 1}. ${card.name} (${card.id})`);
+        console.log(`${index + 1}. (${card.image})`);
     });
 
     return randomCardList;
