@@ -30,7 +30,9 @@ const cardImages = [
 ];
 
 const cardImage2 = [];
-getRandomCards(6).then(cardImage2 => console.log('Done:', cardImage2, typeof(cardImage2)));
+//getRandomCards(6).then(cardImage2 => console.log('Done:', cardImage2, typeof(cardImage2)));
+
+console.log("card card card: ", cardImage2);
 
 function drawPack() {
     // Vẽ nền gói thẻ

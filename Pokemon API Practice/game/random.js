@@ -217,7 +217,8 @@ function getIDFromName(pokemonName)
 
     if (pokemonName)
     {
-        const dataUrl = `https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`; // Use the query parameter for name search
+        //const dataUrl = `https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`; // Use the query parameter for name search
+        const dataUrl = `http://localhost:3000/api/cards?name=${pokemonName}`;
 
         return fetch(dataUrl)
             .then(response => response.json())
@@ -372,12 +373,14 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
                 const randomIDs = getIDRandom(ids, 1);
                 const randomID = randomIDs[0];
                 
+                console.log("randomIDs: ", randomIDs);
+
                 console.log(`random id: ${randomID}`);
 
                 //const result = await getImageFromID(randomID);
                 const result = getImageFromID(randomID);
 
-                console.log(result);
+                console.log("result: ", result);
 
                 //return result;
 
