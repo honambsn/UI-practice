@@ -232,7 +232,7 @@ function getIDFromName(pokemonName)
                 }
                 else {
                     console.warn(`No cards found for ${pokemonName}`);
-                    return [];
+                    return null;
                 }
             })
             .catch(error => {
@@ -325,114 +325,96 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     
     const startTime = performance.now();
 
-    // const cardPromises = Array.from({length: count}, async (_, i) =>{
-    //     try {
-    //         const randomName = getRandomName();
-    //         console.log(`[${i + 1}] Selected: ${randomName}`);
-
-    //         const ids = await getIDFromName(randomName);
-
-    //         if (ids && ids.length > 0){
-    //             const randomIDs = getIDRandom(ids, 1);
-    //             const randomID = randomIDs[0];
-
-    //             const cardImage = await getImageFromData(randomID);
-
-    //             console.log(`[${i + 1}] : ${randomName} - Done!`);
-
-    //             return {
-    //                 name:randomName,
-    //                 id: randomID,
-    //                 image: cardImage,
-    //             };
-    //         }
-    //         else{
-    //             console.log(`[${i + 1}]: No cards for ${randomName}`);
-    //             return null;
-    //         }
-    //     }
-    //     catch (error)
-    //     {
-    //         console.error(`[${i + 1}] Error: `, error);
-    //         return null;
-    //     }
-    // });
 
     const fetchSingleCard = async (index, maxRetries = 3) =>{
         let attempts = 0;
+        let randomName;
+        let ids;
+        let result;
+
         while (attempts < maxRetries)
-        try{
-            attempts++;
-            const randomName = getRandomName();
-            console.log(`[${index + 1}] Selected: ${randomName}`);
+        {
+            try{
+                attempts++;
+                randomName = getRandomName();
+                console.log(`[${index + 1}] Selected: ${randomName}`);
 
-            const ids = await getIDFromName(randomName);
+                ids = await getIDFromName(randomName);
 
-            if (ids && ids.length > 0)
-            {
-                const randomIDs = getIDRandom(ids, 1);
-                const randomID = randomIDs[0];
-                
-                console.log("randomIDs: ", randomIDs);
-
-                console.log(`random id: ${randomID}`);
-
-                //const result = await getImageFromID(randomID);
-                const result = getImageFromID(randomID);
-
-                console.log("result: ", result);
-
-                //return result;
-
-                if (result)
+                if (ids && ids.length > 0)
                 {
-                    return {
-                        image: result
+                    const randomIDs = getIDRandom(ids, 1);
+                    const randomID = randomIDs[0];
+                    
+                    console.log("randomIDs: ", randomIDs);
+
+                    console.log(`random id: ${randomID}`);
+
+                    //const result = await getImageFromID(randomID);
+                    result = await getImageFromID(randomID);
+
+                    console.log("result: ", result);
+
+                    //return result;
+
+                    if (result)
+                    {
+                        return {
+                            image: result,
+                            data: {
+                                name: randomName,
+                                id: randomID,
+                                cardImage: result,
+                            }
+                        }
                     }
+
+                    //const cardImage = await getImageFromData(randomID);
+
+                    //console.log(`[${index + 1}] ✓ ${randomName} - Done!`);
+                    
+                    // return {
+                    //     name: randomName,
+                    //     id: randomID,
+                    //     image: cardImage,
+                    // };
                 }
 
-                //const cardImage = await getImageFromData(randomID);
-
-                //console.log(`[${index + 1}] ✓ ${randomName} - Done!`);
-                
-                // return {
-                //     name: randomName,
-                //     id: randomID,
-                //     image: cardImage,
-                // };
-            };
-            return null
-        }
-        catch (error)
-        {
-            console.error(`[${index + 1}] ✗ Failed:`, error.message);
-            //return null;
-            if (attempts >= maxRetries)
-            {
-                console.error(`[${index + 1}] ✗ Max retries reached. Giving up.`);
                 return null;
+            }
+            catch (error)
+            {
+                console.error(`[${index + 1}] ✗ Failed:`, error.message);
+                //return null;
+                if (attempts >= maxRetries)
+                {
+                    console.error(`[${index + 1}] ✗ Max retries reached. Giving up.`);
+                    return null;
+                }
             }
         }
     };
 
     //const results = await Promise.all(card)
     const results = [];
-    for (let i = 0; i < count; i += concurrentLimit)
+    //for (let i = 0; i < count; i += concurrentLimit)
+    while (results.length < count)
     {
         const batch = [];
-        const batchSize = Math.min(concurrentLimit, count - i);
+        const batchSize = Math.min(concurrentLimit, count - results.length);
 
-        console.log(`\n Batch ${Math.floor(i / concurrentLimit) + 1}: Processing ${batchSize} cards...`);
+        console.log(`\n Batch ${Math.floor(results.length / concurrentLimit) + 1}: Processing ${batchSize} cards...`);
 
         for (let j = 0; j < batchSize; j++)
         {
-            batch.push(fetchSingleCard(i + j));
+            batch.push(fetchSingleCard(results.length + j));
         }
 
         const batchResults = await Promise.all(batch);
-        results.push(...batchResults);
+        results.push(...batchResults.filter(card => card && card.image));
 
-        if (i + concurrentLimit < count)
+
+        if (results.length < count)
         {
             console.log('waiting 500ms before next batch');
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -440,7 +422,7 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
     }
     
     //const randomCardList = results.filter(card => card !== null);
-    const randomCardList = results.filter(card => card && card.image);
+    //const randomCardList = results.filter(card => card && card.image);
 
 
     const endTime = performance.now();
@@ -448,15 +430,15 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
 
 
     console.log('\n========== FINAL RESULTS ==========');
-    console.log(`Total: ${randomCardList.length}/${count}`);
+    console.log(`Total: ${results.length}/${count}`);
     console.log(`Time: ${duration}s \n`);
 
-    randomCardList.forEach((card, index) => {
+    results.forEach((card, index) => {
         //console.log(`${index + 1}. ${card.name} (${card.id})`);
         console.log(`${index + 1}. (${card.image})`);
     });
 
-    return randomCardList;
+    return results;
 }
 
 const getRandomCards = getRandomCardsVer2;

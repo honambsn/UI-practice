@@ -3,7 +3,11 @@ import fetch from "node-fetch";
 import cors from "cors";
 
 const app = express();
-app.use(cors()); // Cho phép mọi trang web truy cập vào backend của bạn
+app.use(cors(
+    {
+        origin: 'http://127.0.0.1:5930/Pokemon%20API%20Practice/game/'
+    }
+)); // Cho phép mọi trang web truy cập vào backend của bạn
 
 // API proxy
 app.get("/api/cards", async (req, res) => {
