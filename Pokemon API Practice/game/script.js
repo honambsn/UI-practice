@@ -29,10 +29,21 @@ const cardImages = [
     'SV08_EN_247-2x.png'
 ];
 
-const cardImage2 = [];
-//getRandomCards(6).then(cardImage2 => console.log('Done:', cardImage2, typeof(cardImage2)));
+let cardImage2 = [];
+//getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
+async function cardData() {
+  try {
+    const cards = await getRandomCards(1);
+    cardImage2 = cards;
+    console.log('New card:', cards, typeof(cards));
+  } catch (error) {
+    console.error("Error fetching cards:", error);
+  }
+}
 
-console.log("card card card: ", cardImage2);
+cardData();
+console.log(cardImage2);
+
 
 function drawPack() {
     // Vẽ nền gói thẻ
@@ -782,7 +793,7 @@ resetBtn.addEventListener('click', reset);
 // Khởi tạo
 //drawPack();
 
-getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
+//getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
 //getRandomCardsOptimized(3, 1, false).then(cards => console.log(cards));
 
 
