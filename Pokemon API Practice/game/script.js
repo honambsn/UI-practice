@@ -29,21 +29,68 @@ const cardImages = [
     'SV08_EN_247-2x.png'
 ];
 
-let cardImage2 = [];
-//getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
-async function cardData() {
-  try {
-    const cards = await getRandomCards(1);
-    cardImage2 = cards;
-    console.log('New card:', cards, typeof(cards));
-  } catch (error) {
-    console.error("Error fetching cards:", error);
-  }
+// let cardImage2 = [];
+// //getRandomCards(6).then(cards => console.log('Done:', cards, typeof(cards)));
+// async function cardData() {
+//   try {
+//     const cards = await getRandomCards(1);
+//     cardImage2 = cards;
+//     console.log('New card:', cards, typeof(cards));
+//   } catch (error) {
+//     console.error("Error fetching cards:", error);
+//   }
+// }
+
+// cardData();
+// console.log(cardImage2);
+
+let cardData = [];
+let isCardsLoaded = false; // flag
+
+async function loadCards()
+{
+    try{
+        console.log('Loading random card');
+        
+        const cards = await getRandomCards(6);
+
+        if (cards && cards.length > 0)
+        {
+            cardData = cards;
+            totalCards = cards.length;
+            isCardsLoaded = true;
+
+            console.log('card loaded: ', cards);
+
+            console.log('sample: ', cards[0]);
+            console.log('card name: ', cards[0].data.name);
+            console.log('card image: ', cards[0].image);
+            
+            enableGame();
+        }
+        else{
+            console.log('no card returned');
+            showError('Failed to load cards');
+        }
+    }
+    catch (err) {
+        console.log('No cards return', err);
+        showError('Failed to load cards');
+    }
 }
 
-cardData();
-console.log(cardImage2);
+function enableGame()
+{
+    instruction.textContent = 'Slice pack';
+    packWrapper.style.cursor = 'crosshair';
+}
 
+function showError(message){
+    instruction.textContent = message;
+    instruction.style.color = 'red';
+}
+
+loadCards();
 
 function drawPack() {
     // Vẽ nền gói thẻ
@@ -185,6 +232,13 @@ function drawPokeballBack(canvas) {
 
 // Tạo chồng thẻ để rút tuần tự
 function createCardStack() {
+
+    if (!isCardsLoaded || cardData.length === 0)
+    {
+        console.error('Cards not loaded yet');
+        return;
+    }
+
     cardsRevealed.innerHTML = '';
     cardsRevealed.style.gap = '0';
     cardsRevealed.style.justifyContent = 'center';
@@ -227,7 +281,11 @@ function createCardStack() {
     updateCounter();
     
     // Tạo chồng thẻ xếp chồng lên nhau
-    cardImages.forEach((imageName, index) => {
+    // cardImages.forEach((imageName, index) => {
+    cardData.forEach((cardObj, index) => {
+        const card = cardObj.data;
+        const cardImage = cardObj.image;
+
         const cardContainer = document.createElement('div');
         cardContainer.className = 'card-container card-stack-item';
         cardContainer.style.cssText = `
@@ -241,9 +299,9 @@ function createCardStack() {
             transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
         `;
         
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style.cssText = `
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.style.cssText = `
             width: 100%;
             height: 100%;
             position: relative;
@@ -291,8 +349,10 @@ function createCardStack() {
         cardImg.className = 'card-img';
         
         const img = document.createElement('img');
-        img.src = `assets/cards/${imageName}`;
-        img.alt = imageName;
+        // img.src = `assets/cards/${imageName}`;
+        // img.alt = imageName;
+        img.src = cardImage;
+        img.alt = card.name;
         img.onerror = function() {
             cardBack.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
             cardImg.innerHTML = '<div style="font-size: 3em;">🎴</div>';
@@ -301,9 +361,9 @@ function createCardStack() {
         cardImg.appendChild(img);
         cardBack.appendChild(cardImg);
         
-        card.appendChild(cardFront);
-        card.appendChild(cardBack);
-        cardContainer.appendChild(card);
+        cardElement.appendChild(cardFront);
+        cardElement.appendChild(cardBack);
+        cardContainer.appendChild(cardElement);
         
         // Hover effect chỉ cho thẻ trên cùng
         // cardContainer.addEventListener('mouseenter', () => {
@@ -325,7 +385,8 @@ function createCardStack() {
                 return;
             }
             if (index === currentCardIndex) {
-                drawCard(cardContainer, card, img.src, imageName, index);
+                //drawCard(cardContainer, card, img.src, imageName, index);
+                drawCard(cardContainer, cardElement, cardImage, card.name, card.id, index);
             }
         });
         
@@ -404,7 +465,7 @@ function createCards() {
 }
 
 let isCardAnimating = false;
-function drawCard(cardContainer, card, imgSrc, imageName, index) {
+function drawCard(cardContainer, card, imgSrc, cardName, cardID, index) {
     if (isCardAnimating) return;
 
     isCardAnimating = true;
@@ -419,7 +480,13 @@ function drawCard(cardContainer, card, imgSrc, imageName, index) {
         cardContainer.style.animation = 'cardDrawOut 0.8s ease-in-out forwards';
         
         // Lưu data thẻ đã rút
-        revealedCardData.push({ imgSrc, imageName });
+        //revealedCardData.push({ imgSrc, imageName });
+
+        revealedCardData.push({
+            imgSrc,
+            name: cardName,
+            id: cardID
+        })
         
         // Thêm thẻ nhỏ vào danh sách đã rút
         const miniCardsContainer = document.getElementById('miniCardsContainer');
@@ -579,7 +646,7 @@ function showFinalReveal() {
         
         const img = document.createElement('img');
         img.src = cardData.imgSrc;
-        img.alt = cardData.imageName;
+        img.alt = cardData.name;
         img.onerror = function() {
             cardBack.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
             cardImg.innerHTML = '<div style="font-size: 3em;">🎴</div>';
@@ -688,6 +755,14 @@ function handleSlice(e) {
 
 
 function openPack() {
+    if (!isCardsLoaded)
+    {
+        console.error('cards not loaded yet');
+        instruction.textContent = 'Loading cards ...';
+        return;
+    }
+
+
     isSlicing = false;
     packWrapper.style.cursor = 'default';
     
@@ -716,7 +791,7 @@ function openPack() {
     }, 500);
 }
 
-function reset() {
+async function reset() {
     sliceProgress = 0;
     slicePath = [];
 
@@ -746,10 +821,12 @@ function reset() {
         gameArea.style.height = '600px';
     }, 10);
     
+    await loadCards();
 }
 
 sliceCanvas.addEventListener('mousedown', (e) => {
     if (cardsRevealed.classList.contains('show')) return;
+    if (!isCardsLoaded) return;
     isSlicing = true;
     slicePath = [];
     const rect = sliceCanvas.getBoundingClientRect();
