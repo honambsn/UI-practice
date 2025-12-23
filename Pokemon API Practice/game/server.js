@@ -46,4 +46,8 @@ app.get("/api/cards", async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("Backend running at http://localhost:3000"));
+app.listen(3000, () => {
+  console.log("Backend running at http://localhost:3000");
+}).on('error', (err) => {
+  console.error("Server failed to start:", err);
+});

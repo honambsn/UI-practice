@@ -340,6 +340,7 @@ async function getRandomCardsVer2(count = 6, concurrentLimit = 3) {
                 console.log(`[${index + 1}] Selected: ${randomName}`);
 
                 ids = await getIDFromName(randomName);
+                console.log("IDs lits: ", ids);
 
                 if (ids && ids.length > 0)
                 {
