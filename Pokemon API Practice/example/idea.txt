@@ -5,3 +5,6 @@ the 2nd page seems completed. add js fetch in next working session
 
 
 bar effect of health, energy, damage
+
+
+filter by price 

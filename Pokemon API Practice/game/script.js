@@ -82,7 +82,8 @@ async function loadCards()
 function enableGame()
 {
     instruction.textContent = 'Slice pack';
-    packWrapper.style.cursor = 'crosshair';
+    //packWrapper.style.cursor = 'crosshair';
+    packWrapper.style.cursor = 'url(assets/scissors.png) 16 16, auto';
 }
 
 function showError(message){
@@ -809,7 +810,8 @@ async function reset() {
     instruction.style.display = 'block';
     flipInstruction.style.display = 'none';
     resetBtn.style.display = 'none';
-    packWrapper.style.cursor = 'crosshair';
+    //packWrapper.style.cursor = 'crosshair';
+    packWrapper.style.cursor = 'url(assets/scissors.png) 16 16, auto';
 
     setTimeout(() => {
         packWrapper.style.visibility = 'visible';
