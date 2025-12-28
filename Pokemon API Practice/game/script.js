@@ -19,6 +19,23 @@ let totalCards = 6;
 let revealedCardData = [];
 let isStackMode = true; // Chế độ rút thẻ từ chồng
 
+// Responsive canvas sizing
+function updateCanvasSize() {
+    const wrapper = document.getElementById('packWrapper');
+    const width = wrapper.offsetWidth;
+    const height = wrapper.offsetHeight;
+    
+    sliceCanvas.width = width;
+    sliceCanvas.height = Math.min(50, height * 0.1);
+    
+    packCanvas.width = width;
+    packCanvas.height = height;
+}
+
+window.addEventListener('load', updateCanvasSize);
+window.addEventListener('resize', updateCanvasSize);
+
+
 // Danh sách thẻ Pokemon (có thể thay đổi)
 const cardImages = [
     'SV08_EN_42-2x.png',
@@ -578,13 +595,46 @@ function showFinalReveal() {
     cardsRevealed.style.justifyContent = 'center';
     cardsRevealed.style.alignItems = 'center';
     
-    gameArea.style.width = '800px';
-    gameArea.style.height = '800px';
+    // gameArea.style.width = '800px';
+    // gameArea.style.height = '800px';
+    // Responsive game area sizing
+    if (window.innerWidth <= 480) {
+        gameArea.style.width = '95vw';
+        gameArea.style.height = 'auto';
+        gameArea.style.aspectRatio = '1/1';
+        cardsRevealed.style.gap = '3%';
+    } else if (window.innerWidth <= 768) {
+        gameArea.style.width = '90vw';
+        gameArea.style.height = 'auto';
+        gameArea.style.aspectRatio = '1/1';
+        cardsRevealed.style.gap = '4%';
+    } else if (window.innerWidth <= 1024) {
+        gameArea.style.width = '80vw';
+        gameArea.style.height = '80vw';
+        gameArea.style.maxWidth = '800px';
+        gameArea.style.maxHeight = '800px';
+        cardsRevealed.style.gap = '5%';
+    } else {
+        gameArea.style.width = '800px';
+        gameArea.style.height = '800px';
+        cardsRevealed.style.gap = '8%';
+    }
     
     // Tạo display cuối cùng với tất cả thẻ
     revealedCardData.forEach((cardData, index) => {
         const cardContainer = document.createElement('div');
         cardContainer.className = 'card-container final-card';
+
+        // Responsive card width
+        let cardWidth = '28%';
+        if (window.innerWidth <= 480) {
+            cardWidth = '45%';
+        } else if (window.innerWidth <= 768) {
+            cardWidth = '30%';
+        } else if (window.innerWidth <= 1024) {
+            cardWidth = '30%';
+        }
+
         cardContainer.style.cssText = `
             width: 28%;
             aspect-ratio: 5/7;

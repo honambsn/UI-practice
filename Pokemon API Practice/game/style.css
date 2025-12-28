@@ -424,3 +424,139 @@ canvas{
   filter: blur(4px); /* Mờ các miniCard không được hover */
   opacity: 0.5;      /* Giảm độ trong suốt của các miniCard không được hover */
 }
+
+
+/* responsive design */
+/* mobile */
+/* smaller than 480px */
+@media (max-width: 480px) {
+    body{
+        padding: 5px;
+    }
+
+    .game-area {
+        width: 95vw;
+        height: calc(95vw * 1.5);
+    }
+
+    .card-container {
+        width: 45% !important;
+    }
+
+    #miniCardsContainer {
+        width: 95vw !important;
+        gap: 8px !important;
+    }
+
+    .miniCard, #miniCard {
+        width: 60px !important;
+        height: 86px !important;
+    }
+
+    #cardCounter {
+        font-size: 1.2em !important;
+        padding: 8px 20px !important;
+        top: -50px !important;
+    }
+
+    .reset-btn {
+        margin-top: 15px;
+    }
+
+    .cards-revealed {
+        gap: 3% !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .game-area {
+        width: 70vw;
+        height: calc(70vw * 1.5);
+        max-width: 500px;
+        max-height: 750px;
+    }
+
+    .card-container {
+        width: 30% !important;
+    }
+
+    .card-container.final-card{
+        width: 30% !important;
+    }
+
+    .card-stack-item {
+        width: 50vw !important;
+        max-width: 280px;
+    }
+
+    #miniCardsContainer {
+        width: 90vw !important;
+    }
+
+    .miniCard, #miniCard {
+        width: 70px !important;
+        height: 100px !important;
+    }
+
+    .cards-revealed {
+        gap: 4% !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .game-area {
+        width: 60vw;
+        height: calc(60vw * 1.5);
+        max-width: 600px;
+        max-height: 900px;
+    }
+
+    .card-container.final-card{
+        width: 30% !important;
+    }
+
+    .cards-revealed{
+        gap: 5% !important;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        overflow-y: auto;
+    }
+
+    .game-area {
+        width: 50vh;
+        height: 75vh;
+    }
+
+    .container {
+        padding: 20px 0;
+    }
+
+    .container {
+        padding: 20px 0;
+    }
+
+    #miniCardsContainer {
+        bottom: 10px !important;
+    }
+}
+
+@media (hover: none) and (pointer: coarse){
+    .pack-wrapper {
+        cursor: pointer !important;
+    }
+
+    #cutAreaCanvas {
+        cursor: pointer !important;
+    }
+
+    .card-container:hover .card {
+        transform: none;
+    }
+
+    .reset-btn:hover {
+        transform: none;
+    }
+}
