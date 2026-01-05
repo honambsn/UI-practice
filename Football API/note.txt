@@ -7,3 +7,7 @@ https://www.api-football.com/
 https://api-sports.io/documentation/football/v3
 
 https://www.api-football.com/documentation-v3#section/Authentication/API-SPORTS-Account
+
+https://www.api-football.com/documentation-v3#tag/Widgets
+
+https://dashboard.api-football.com/profile?access
