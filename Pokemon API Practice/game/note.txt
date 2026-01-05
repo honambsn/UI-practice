@@ -1,3 +1,7 @@
 access to folder
 node server.js
 ///npx serve
+
+cd "pokemon api practice"
+cd "game"
+npm run dev

@@ -32,6 +32,15 @@ function updateCanvasSize() {
     packCanvas.height = height;
 }
 
+// function hideInstruction() {
+//     setTimeout(() => {
+//         document.getElementById("instruction-area").style.display = "none";
+//     }, 2000);
+
+// }
+
+// window.addEventListener('load', hideInstruction);
+
 window.addEventListener('load', updateCanvasSize);
 window.addEventListener('resize', updateCanvasSize);
 
@@ -840,6 +849,10 @@ function openPack() {
         cardsRevealed.style.gap = '8%';
         resetBtn.style.display = 'inline-block';
     }, 500);
+
+    setTimeout(() => {
+        document.getElementById("instruction-area").style.display = "none";
+    }, 5000)
 }
 
 async function reset() {
