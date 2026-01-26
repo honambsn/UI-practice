@@ -1,0 +1,62 @@
+################################
+# Node.js (ALL projects)
+################################
+node_modules/
+**/node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+################################
+# Environment variables
+################################
+.env
+.env.*
+!.env.example
+
+################################
+# Build outputs (frontend / backend)
+################################
+dist/
+build/
+out/
+coverage/
+.tmp/
+.cache/
+
+################################
+# Frontend tooling
+################################
+.vite/
+.next/
+.nuxt/
+.svelte-kit/
+
+################################
+# Logs
+################################
+logs/
+*.log
+
+################################
+# Editor / IDE
+################################
+.vscode/
+.idea/
+*.swp
+
+################################
+# OS
+################################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+################################
+# Optional: lock files
+# (KEEP package-lock.json unless you know what you're doing)
+################################
+# yarn.lock
+# pnpm-lock.yaml
