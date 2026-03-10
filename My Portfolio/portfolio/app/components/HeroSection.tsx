@@ -18,9 +18,9 @@ const HeroSection: React.FC = () => {
                                 // Same substring at the start will only be typed out once, initially
                                 'new',
                                 1000, // wait 1s before replacing "Mice" with "Hamsters"
-                                'Developer 1',
+                                'Ho Nam',
                                 1000,
-                                'Developer 2',
+                                'C# Developer',
                                 1000,
                                 'Developer 3',
                                 1000
@@ -51,11 +51,11 @@ const HeroSection: React.FC = () => {
                         <Image
                             src="/assets/GjO4qpgW0AAWr9i.jpeg"
                             alt="image"
-                            // width={300}
-                            // height={300}
-                            fill
-                            // className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            className="object-cover"
+                            width={300}
+                            height={300}
+                            className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            // className="object-cover"
+                            // fill
                         />
                     </div>
                 </div>
@@ -67,4 +67,4 @@ const HeroSection: React.FC = () => {
 export default HeroSection
 
 
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=1422
+//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=3457
