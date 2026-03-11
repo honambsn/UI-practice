@@ -8,10 +8,11 @@ import { TypeAnimation } from 'react-type-animation';
 
 const HeroSection: React.FC = () => {
     return (
-        <section>
-            <div className="grid grid-cols-1 sm:grid-cols-12">
-                <div className="col-span-7 place-self-center text-center sm:text-left">
-                    <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+        <section className="max-w-7xl mx-auto px-6 py-20">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-12"> */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div className="col-span-12 md:col-span-7 place-self-center text-center sm:text-left">
+                    {/* <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Hello, I am {" "}</span>
                         <TypeAnimation
                             sequence={[
@@ -30,12 +31,36 @@ const HeroSection: React.FC = () => {
                             style={{ fontSize: '2em', display: 'inline-block' }}
                             repeat={Infinity}
                             />
-                    </h1>
+                    </h1> */}
+
+                    <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                            Hello, I am
+                        </span>
+
+                        <TypeAnimation
+                            sequence={[
+                            ' Ho Nam',
+                            1500,
+                            ' C# Developer',
+                            1500,
+                            ' Backend Developer',
+                            1500,
+                            ]}
+                            wrapper="span"
+                            speed={50}
+                            repeat={Infinity}
+                            className="whitespace-nowrap sm:inline block"
+                        />
+
+                        </h1>
 
                     <p className="text-[#adb7be] text-base sm:text-lg mb-6 lf:text-xl">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                     </p>
 
+                    {/* <div className="flex flex-col sm:flex-row gap-4"> */}
                     <div>
                         <button className="px-6 py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 hover:scale-105 transition-all duration-300 text-white cursor-pointer font-semibold">Hire Me</button>
 
@@ -46,8 +71,8 @@ const HeroSection: React.FC = () => {
 
                 </div>
                 
-                <div className="col-span-5 place-self-center mt-4 lg:mt-0">
-                    <div className="relative rounded-full overflow-hidden bg-[#181818] w-[250px] h-[250px] lg:w-[400px] lg:h-[400px]">
+                <div className="col-span-12 md:col-span-5 place-self-center mt-4 lg:mt-0">
+                    <div className="relative rounded-full overflow-hidden bg-[#181818] w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px]">
                         <Image
                             src="/assets/GjO4qpgW0AAWr9i.jpeg"
                             alt="image"
