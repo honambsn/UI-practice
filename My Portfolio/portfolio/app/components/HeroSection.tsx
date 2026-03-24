@@ -92,4 +92,3 @@ const HeroSection: React.FC = () => {
 export default HeroSection
 
 
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=3457
