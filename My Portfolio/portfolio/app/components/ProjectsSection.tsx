@@ -100,4 +100,3 @@ const ProjectsSection = () => {
 export default ProjectsSection
 
 
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=4335
