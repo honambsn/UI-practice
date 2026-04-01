@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
+import EmailSection from "./components/EmailSection";
 
 export default function Home() {
   return (
@@ -72,6 +73,7 @@ export default function Home() {
           <HeroSection/>
           <AboutSection/>
           <ProjectsSection />
+          <EmailSection/>
         </div>
       </main>
 
@@ -80,6 +82,6 @@ export default function Home() {
     //</div>
   );
 }
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=1581
+
 
 //cd "my portfolio"
