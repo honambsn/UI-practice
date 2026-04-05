@@ -6,7 +6,11 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const fromEmail = process.env.FROM_EMAIL;
 
-export async function POST() {
+export async function POST(req: Request, res: Response) {
+  const body = await req.json();
+  const { email, subject, message } = body;
+
+
   try {
     // const { data, error } = await resend.emails.send({
     //   from: 'System <onboarding@resend.dev>',
@@ -21,9 +25,17 @@ export async function POST() {
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,
-      to: ['delivered@resend.dev'],
-      subject: 'Hello world',
-      html: '<p>Email Body</p>'
+      to: ['delivered@resend.dev', email],
+      subject: subject,
+      react: (
+        <>
+          <h1>{subject}</h1>
+          <p>Thank you for contacting us!</p>
+          <p>New message submitted: </p>
+          <p>{message}</p>
+        </>
+      ),
+      
     });
     
 
@@ -49,5 +61,3 @@ export async function POST() {
 export async function GET() {
   return NextResponse.json({ message: 'GET OK' });
 }
-
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=6199
