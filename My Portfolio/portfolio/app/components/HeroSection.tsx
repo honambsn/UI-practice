@@ -2,36 +2,18 @@
 import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from 'react-type-animation';
-
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 
 
 const HeroSection: React.FC = () => {
     return (
-        <section className="max-w-7xl mx-auto px-6 py-20">
-            {/* <div className="grid grid-cols-1 sm:grid-cols-12"> */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                <div className="col-span-12 md:col-span-7 place-self-center text-center sm:text-left">
-                    {/* <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Hello, I am {" "}</span>
-                        <TypeAnimation
-                            sequence={[
-                                // Same substring at the start will only be typed out once, initially
-                                'new',
-                                1000, // wait 1s before replacing "Mice" with "Hamsters"
-                                'Ho Nam',
-                                1000,
-                                'C# Developer',
-                                1000,
-                                'Developer 3',
-                                1000
-                            ]}
-                            wrapper="span"
-                            speed={50}
-                            style={{ fontSize: '2em', display: 'inline-block' }}
-                            repeat={Infinity}
-                            />
-                    </h1> */}
+        // <section className="w-full max-w-7xl mx-auto py-20 overflow-x-hidden">
+        //     <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8">
+        <section className="lg:py-16">
+            <div className="grid grid-cols-1 sm:grid-cols-12">
+                <div className="col-span-12 md:col-span-7 min-w-0 overflow-hidden">
 
                     <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
 
@@ -45,13 +27,14 @@ const HeroSection: React.FC = () => {
                             1500,
                             ' C# Developer',
                             1500,
-                            ' Backend Developer',
+                            ' Fullstack Developer',
                             1500,
                             ]}
                             wrapper="span"
                             speed={50}
                             repeat={Infinity}
-                            className="whitespace-nowrap sm:inline block"
+                            //className="whitespace-nowrap sm:inline block"
+                            className="block sm:inline break-words"
                         />
 
                         </h1>
@@ -86,9 +69,10 @@ const HeroSection: React.FC = () => {
                 </div>
             </div>
         </section>
+
     );
 };
 
+
+
 export default HeroSection
-
-
