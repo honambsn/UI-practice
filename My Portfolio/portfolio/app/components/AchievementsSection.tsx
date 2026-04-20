@@ -40,5 +40,3 @@ const AchievementsSection = () => {
 
 export default AchievementsSection
 
-
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=6781
