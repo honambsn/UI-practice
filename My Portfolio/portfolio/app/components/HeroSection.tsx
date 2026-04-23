@@ -68,9 +68,9 @@ const HeroSection: React.FC = () => {
 
                     {/* <div className="flex flex-col sm:flex-row gap-4"> */}
                     <div>
-                        <button className="px-6 py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-blue-500 via-primary to-secondary hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 hover:scale-105 transition-all duration-300 text-white cursor-pointer font-semibold">Hire Me</button>
+                        <button className="px-6 py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-blue-500 via-primary to-secondary hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 hover:scale-105 transition-all duration-300 text-white cursor-pointer font-semibold hover:scale-110">Hire Me</button>
 
-                        <button className="px-1 py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-blue-500 via-primary to-secondary hover:scale-105 hover:bg-slate-800 text-white mt-3 cursor-pointer">
+                        <button className="px-1 py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-blue-500 via-primary to-secondary hover:scale-105 hover:bg-slate-800 text-white mt-3 cursor-pointer hover:scale-110 duration-300">
                           <span className="block bg-[#121212] hover:bg-gradient-to-r hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 rounded-full px-5 py-2 font-semibold">
                             Download CV</span></button>
                     </div>
@@ -100,3 +100,6 @@ const HeroSection: React.FC = () => {
 
 
 export default HeroSection
+
+
+//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=7069

@@ -8,8 +8,8 @@ type ProjectTagProps = {
 
 const ProjectTag = ({name, onClick, isSelected} : ProjectTagProps) => {
     const buttonStyles = isSelected
-    ? "text-white bg-purple-500"
-    : "text-[#adb7be] border-slate-600 hover:border-white"
+    ? "text-white bg-primary"
+    : "text-[#adb7be] border-slate-600 hover:border-white hover:scale-110 duration-300"
     return (
         <button type='button' className={`${buttonStyles} rounded-full border-2 px-6 py-3 text-xl focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer`} onClick={() => onClick(name)}
         >

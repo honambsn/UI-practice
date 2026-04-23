@@ -49,11 +49,11 @@ const EmailSection = () => {
         
           <div className="social flex flex-row gap-2">
             <Link href="https://github.com" target="_blank">
-              <Image src={GithubIcon} alt='Github Icon'/>
+              <Image src={GithubIcon} alt='Github Icon' className='duration-200 hover:scale-110'/>
             </Link>
 
             <Link href="https://linkedin.com" target="_blank">
-              <Image src={LinkedinIcon} alt='Linkedin Icon'/>
+              <Image src={LinkedinIcon} alt='Linkedin Icon' className='duration-200 hover:scale-110'/>
             </Link>
           </div>
 
@@ -84,7 +84,7 @@ const EmailSection = () => {
               />
             </div>
 
-            <button type='submit' className='bg-purple-500 hover:bg-purple-600 text-white font-medium py-2.5 px-5 rounded-lg w-full'>
+            <button type='submit' className='bg-primary hover:bg-purple-800 cursor-pointer text-white font-medium py-2.5 px-5 rounded-lg w-full duration-300 hover:scale-105'>
               Send Message
             </button>
             {
@@ -103,4 +103,3 @@ const EmailSection = () => {
 
 export default EmailSection
 
-//https://youtu.be/Kb1f5bvF6f4?list=PLaYsth8JnnBRRuHargaQ3o7md60bOTNak&t=6579
