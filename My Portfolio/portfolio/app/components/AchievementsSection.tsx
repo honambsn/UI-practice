@@ -1,34 +1,72 @@
+"use client";
 import { validateHeaderValue } from 'http';
-import React from 'react'
+import React from 'react';
+import dynamic from 'next/dynamic';
 
-type Achiement = {
+const AnimatedNumbers = dynamic(() => {return import("react-animated-numbers")}, {ssr: false});
+
+
+
+type Achievement = {
     metric: string,
     value: string,
+    prefix?: string;
+    postfix?: string;
 };
 
-const achievementsList = [
+const achievementsList: Achievement[] = [
     {
         metric: "Projects",
-        value: "10+",
+        value: "10",
+        postfix: "+",
     },
     {
+        prefix: "~",
         metric: "Users",
         value: "Calculating",
     },
     {
         metric: "Years",
-        value: "3+",
+        value: "3",
+        postfix: "+",
     },
 ];
 
 const AchievementsSection = () => {
   return (
     <div className='py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-        <div className='border-[#33353f] border rounded-md py-8 px-17 flex flex-row items-center justify-between'>
+        <div className='border-[#33353f] border rounded-md py-8 px-16 flex flex-row items-center justify-between'>
             {
                 achievementsList.map((achievement, index) => (
                     <div key={index} className='flex flex-col items-center justify-center mx-4'>
-                        <h2 className='text-white text-5xl font-bold'>{achievement.value}</h2>
+                        <h2 className='text-white text-5xl font-bold'>
+                            <span className="text-3xl mb-1 opacity-80">
+                                {achievement.prefix}
+                            </span>
+                            {isNaN(parseInt(achievement.value)) ? (
+                                <span className="text-3xl font-semibold text-zinc-300">
+                                    {achievement.value}
+                                </span>
+                            ) : (
+                                <AnimatedNumbers
+                                    animateToNumber={parseInt(achievement.value)}
+                                    locale="en-US"
+                                    className="text-white text-4xl font-bold"
+                                    // config={(_: string, index: number) => {
+                                    //     return {
+                                    //         mass: 1,
+                                    //         friction: 100,
+                                    //         tension: 140 * (index +1),
+                                    //     };
+                                    // }}
+                                />
+                            )}
+                            {achievement.postfix && (
+                                <span className="text-3xl mb-1 opacity-80">
+                                    {achievement.postfix}
+                                </span>
+                            )}
+                        </h2>
                         <p className='text-[#adb7be] text-2xl'>{achievement.metric}</p>
                     </div>
                 ))
