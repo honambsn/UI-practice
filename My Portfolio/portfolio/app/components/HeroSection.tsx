@@ -6,14 +6,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 
-
 const HeroSection: React.FC = () => {
     return (
         // <section className="w-full max-w-7xl mx-auto py-20 overflow-x-hidden">
         //     <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8">
         <section className="lg:py-16">
             <div className="grid grid-cols-1 sm:grid-cols-12">
-                <div className="col-span-8 place-self-center text-center sm:text-left justify-self-start">
+                <motion.div
+                    initial={{opacity: 0, scale: 0.5}} 
+                    animate={{opacity: 1, scale: 1}} 
+                    transition={{duration: 0.5}}
+                    className="col-span-8 place-self-center text-center sm:text-left justify-self-start">
 
                     {/* <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl lg:leading-normal font-extrabold">
 
@@ -75,10 +78,14 @@ const HeroSection: React.FC = () => {
                             Download CV</span></button>
                     </div>
 
-                </div>
+                </motion.div>
                 
                 {/* <div className="col-span-4 md:col-span-5 place-self-center mt-4 lg:mt-0"> */}
-                <div className="col-span-4 place-self-center mt-4 lg:mt-0">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="col-span-4 place-self-center mt-4 lg:mt-0">
                     <div className="relative rounded-full overflow-hidden bg-[#181818] w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px]">
                         <Image
                             src="/assets/GjO4qpgW0AAWr9i.jpeg"
@@ -90,7 +97,7 @@ const HeroSection: React.FC = () => {
                             // fill
                         />
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
 
