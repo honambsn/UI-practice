@@ -100,13 +100,20 @@ const ProjectsSection = () => {
             </div>
 
             <ul className='grid md:grid-cols-3 gap-8 md:gap-12'>
-                {filteredProjects.map((project) => (
+                {filteredProjects.map((project, index) => (
                     <motion.li
                         variants={cardVariants}
                         initial= "initial"
                         animate={isInView ? "animate" : "initial"}
-                        key={project.id}>
-                    <ProjectCard title={project.title} description={project.description} imgUrl={project.image} gitUrl={project.gitUrl} previewUrl={project.previewUrl} />
+                        key={index}
+                        transition={{duration: 0.3, delay: index * 0.4}}>
+                    <ProjectCard
+                    key={project.id}
+                        title={project.title} 
+                        description={project.description} 
+                        imgUrl={project.image} 
+                        gitUrl={project.gitUrl} 
+                        previewUrl={project.previewUrl} />
                     </motion.li>
                 ))}
             </ul>
